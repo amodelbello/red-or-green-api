@@ -1,4 +1,5 @@
 const request = require('request');
+const server = require('../app');
 const base_url = 'http://localhost:3000/';
 
 describe("Hello World Test", function(){
@@ -13,6 +14,7 @@ describe("Hello World Test", function(){
     it("returns 'Welcome to Express'", (done) => {
       request.get(base_url, function(err, res, body) {
         expect(body).toContain("Welcome to Express");
+        server.closeServer();
         done();
       });
     });
