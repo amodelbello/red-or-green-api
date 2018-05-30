@@ -14,7 +14,7 @@ describe("Hello World Test", function(){
     it("returns 'Welcome to Express'", (done) => {
       request.get(base_url, function(err, res, body) {
         expect(body).toContain("Welcome to Express");
-        server.closeServer();
+        // server.closeServer();
         done();
       });
     });

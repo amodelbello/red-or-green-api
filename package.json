@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "istanbul cover --include-all-sources jasmine-node spec"
+    "test": "istanbul cover --include-all-sources jasmine-node spec",
+    "test-no-cc": "jasmine-node spec"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
