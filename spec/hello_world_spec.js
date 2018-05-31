@@ -12,9 +12,22 @@ describe("Hello World Test", function(){
     });
 
     it("returns 'Welcome to Express'", (done) => {
-      request.get(base_url, function(err, res, body) {
+      request.get(base_url, (err, res, body) => {
         expect(body).toContain("Welcome to Express");
-        // server.closeServer();
+        done();
+      });
+    });
+
+    it("should load /users route", (done) => {
+      request.get(base_url + 'users', (err, res, body) => {
+        expect(res.statusCode).toBe(200);
+        done();
+      });
+    });
+
+    it("returns 404 on not found", (done) => {
+      request.get(base_url + 'does-not-exist', (err, res, body) => {
+        expect(res.statusCode).toBe(404);
         done();
       });
     });
