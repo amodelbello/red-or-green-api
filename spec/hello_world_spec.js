@@ -9,19 +9,16 @@ const base_url = `http://localhost:${testPort}/`;
 describe("Hello World Test", function(){
 
   beforeEach(function() {
-    server = app.listen(testPort, function () {
-      var port = server.address().port;
-      console.log('Example app listening at port %s', port);
-    });
+    server = app.listen(testPort); 
   });
 
   afterEach(() => {
     server.close();
   });
 
-  describe("GET /", function() {
+  describe("GET /api/v1/test", function() {
     it('test controller', (done) => {
-      request.get(base_url + 'test', (err, res, body) => {
+      request.get(base_url + 'api/v1/test', (err, res, body) => {
         expect(res.statusCode).toBe(200);
         done();
       });
@@ -34,16 +31,9 @@ describe("Hello World Test", function(){
       });
     });
 
-    it("returns 'Welcome to Express'", (done) => {
+    it("returns 'Welcome to Red Or Green'", (done) => {
       request.get(base_url, (err, res, body) => {
-        expect(body).toContain("Welcome to Express");
-        done();
-      });
-    });
-
-    it("should load /users route", (done) => {
-      request.get(base_url + 'users', (err, res, body) => {
-        expect(res.statusCode).toBe(200);
+        expect(body).toContain("Welcome to Red Or Green");
         done();
       });
     });
