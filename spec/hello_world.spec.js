@@ -24,6 +24,13 @@ describe("Hello World Test", function(){
       });
     });
 
+    it('/ controller', (done) => {
+      request.get(base_url + 'api/v1/', (err, res, body) => {
+        expect(res.statusCode).toBe(200);
+        done();
+      });
+    });
+
     it('returns status code 200', (done) => {
       request.get(base_url, (err, res, body) => {
         expect(res.statusCode).toBe(200);
