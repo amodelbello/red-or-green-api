@@ -37,19 +37,24 @@ app.use('/', indexRouter);
 app.use('/api/v1', apiRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use((err, req, res, next) => {
+  let output = {};
+  output.status = err.status || /* istanbul ignore next */ 500;
+  output.message = err.message;
+
+  /* istanbul ignore if  */
+  if (req.app.get('env') === 'development') {
+    console.trace(err.stack);
+  }
 
   // render the error page
   res.status(err.status || /* istanbul ignore next */ 500);
-  res.render('error');
+  res.json(output);
 });
 
 module.exports = app;

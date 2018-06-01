@@ -4,8 +4,8 @@ const router = express.Router();
 const ratingsController = require('../controllers/ratings');
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Red Or Green' });
-});
+// router.get('/', (req, res, next) => {
+//   res.render('index', { title: 'Red Or Green' });
+// });
 
 module.exports = router;

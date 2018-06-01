@@ -19,7 +19,7 @@ describe("app.js", () => {
 
   describe("Error handler", () => {
     it('GET 404 in development env', (done) => {
-      app.request.app.set('env', 'development');
+      // app.request.app.set('env', 'development');
       request.get(base_url + 'api/v1/does-not-exists', (err, res, body) => {
         expect(res.statusCode).toBe(404);
         done();

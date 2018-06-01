@@ -31,20 +31,6 @@ describe("Hello World Test", function(){
       });
     });
 
-    it('returns status code 200', (done) => {
-      request.get(base_url, (err, res, body) => {
-        expect(res.statusCode).toBe(200);
-        done();
-      });
-    });
-
-    it("returns 'Welcome to Red Or Green'", (done) => {
-      request.get(base_url, (err, res, body) => {
-        expect(body).toContain("Welcome to Red Or Green");
-        done();
-      });
-    });
-
     it("returns 404 on not found", (done) => {
       request.get(base_url + 'does-not-exist', (err, res, body) => {
         expect(res.statusCode).toBe(404);
