@@ -1,31 +1,37 @@
-const data = `{
-  "glossary": {
-      "title": "example glossary",
-  "GlossDiv": {
-          "title": "S",
-    "GlossList": {
-              "GlossEntry": {
-                  "ID": "SGML",
-        "SortAs": "SGML",
-        "GlossTerm": "Standard Generalized Markup Language",
-        "Acronym": "SGML",
-        "Abbrev": "ISO 8879:1986",
-        "GlossDef": {
-                      "para": "A meta-markup language, used to create markup languages such as DocBook.",
-          "GlossSeeAlso": ["GML", "XML"]
-                  },
-        "GlossSee": "markup"
-              }
-          }
-      }
-  }
-}`;
-const testMethod = (req, res, next) => {
+const fetchRatings = (req, res) => {
   res
     .status(200)
-    .json(JSON.parse(data));
+    .json({ 'message': 'GET /ratings fetchRatings()' });
+}
+
+const addRating = (req, res) => {
+  res
+    .status(201)
+    .json({ 'message': 'POST /ratings addRating()' });
+}
+
+const fetchRating = (req, res) => {
+  res
+    .status(200)
+    .json({ 'message': 'GET /ratings/:ratingId fetchRating()' });
+}
+
+const updateRating = (req, res) => {
+  res
+    .status(200)
+    .json({ 'message': 'PUT /ratings/:ratingId updateRating()' });
+}
+
+const deleteRating = (req, res) => {
+  res
+    .status(200)
+    .json({ 'message': 'DELETE /ratings/:ratingId deleteRating()' });
 }
 
 module.exports = {
-  testMethod,
+  fetchRatings,
+  addRating,
+  fetchRating,
+  updateRating,
+  deleteRating,
 }
