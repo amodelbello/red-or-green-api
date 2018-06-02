@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mwResponse = require('../middleware/response');
 
 /****************************************
  * Businesses Routes
@@ -7,14 +8,24 @@ const router = express.Router();
 const businessesController = require('../controllers/businesses');
 router
   .route('/businesses')
-  .get(businessesController.fetchBusinesses)
-  .post(businessesController.addBusiness)
+  .get(
+    mwResponse.addCallingMethodToResponse('fetchBusinesses'),
+    businessesController.fetchBusinesses)
+  .post(
+    mwResponse.addCallingMethodToResponse('addBusiness'),
+    businessesController.addBusiness)
   ;
 router
   .route('/businesses/:businessId')
-  .get(businessesController.fetchBusiness)
-  .put(businessesController.updateBusiness)
-  .delete(businessesController.deleteBusiness)
+  .get(
+    mwResponse.addCallingMethodToResponse('fetchBusiness'),
+    businessesController.fetchBusiness)
+  .put(
+    mwResponse.addCallingMethodToResponse('updateBusiness'),
+    businessesController.updateBusiness)
+  .delete(
+    mwResponse.addCallingMethodToResponse('deleteBusiness'),
+    businessesController.deleteBusiness)
   ;
 
 /****************************************
