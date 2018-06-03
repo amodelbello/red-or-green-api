@@ -60,6 +60,14 @@ describe("app.js", () => {
         done();
       });
     });
+
+    it("Calls GET /businesses is production mode", (done) => {
+      app.request.app.set('env', 'production');
+      request.get(base_url + '/businesses', (err, res, body) => {
+        expect(JSON.parse(body).message.callingMethod).toBeUndefined();
+        done();
+      });
+    });
   });
 
   /******************************************************
