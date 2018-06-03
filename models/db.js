@@ -1,3 +1,4 @@
+// TODO: Think about a way to unit test this file. Currently excluded from coverage via .istanbul.yml
 const mongoose = require('mongoose');
 const dbHost = 'mongodb://localhost/RedOrGreen';
 

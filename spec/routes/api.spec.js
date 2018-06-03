@@ -10,15 +10,17 @@ const businessesController = require('../../controllers/businesses');
 const categoriesController = require('../../controllers/categories');
 const ratingsController = require('../../controllers/ratings');
 
-describe("app.js", () => {
+describe("API Routes", () => {
 
   beforeEach(function() {
     app.request.app.set('env', 'test');
+    process.env.NODE_ENV = 'test';
     server = app.listen(testPort); 
   });
 
   afterEach(() => {
     app.request.app.set('env', 'development');
+    process.env.NODE_ENV = 'development';
     server.close();
   });
 
