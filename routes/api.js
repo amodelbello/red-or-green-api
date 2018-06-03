@@ -34,14 +34,24 @@ router
 const categoriesController = require('../controllers/categories');
 router
   .route('/categories')
-  .get(categoriesController.fetchCategories)
-  .post(categoriesController.addCategory)
+  .get(
+    mwResponse.addCallingMethodToResponse('fetchCategories'),
+    categoriesController.fetchCategories)
+  .post(
+    mwResponse.addCallingMethodToResponse('addCategory'),
+    categoriesController.addCategory)
   ;
 router
   .route('/categories/:businessId')
-  .get(categoriesController.fetchCategory)
-  .put(categoriesController.updateCategory)
-  .delete(categoriesController.deleteCategory)
+  .get(
+    mwResponse.addCallingMethodToResponse('fetchCategory'),
+    categoriesController.fetchCategory)
+  .put(
+    mwResponse.addCallingMethodToResponse('updateCategory'),
+    categoriesController.updateCategory)
+  .delete(
+    mwResponse.addCallingMethodToResponse('deleteCategory'),
+    categoriesController.deleteCategory)
   ;
 
 /****************************************
@@ -50,14 +60,24 @@ router
 const ratingsController = require('../controllers/ratings');
 router
   .route('/ratings')
-  .get(ratingsController.fetchRatings)
-  .post(ratingsController.addRating)
+  .get(
+    mwResponse.addCallingMethodToResponse('fetchRatings'),
+    ratingsController.fetchRatings)
+  .post(
+    mwResponse.addCallingMethodToResponse('addRating'),
+    ratingsController.addRating)
   ;
 router
   .route('/ratings/:ratingId')
-  .get(ratingsController.fetchRating)
-  .put(ratingsController.updateRating)
-  .delete(ratingsController.deleteRating)
+  .get(
+    mwResponse.addCallingMethodToResponse('fetchRating'),
+    ratingsController.fetchRating)
+  .put(
+    mwResponse.addCallingMethodToResponse('updateRating'),
+    ratingsController.updateRating)
+  .delete(
+    mwResponse.addCallingMethodToResponse('deleteRating'),
+    ratingsController.deleteRating)
   ;
 
 module.exports = router;

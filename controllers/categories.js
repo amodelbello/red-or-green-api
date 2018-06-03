@@ -1,31 +1,81 @@
 const fetchCategories = (req, res) => {
+
+  let message = {};
+
+  /* istanbul ignore else  */
+  if (res.callingMethod !== null) {
+    message.callingMethod = res.callingMethod;
+  }
+
+  message.data = 'GET /categories fetchCategories()';
+
   res
     .status(200)
-    .json({ 'message': 'GET /categories fetchCategories()' });
+    .json({ 'message': message });
 }
 
 const addCategory = (req, res) => {
+
+  let message = {};
+
+  /* istanbul ignore else  */
+  if (res.callingMethod !== null) {
+    message.callingMethod = res.callingMethod;
+  }
+
+  message.data = 'POST /categories addCategory()';
+
   res
     .status(201)
-    .json({ 'message': 'POST /categories addCategory()' });
+    .json({ 'message': message });
 }
 
 const fetchCategory = (req, res) => {
+
+  let message = {};
+
+  /* istanbul ignore else  */
+  if (res.callingMethod !== null) {
+    message.callingMethod = res.callingMethod;
+  }
+
+  message.data = 'GET /categories/:categoryId fetchCategory()';
+
   res
     .status(200)
-    .json({ 'message': 'GET /categories/:categoryId fetchCategory()' });
+    .json({ 'message': message });
 }
 
 const updateCategory = (req, res) => {
+
+  let message = {};
+
+  /* istanbul ignore else  */
+  if (res.callingMethod !== null) {
+    message.callingMethod = res.callingMethod;
+  }
+
+  message.data = 'PUT /categories/:categoryId updateCategory()';
+
   res
     .status(200)
-    .json({ 'message': 'PUT /categories/:categoryId updateCategory()' });
+    .json({ 'message': message });
 }
 
 const deleteCategory = (req, res) => {
+
+  let message = {};
+
+  /* istanbul ignore else  */
+  if (res.callingMethod !== null) {
+    message.callingMethod = res.callingMethod;
+  }
+
+  message.data = 'DELETE /categories/:categoryId deleteCategory()';
+
   res
     .status(200)
-    .json({ 'message': 'DELETE /categories/:categoryId deleteCategory()' });
+    .json({ 'message': message });
 }
 
 module.exports = {

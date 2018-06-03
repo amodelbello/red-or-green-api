@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 
 var app = express();
+// app.set('env', 'production');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

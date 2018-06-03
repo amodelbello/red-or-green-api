@@ -1,7 +1,6 @@
-const app = require('../app');
-let message = {};
-
 const fetchBusinesses = (req, res) => {
+
+  let message = {};
 
   /* istanbul ignore else  */
   if (res.callingMethod !== null) {
@@ -16,6 +15,8 @@ const fetchBusinesses = (req, res) => {
 }
 
 const fetchBusiness = (req, res) => {
+
+  let message = {};
 
   /* istanbul ignore else  */
   if (res.callingMethod !== null) {
@@ -33,6 +34,8 @@ const fetchBusiness = (req, res) => {
 
 const addBusiness = (req, res) => {
 
+  let message = {};
+
   /* istanbul ignore else  */
   if (res.callingMethod !== null) {
     message.callingMethod = res.callingMethod;
@@ -46,6 +49,8 @@ const addBusiness = (req, res) => {
 }
 
 const updateBusiness = (req, res) => {
+
+  let message = {};
 
   /* istanbul ignore else  */
   if (res.callingMethod !== null) {
@@ -61,6 +66,8 @@ const updateBusiness = (req, res) => {
 
 const deleteBusiness = (req, res) => {
   
+  let message = {};
+
   /* istanbul ignore else  */
   if (res.callingMethod !== null) {
     message.callingMethod = res.callingMethod;
