@@ -7,10 +7,13 @@ const fetchBusinesses = (req, res) => {
 
   Business.find()
   .exec((err, businesses) => {
-    res.body.data = businesses;
-    res
-      .status(200)
-      .json(res.body);
+
+    if (responseHelper.successfullRequest(err, businesses)) {
+      responseHelper.success(res, businesses);
+
+    } else {
+      responseHelper.failure(err, res, businesses);
+    }
   });
 }
 

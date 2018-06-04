@@ -7,7 +7,11 @@ module.exports.successfullRequest = (err, data) => {
 }
 
 module.exports.success = (res, data) => {
-  respond(200, res, data);
+  let statusCode = 200;
+  if (res.req.method === 'POST') {
+    statusCode = 201; // record added
+  }
+  respond(statusCode, res, data);
 }
 
 module.exports.failure = (err, res, data) => {
