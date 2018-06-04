@@ -5,14 +5,18 @@ const isDevOrTesting = (req) => {
   return (req.app.get('env') === 'development' || req.app.get('env') === 'test');
 };
 
+exports.addBodyPropertyToResponse = () => {
+  return (req, res, next) => {
+    res.body = {};
+    next();
+  }
+};
+
 exports.addCallingMethodToResponse = (methodName) => {
   return (req, res, next) => {
-    const addMethodToResponse = isDevOrTesting(req);
-    if (addMethodToResponse) {
-      res.callingMethod = methodName;
-    } else {
-      res.callingMethod = null;
-    }
+    if (isDevOrTesting(req)) {
+      res.body.callingMethod = methodName;
+    } 
     next();
   }
 };

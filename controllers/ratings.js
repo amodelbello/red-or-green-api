@@ -1,81 +1,46 @@
 const fetchRatings = (req, res) => {
 
-  let message = {};
-
-  /* istanbul ignore else  */
-  if (res.callingMethod !== null) {
-    message.callingMethod = res.callingMethod;
-  }
-
-  message.data = 'GET /ratings fetchRatings()';
+  res.body.data = 'GET /ratings fetchRatings()';
 
   res
     .status(200)
-    .json({ 'message': message });
+    .json(res.body);
 }
 
 const addRating = (req, res) => {
 
-  let message = {};
-
-  /* istanbul ignore else  */
-  if (res.callingMethod !== null) {
-    message.callingMethod = res.callingMethod;
-  }
-
-  message.data = 'POST /ratings addRating()';
+  res.body.data = 'POST /ratings addRating()';
 
   res
     .status(201)
-    .json({ 'message': message });
+    .json(res.body);
 }
 
 const fetchRating = (req, res) => {
 
-  let message = {};
-
-  /* istanbul ignore else  */
-  if (res.callingMethod !== null) {
-    message.callingMethod = res.callingMethod;
-  }
-
-  message.data = 'GET /ratings/:ratingId fetchRating()';
+  res.body.data = 'GET /ratings/:ratingId fetchRating()';
 
   res
     .status(200)
-    .json({ 'message': message });
+    .json(res.body);
 }
 
 const updateRating = (req, res) => {
 
-  let message = {};
-
-  /* istanbul ignore else  */
-  if (res.callingMethod !== null) {
-    message.callingMethod = res.callingMethod;
-  }
-
-  message.data = 'PUT /ratings/:ratingId updateRating()';
+  res.body.data = 'PUT /ratings/:ratingId updateRating()';
 
   res
     .status(200)
-    .json({ 'message': message });
+    .json(res.body);
 }
 
 const deleteRating = (req, res) => {
 
-  let message = {};
-
-  /* istanbul ignore else  */
-  if (res.callingMethod !== null) {
-    message.callingMethod = res.callingMethod;
-  }
-
-  message.data = 'DELETE /ratings/:ratingId deleteRating()';
+  res.body.data = 'DELETE /ratings/:ratingId deleteRating()';
 
   res
     .status(200)
-    .json({ 'message': message });
+    .json(res.body);
 }
 
 module.exports = {

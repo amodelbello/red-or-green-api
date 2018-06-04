@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+const responseMiddleware = require('./middleware/response');
 require('./models/db');
 
 const indexRouter = require('./routes/index');
@@ -33,6 +34,9 @@ app.use(sassMiddleware({
   indentedSyntax: true, // true = .sass and false = .scss
   sourceMap: true
 }));
+
+app.use(responseMiddleware.addBodyPropertyToResponse());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
