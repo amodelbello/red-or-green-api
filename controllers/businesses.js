@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Business = mongoose.model('Business');
 
+const responseHelper = require('../helpers/response');
+
 const fetchBusinesses = (req, res) => {
 
   Business.find()
@@ -9,20 +11,22 @@ const fetchBusinesses = (req, res) => {
     res
       .status(200)
       .json(res.body);
-  })
-
+  });
 }
 
 const fetchBusiness = (req, res) => {
 
-  Business.findById('5b14b3ae3450501de43d2f9b')
+  const businessId = req.params.businessId;
+  Business.findById(businessId)
   .exec((err, business) => {
-    res.body.data = business;
-    res
-      .status(200)
-      .json(res.body);
-  })
 
+    if (responseHelper.successfullRequest(err, business)) {
+      responseHelper.success(res, business);
+
+    } else {
+      responseHelper.failure(err, res, business);
+    }
+  });
 }
 
 const addBusiness = (req, res) => {
