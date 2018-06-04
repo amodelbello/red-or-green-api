@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const Business = mongoose.model('Business');
+
 const fetchBusinesses = (req, res) => {
 
   let message = {};
@@ -7,11 +10,14 @@ const fetchBusinesses = (req, res) => {
     message.callingMethod = res.callingMethod;
   }
 
-  message.data = 'GET /businesses fetchBusinesses()';
+  Business.find()
+  .exec((err, businesses) => {
+    message.data = businesses;
+    res
+      .status(200)
+      .json({ message });
+  })
 
-  res
-    .status(200)
-    .json({ 'message': message });
 }
 
 const fetchBusiness = (req, res) => {
@@ -24,12 +30,15 @@ const fetchBusiness = (req, res) => {
   }
 
   message.callingMethod = res.callingMethod;
-  message.data = 'GET /businesses/:businessId fetchBusiness()';
 
-  res
-    .status(200)
-    // .json(body);
-    .json({ 'message': message });
+  Business.findById('5b14b3ae3450501de43d2f9b')
+  .exec((err, business) => {
+    message.data = business;
+    res
+      .status(200)
+      .json({ message });
+  })
+
 }
 
 const addBusiness = (req, res) => {

@@ -36,3 +36,6 @@ const gracefulShutdown = (msg, cb) => {
     cb();
   });
 };
+
+require('./businesses');
+require('./categories');

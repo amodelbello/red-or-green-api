@@ -1,3 +1,7 @@
+/*
+Aborted attempt to unit test db.js connection file.
+I might revist this or delete it in the future
+*/
 const request = require('request');
 const app = require('../../app');
 require('jasmine');
