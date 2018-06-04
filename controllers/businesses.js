@@ -5,30 +5,38 @@ const responseHelper = require('../helpers/response');
 
 const fetchBusinesses = (req, res) => {
 
-  Business.find()
-  .exec((err, businesses) => {
+  return new Promise((resolve, reject) => {
+    Business.find()
+    .exec((err, businesses) => {
 
-    if (responseHelper.successfullRequest(err, businesses)) {
-      responseHelper.success(res, businesses);
-
-    } else {
-      responseHelper.failure(err, res, businesses);
-    }
+      if (responseHelper.successfulRequest(err, businesses)) {
+        responseHelper.success(res, businesses);
+        resolve();
+      } else {
+        responseHelper.failure(err, res, businesses);
+        reject(new Error('Error when attempting to fetch businesses'));
+      }
+    });
   });
 }
 
 const fetchBusiness = (req, res) => {
 
   const businessId = req.params.businessId;
-  Business.findById(businessId)
-  .exec((err, business) => {
 
-    if (responseHelper.successfullRequest(err, business)) {
-      responseHelper.success(res, business);
+  return new Promise((resolve, reject) => {
+    Business.findById(businessId)
+    .exec((err, business) => {
 
-    } else {
-      responseHelper.failure(err, res, business);
-    }
+      if (responseHelper.successfulRequest(err, business)) {
+        responseHelper.success(res, business);
+        resolve();
+
+      } else {
+        responseHelper.failure(err, res, business);
+        reject(new Error(`Error when attempting to fetch business: ${businessId}`));
+      }
+    });
   });
 }
 

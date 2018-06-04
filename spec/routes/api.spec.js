@@ -10,9 +10,11 @@ const businessesController = require('../../controllers/businesses');
 const categoriesController = require('../../controllers/categories');
 const ratingsController = require('../../controllers/ratings');
 
+const fakeObjectId = '5b14b3ae3450501de43d2f9b';
+
 describe("API Routes", () => {
 
-  beforeEach(function() {
+  beforeEach(() => {
     app.request.app.set('env', 'test');
     process.env.NODE_ENV = 'test';
     server = app.listen(testPort); 
@@ -36,7 +38,7 @@ describe("API Routes", () => {
     });
 
     it("Calls GET /businesses/:businessId", (done) => {
-      request.get(base_url + '/businesses/1234', (err, res, body) => {
+      request.get(`${base_url}/businesses/${fakeObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('fetchBusiness');
         done();
       });
@@ -50,14 +52,14 @@ describe("API Routes", () => {
     });
 
     it("Calls PUT /businesses/:businessId", (done) => {
-      request.put(base_url + '/businesses/1234', (err, res, body) => {
+      request.put(`${base_url}/businesses/${fakeObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateBusiness');
         done();
       });
     });
 
     it("Calls DELETE /businesses/:businessId", (done) => {
-      request.delete(base_url + '/businesses/1234', (err, res, body) => {
+      request.delete(`${base_url}/businesses/${fakeObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteBusiness');
         done();
       });

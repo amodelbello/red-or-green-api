@@ -12,9 +12,9 @@ const dbHost = 'mongodb://localhost/RedOrGreen';
 
 var mongoose = require('mongoose');
  
-var Mockgoose = require('mockgoose').Mockgoose;
-var mockgoose = new Mockgoose(mongoose);
-mockgoose.helper.setDbVersion("3.6.3");
+// var Mockgoose = require('mockgoose').Mockgoose;
+// var mockgoose = new Mockgoose(mongoose);
+// mockgoose.helper.setDbVersion("3.6.3");
  
 
 /*
@@ -39,12 +39,12 @@ describe("API Routes", () => {
   // });
 
   // beforeEach((done) => {
-  //   // mockgoose.prepareStorage().then(() => {
-  //   //   mongoose.connect(dbHost, (err) => {
-  //   //     done(err);
-  //   //   });
-  //   // });
-  //   done();
+    // mockgoose.prepareStorage().then(() => {
+    //   mongoose.connect(dbHost, (err) => {
+    //     done(err);
+    //   });
+    // });
+    // done();
   // });
 
   // afterEach(() => {
@@ -54,12 +54,12 @@ describe("API Routes", () => {
 
   /******************************************************
    *****************************************************/
-  // describe("Server shuts down or is restarted", () => {
-  //   it("Server closes", (done) => {
+  describe("Server shuts down or is restarted", () => {
+    it("Server closes", (done) => {
 
-  //     expect(1).toBeTruthy();
-  //     // process.emit('SIGINT');
-  //     done();
-  //   });
-  // });
+      expect(1).toBeTruthy();
+      // process.emit('SIGINT');
+      done();
+    });
+  });
 });
