@@ -42,11 +42,20 @@ const fetchBusiness = (req, res) => {
 
 const addBusiness = (req, res) => {
 
-  res.body.data = 'POST /businesses addBusiness()';
+  const data = req.body;
 
-  res
-    .status(201)
-    .json(res.body);
+  return new Promise((resolve, reject) => {
+    Business.create(data, (err, business) => {
+      if (responseHelper.successfulRequest(err, business)) {
+        responseHelper.success(res, business);
+        resolve();
+
+      } else {
+        responseHelper.failure(err, res, business);
+        reject(new Error(`Error when attempting to add business: ${data}`));
+      }
+    });
+  });
 }
 
 const updateBusiness = (req, res) => {

@@ -10,6 +10,7 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
+const fakeBusiness = require('../data/test').fakeBusiness;
 const businessesController = require('../../controllers/businesses');
 const responseHelper = require('../../helpers/response');
 
@@ -89,6 +90,39 @@ describe("Businesses Controller", () => {
       })
       .catch((e) => {
         expect(e.message).toContain('Error when attempting to fetch business');
+        done();
+      });
+    });
+  });
+
+  /******************************************************
+   * addBusiness()
+   *****************************************************/
+  describe("addBusiness()", () => {
+    beforeEach(() => {
+      mockRequest = httpMocks.createRequest({
+        method: 'POST',
+        url: base_url + '/businesses',
+      });
+      mockResponse = httpMocks.createResponse();
+      mockResponse.body = {};
+    });
+
+    it("should add business successfully", (done) => {
+      mockRequest.body = fakeBusiness;
+      businessesController.addBusiness(mockRequest, mockResponse).then(() => {
+        done();
+      });
+    });
+
+    it("should handle error", (done) => {
+      mockRequest.body = 'This is not valid input';
+      businessesController.addBusiness(mockRequest, mockResponse).then(() => {
+        /* istanbul ignore next */
+        console.log('should not be here. was supposed to fail');
+      })
+      .catch((e) => {
+        expect(e.message).toContain('Error when attempting to add business');
         done();
       });
     });

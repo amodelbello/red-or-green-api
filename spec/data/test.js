@@ -1,4 +1,4 @@
-const test = 
+module.exports.fakeBusiness = 
 {
   "name": "Tomasita's",
   "address": {
@@ -10,4 +10,4 @@ const test =
   "rating": 4,
   "created": new Date(),
   "updated": new Date(),
-}
+};

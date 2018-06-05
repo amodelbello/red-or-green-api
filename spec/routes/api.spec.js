@@ -9,6 +9,7 @@ const base_url = `http://localhost:${testPort}/api`;
 const businessesController = require('../../controllers/businesses');
 const categoriesController = require('../../controllers/categories');
 const ratingsController = require('../../controllers/ratings');
+const responseHelper = require('../../helpers/response');
 
 const fakeObjectId = '5b14b3ae3450501de43d2f9b';
 
@@ -45,7 +46,8 @@ describe("API Routes", () => {
     });
 
     it("Calls POST /businesses", (done) => {
-      request.post(base_url + '/businesses', (err, res, body) => {
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
+      request.post(`${base_url}/businesses`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('addBusiness');
         done();
       });
