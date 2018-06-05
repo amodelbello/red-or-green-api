@@ -54,6 +54,7 @@ describe("API Routes", () => {
     });
 
     it("Calls PUT /businesses/:businessId", (done) => {
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
       request.put(`${base_url}/businesses/${fakeObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateBusiness');
         done();
@@ -61,6 +62,7 @@ describe("API Routes", () => {
     });
 
     it("Calls DELETE /businesses/:businessId", (done) => {
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
       request.delete(`${base_url}/businesses/${fakeObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteBusiness');
         done();

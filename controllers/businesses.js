@@ -14,7 +14,7 @@ const fetchBusinesses = (req, res) => {
         resolve();
       } else {
         responseHelper.failure(err, res, businesses);
-        reject(new Error('Error when attempting to fetch businesses'));
+        return reject(new Error('Error when attempting to fetch businesses'));
       }
     });
   });
@@ -34,7 +34,7 @@ const fetchBusiness = (req, res) => {
 
       } else {
         responseHelper.failure(err, res, business);
-        reject(new Error(`Error when attempting to fetch business: ${businessId}`));
+        return reject(new Error(`Error when attempting to fetch business: ${businessId}`));
       }
     });
   });
@@ -43,6 +43,8 @@ const fetchBusiness = (req, res) => {
 const addBusiness = (req, res) => {
 
   const data = req.body;
+  data.created = new Date();
+  data.updated = new Date();
 
   return new Promise((resolve, reject) => {
     Business.create(data, (err, business) => {
@@ -52,7 +54,7 @@ const addBusiness = (req, res) => {
 
       } else {
         responseHelper.failure(err, res, business);
-        reject(new Error(`Error when attempting to add business: ${data}`));
+        return reject(new Error(`Error when attempting to add business: ${data}`));
       }
     });
   });
@@ -60,11 +62,39 @@ const addBusiness = (req, res) => {
 
 const updateBusiness = (req, res) => {
 
-  res.body.data = 'PUT /businesses/:businessId updateBusiness()';
+  const businessId = req.params.businessId;
 
-  res
-    .status(200)
-    .json(res.body);
+  return new Promise((resolve, reject) => {
+    Business.findById(businessId)
+    .exec((err, business) => {
+
+      if (!responseHelper.successfulRequest(err, business)) {
+        responseHelper.failure(err, res, business);
+        return reject(new Error(`Error when attempting to fetch business to update: ${businessId}`));
+      }
+
+      if (req.body.address === undefined) req.body.address = {};
+      business.name = req.body.name;
+      business.address.street = req.body.address.street;
+      business.address.street2 = req.body.address.street2;
+      business.address.city = req.body.address.city;
+      business.address.state = req.body.address.state;
+      business.address.zip = req.body.address.zip;
+      business.rating = req.body.rating;
+      business.updated = new Date();
+
+      business.save((err, business) => {
+        if (responseHelper.successfulRequest(err, business)) {
+          responseHelper.success(res, business);
+          resolve();
+  
+        } else {
+          responseHelper.failure(err, res, business);
+          return reject(new Error(`Error when attempting to update business: ${businessId}`));
+        }
+      });
+    });
+  });
 }
 
 const deleteBusiness = (req, res) => {

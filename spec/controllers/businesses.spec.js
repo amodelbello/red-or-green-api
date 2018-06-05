@@ -10,7 +10,10 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
+const fakeObjectId = '5b14b3ae3450501de43d2f9b';
 const fakeBusiness = require('../data/test').fakeBusiness;
+const fakeBusinessEdit = require('../data/test').fakeBusinessEdit;
+
 const businessesController = require('../../controllers/businesses');
 const responseHelper = require('../../helpers/response');
 
@@ -69,9 +72,9 @@ describe("Businesses Controller", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
         method: 'GET',
-        url: base_url + '/businesses/5b14b3ae3450501de43d2f9b',
+        url: `${base_url}/businesses`,
         params: {
-          businessId: '5b14b3ae3450501de43d2f9b'
+          businessId: fakeObjectId
         }
       });
     });
@@ -123,6 +126,55 @@ describe("Businesses Controller", () => {
       })
       .catch((e) => {
         expect(e.message).toContain('Error when attempting to add business');
+        done();
+      });
+    });
+  });
+
+  /******************************************************
+   * updateBusiness()
+   *****************************************************/
+  describe("updateBusiness()", () => {
+    beforeEach(() => {
+      mockRequest = httpMocks.createRequest({
+        url: `${base_url}/businesses`,
+        params: {
+          businessId: fakeObjectId
+        }
+      });
+      mockResponse = httpMocks.createResponse();
+      mockResponse.body = {};
+    });
+
+    it("should update business successfully", (done) => {
+      mockRequest.body = fakeBusinessEdit;
+      businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
+        done();
+      });
+    });
+
+    it("should handle error on fetch", (done) => {
+      mockRequest.body = false;
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
+      businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
+        /* istanbul ignore next */
+        console.log('should not be here. was supposed to fail');
+      })
+      .catch((e) => {
+        expect(e.message).toContain('Error when attempting to fetch business to update');
+        done();
+      });
+    });
+
+    it("should handle error on update", (done) => {
+      mockRequest.body = fakeBusinessEdit;
+      spyOn(responseHelper, 'successfulRequest').and.returnValues(true, false);
+      businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
+        /* istanbul ignore next */
+        console.log('should not be here. was supposed to fail');
+      })
+      .catch((e) => {
+        expect(e.message).toContain('Error when attempting to update business');
         done();
       });
     });
