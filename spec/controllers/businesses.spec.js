@@ -12,8 +12,6 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeObjectId = '5b14b27d3450501de43d2f98';
-const fakeObjectIdToDelete = '5b1621f8937d7e62ca71a76c';
 const fakeBusiness = require('../data/test').fakeBusiness;
 const fakeBusinessEdit = require('../data/test').fakeBusinessEdit;
 
@@ -21,16 +19,13 @@ const businessesController = require('../../controllers/businesses');
 const responseHelper = require('../../helpers/response');
 
 const mongoose = require('mongoose');
-
-// describe("TESTTESTTESTSTEST", () => {
-//   it('tests db import', (done) => {
-//     const dbImporter = require('../data/import');
-//     dbImporter.run('business.seed.json');
-//     done();
-//   });
-// });
+const dbImporter = require('../data/import');
 
 describe("Businesses Controller", () => {
+
+  beforeEach((done) => {
+    dbImporter.run().then(() => { done(); });
+  });
 
   beforeEach(() => {
     // app.request.app.set('env', 'test');
@@ -82,7 +77,7 @@ describe("Businesses Controller", () => {
         method: 'GET',
         url: `${base_url}/businesses`,
         params: {
-          businessId: fakeObjectId
+          businessId: dbImporter.fakeBusinessId
         }
       });
     });
@@ -147,7 +142,7 @@ describe("Businesses Controller", () => {
       mockRequest = httpMocks.createRequest({
         url: `${base_url}/businesses`,
         params: {
-          businessId: fakeObjectId
+          businessId: dbImporter.fakeBusinessId
         }
       });
       mockResponse = httpMocks.createResponse();
@@ -155,7 +150,7 @@ describe("Businesses Controller", () => {
     });
 
     it("should update business successfully", (done) => {
-      mockRequest.body = fakeBusinessEdit;
+      mockRequest.body = dbImporter.fakeBusinessId;
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
         done();
       });

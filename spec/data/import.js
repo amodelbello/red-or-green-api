@@ -1,27 +1,14 @@
-const fs = require('fs');
 const mongoose = require('mongoose');
-const Business = mongoose.model('Business');
+const businessesImporter = require('./importBusinesses');
 
-const run = (file = 'seed.json') => {
-  const json = JSON.parse(fs.readFileSync(`${__dirname}/${file}`));
-  console.log(json);
-  console.log('DATABASE NAME:');
-  console.log(mongoose.connection.db.databaseName);
-  loadBusinesses(json);
-};
-
-async function loadBusinesses(json) {
+const run = async () => {
   try {
-    await mongoose.connection.db.dropCollection('businesses');
-    await Business.insertMany(json);
-    console.log('Done!');
-    // process.exit();
+    await mongoose.connection.dropDatabase()
+    await businessesImporter.run();
   } catch(e) {
     console.log(e);
-    // process.exit();
   }
 };
 
-module.exports = {
-  run
-}
+module.exports.fakeBusinessId = '5b14b27d3450501de43d2f98';
+module.exports.run = run;
