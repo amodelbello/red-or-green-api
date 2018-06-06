@@ -16,10 +16,6 @@ const responseHelper = require('../../helpers/response');
 describe("Response Helper", () => {
 
   beforeEach(() => {
-    app.request.app.set('env', 'test');
-    process.env.NODE_ENV = 'test';
-    // server = app.listen(testPort); 
-
     mockRequest = httpMocks.createRequest({
       method: 'GET',
       url: base_url + '/businesses',
@@ -28,11 +24,6 @@ describe("Response Helper", () => {
     mockResponse.body = {};
   });
 
-  afterEach(() => {
-    app.request.app.set('env', 'development');
-    process.env.NODE_ENV = 'development';
-    // server.close();
-  });
 
   /******************************************************
    * successfulRequest()

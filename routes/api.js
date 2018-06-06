@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const mwResponse = require('../middleware/response');
+const responseMiddleware = require('../middleware/response');
+const validate = require('../middleware/validation');
 
 /****************************************
  * Businesses Routes
@@ -9,22 +10,23 @@ const businessesController = require('../controllers/businesses');
 router
   .route('/businesses')
   .get(
-    mwResponse.addCallingMethodToResponse('fetchBusinesses'),
+    responseMiddleware.addCallingMethodToResponse('fetchBusinesses'),
     businessesController.fetchBusinesses)
   .post(
-    mwResponse.addCallingMethodToResponse('addBusiness'),
+    responseMiddleware.addCallingMethodToResponse('addBusiness'),
     businessesController.addBusiness)
   ;
 router
   .route('/businesses/:businessId')
   .get(
-    mwResponse.addCallingMethodToResponse('fetchBusiness'),
+    responseMiddleware.addCallingMethodToResponse('fetchBusiness'),
+    validate.hasValidObjectId('businessId'),
     businessesController.fetchBusiness)
   .put(
-    mwResponse.addCallingMethodToResponse('updateBusiness'),
+    responseMiddleware.addCallingMethodToResponse('updateBusiness'),
     businessesController.updateBusiness)
   .delete(
-    mwResponse.addCallingMethodToResponse('deleteBusiness'),
+    responseMiddleware.addCallingMethodToResponse('deleteBusiness'),
     businessesController.deleteBusiness)
   ;
 
@@ -35,22 +37,22 @@ const categoriesController = require('../controllers/categories');
 router
   .route('/categories')
   .get(
-    mwResponse.addCallingMethodToResponse('fetchCategories'),
+    responseMiddleware.addCallingMethodToResponse('fetchCategories'),
     categoriesController.fetchCategories)
   .post(
-    mwResponse.addCallingMethodToResponse('addCategory'),
+    responseMiddleware.addCallingMethodToResponse('addCategory'),
     categoriesController.addCategory)
   ;
 router
   .route('/categories/:businessId')
   .get(
-    mwResponse.addCallingMethodToResponse('fetchCategory'),
+    responseMiddleware.addCallingMethodToResponse('fetchCategory'),
     categoriesController.fetchCategory)
   .put(
-    mwResponse.addCallingMethodToResponse('updateCategory'),
+    responseMiddleware.addCallingMethodToResponse('updateCategory'),
     categoriesController.updateCategory)
   .delete(
-    mwResponse.addCallingMethodToResponse('deleteCategory'),
+    responseMiddleware.addCallingMethodToResponse('deleteCategory'),
     categoriesController.deleteCategory)
   ;
 
@@ -61,22 +63,22 @@ const ratingsController = require('../controllers/ratings');
 router
   .route('/ratings')
   .get(
-    mwResponse.addCallingMethodToResponse('fetchRatings'),
+    responseMiddleware.addCallingMethodToResponse('fetchRatings'),
     ratingsController.fetchRatings)
   .post(
-    mwResponse.addCallingMethodToResponse('addRating'),
+    responseMiddleware.addCallingMethodToResponse('addRating'),
     ratingsController.addRating)
   ;
 router
   .route('/ratings/:ratingId')
   .get(
-    mwResponse.addCallingMethodToResponse('fetchRating'),
+    responseMiddleware.addCallingMethodToResponse('fetchRating'),
     ratingsController.fetchRating)
   .put(
-    mwResponse.addCallingMethodToResponse('updateRating'),
+    responseMiddleware.addCallingMethodToResponse('updateRating'),
     ratingsController.updateRating)
   .delete(
-    mwResponse.addCallingMethodToResponse('deleteRating'),
+    responseMiddleware.addCallingMethodToResponse('deleteRating'),
     ratingsController.deleteRating)
   ;
 

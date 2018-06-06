@@ -1,4 +1,4 @@
-module.exports.successfulRequest = (err, data) => {
+const successfulRequest = (err, data) => {
   if (err || !data) {
     return false;
   } else {
@@ -6,7 +6,7 @@ module.exports.successfulRequest = (err, data) => {
   }
 }
 
-module.exports.success = (res, data) => {
+const success = (res, data) => {
   let statusCode = 200;
   if (res.req !== undefined && res.req.method === 'POST') {
     statusCode = 201; // record added
@@ -14,7 +14,7 @@ module.exports.success = (res, data) => {
   respond(statusCode, res, data);
 }
 
-module.exports.failure = (err, res, data) => {
+const failure = (err, res, data) => {
   if (err) {
     respond(500, res, err);
 
@@ -29,4 +29,11 @@ const respond = (status, res, data) => {
   res
     .status(status)
     .json(res.body);
+}
+
+module.exports = {
+  successfulRequest,
+  success,
+  failure,
+  respond,
 }
