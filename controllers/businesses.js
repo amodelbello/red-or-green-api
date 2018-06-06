@@ -31,14 +31,21 @@ const fetchBusiness = (req, res) => {
 
       if (responseHelper.successfulRequest(err, business)) {
         responseHelper.success(res, business);
-        return resolve();
 
       } else {
         responseHelper.failure(err, res, business);
-        return reject(new Error(`Error when attempting to fetch business: ${businessId}`));
+        if (err !== null) {
+          return reject(new Error(`Error when attempting to fetch business: ${businessId}: ${err.message}`));
+        }
       }
+
+      return resolve();
     });
-  });
+  })
+  .catch(e => {
+    throw e.message;
+  })
+  ;
 }
 
 const addBusiness = (req, res) => {

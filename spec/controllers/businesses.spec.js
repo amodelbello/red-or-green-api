@@ -88,14 +88,25 @@ describe("Businesses Controller", () => {
       });
     });
 
-    it("should handle error", (done) => {
+    it("should handle 404 error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
+      spyOn(responseHelper, 'failure');
       businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
-        /* istanbul ignore next */
+        expect(responseHelper.failure).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it("should handle unexpected error", (done) => {
+      spyOn(responseHelper, 'failure')
+      mockRequest.params.businessId = 1;
+      businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
+        /* istanbul ignore next  */
         console.log('should not be here. was supposed to fail');
+        done();
       })
       .catch((e) => {
-        expect(e.message).toContain('Error when attempting to fetch business');
+        expect(responseHelper.failure).toHaveBeenCalled();
         done();
       });
     });
