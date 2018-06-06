@@ -169,4 +169,37 @@ describe("Businesses Controller", () => {
       });
     });
   });
+
+  /******************************************************
+   * deleteBusiness()
+   *****************************************************/
+  describe("deleteBusiness()", () => {
+    beforeEach(() => {
+      mockRequest = httpMocks.createRequest({
+        method: 'DELETE',
+        url: `${base_url}/businesses`,
+        params: {
+          businessId: dbImporter.fakeBusinessId
+        }
+      });
+    });
+
+    it("should delete business successfully", (done) => {
+      businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
+        done();
+      });
+    });
+
+    it("should handle error", (done) => {
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
+      businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
+        /* istanbul ignore next */
+        console.log('should not be here. was supposed to fail');
+      })
+      .catch((e) => {
+        expect(e.message).toContain('Error when attempting to delete business');
+        done();
+      });
+    });
+  });
 });
