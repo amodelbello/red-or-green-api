@@ -1,3 +1,5 @@
+    process.env.NODE_ENV = 'test';
+
 const httpMocks = require('node-mocks-http');
 const request = require('request');
 const app = require('../../app');
@@ -10,34 +12,38 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeObjectId = '5b14b3ae3450501de43d2f9b';
+const fakeObjectId = '5b175ac99eee34409aa6ea7e';
+const fakeObjectIdToDelete = '5b14b30e3450501de43d2f9a';
 const fakeBusiness = require('../data/test').fakeBusiness;
 const fakeBusinessEdit = require('../data/test').fakeBusinessEdit;
 
 const businessesController = require('../../controllers/businesses');
 const responseHelper = require('../../helpers/response');
 
+const mongoose = require('mongoose');
+
 describe("Businesses Controller", () => {
 
-  beforeEach(() => {
-    app.request.app.set('env', 'test');
     process.env.NODE_ENV = 'test';
+  beforeEach((done) => {
+    // app.request.app.set('env', 'test');
     server = app.listen(testPort); 
 
     mockRequest = httpMocks.createRequest({
       method: 'GET',
-      url: base_url + '/businesses',
-      // params: {
-        // id: 42
-      // }
+      url: base_url + '/businesses'
     });
     mockResponse = httpMocks.createResponse();
     mockResponse.body = {};
+
+    console.log(mongoose.connection.db.databaseName);
+    // mongoose.connection.db.dropCollection('businesses').then((err, result) => {
+    //   done();
+    // });
   });
 
   afterEach(() => {
-    app.request.app.set('env', 'development');
-    process.env.NODE_ENV = 'development';
+    // app.request.app.set('env', 'development');
     server.close();
   });
 
@@ -153,22 +159,9 @@ describe("Businesses Controller", () => {
       });
     });
 
-    it("should handle error on fetch", (done) => {
+    it("should handle error on update", (done) => {
       mockRequest.body = false;
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
-      businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
-        /* istanbul ignore next */
-        console.log('should not be here. was supposed to fail');
-      })
-      .catch((e) => {
-        expect(e.message).toContain('Error when attempting to fetch business to update');
-        done();
-      });
-    });
-
-    it("should handle error on update", (done) => {
-      mockRequest.body = fakeBusinessEdit;
-      spyOn(responseHelper, 'successfulRequest').and.returnValues(true, false);
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
         /* istanbul ignore next */
         console.log('should not be here. was supposed to fail');

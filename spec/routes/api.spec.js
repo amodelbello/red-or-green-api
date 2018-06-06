@@ -11,7 +11,8 @@ const categoriesController = require('../../controllers/categories');
 const ratingsController = require('../../controllers/ratings');
 const responseHelper = require('../../helpers/response');
 
-const fakeObjectId = '5b14b3ae3450501de43d2f9b';
+const fakeObjectId = '5b175ac99eee34409aa6ea7e';
+const fakeObjectIdToDelete = '5b175a76d6b6dc3fe376ae93';
 
 describe("API Routes", () => {
 
@@ -63,7 +64,7 @@ describe("API Routes", () => {
 
     it("Calls DELETE /businesses/:businessId", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.delete(`${base_url}/businesses/${fakeObjectId}`, (err, res, body) => {
+      request.delete(`${base_url}/businesses/${fakeObjectIdToDelete}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteBusiness');
         done();
       });
