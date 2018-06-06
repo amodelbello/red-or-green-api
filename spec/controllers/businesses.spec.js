@@ -12,8 +12,8 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeObjectId = '5b175ac99eee34409aa6ea7e';
-const fakeObjectIdToDelete = '5b14b30e3450501de43d2f9a';
+const fakeObjectId = '5b14b27d3450501de43d2f98';
+const fakeObjectIdToDelete = '5b1621f8937d7e62ca71a76c';
 const fakeBusiness = require('../data/test').fakeBusiness;
 const fakeBusinessEdit = require('../data/test').fakeBusinessEdit;
 
@@ -22,10 +22,17 @@ const responseHelper = require('../../helpers/response');
 
 const mongoose = require('mongoose');
 
+// describe("TESTTESTTESTSTEST", () => {
+//   it('tests db import', (done) => {
+//     const dbImporter = require('../data/import');
+//     dbImporter.run('business.seed.json');
+//     done();
+//   });
+// });
+
 describe("Businesses Controller", () => {
 
-    process.env.NODE_ENV = 'test';
-  beforeEach((done) => {
+  beforeEach(() => {
     // app.request.app.set('env', 'test');
     server = app.listen(testPort); 
 
@@ -35,11 +42,6 @@ describe("Businesses Controller", () => {
     });
     mockResponse = httpMocks.createResponse();
     mockResponse.body = {};
-
-    console.log(mongoose.connection.db.databaseName);
-    // mongoose.connection.db.dropCollection('businesses').then((err, result) => {
-    //   done();
-    // });
   });
 
   afterEach(() => {
