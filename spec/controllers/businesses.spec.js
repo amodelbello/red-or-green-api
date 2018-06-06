@@ -103,7 +103,6 @@ describe("Businesses Controller", () => {
       businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
         /* istanbul ignore next  */
         console.log('should not be here. was supposed to fail');
-        done();
       })
       .catch((e) => {
         expect(responseHelper.failure).toHaveBeenCalled();

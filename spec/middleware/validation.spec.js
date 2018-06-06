@@ -14,6 +14,22 @@ let mockResponse;
 const responseHelper = require('../../helpers/response');
 const validate = require('../../middleware/validation');
 
+const valuesThatExist = [
+  'hello',
+  1233,
+  false,
+  true,
+  '',
+];
+
+const valuesThatDontExist = [
+  null,
+  undefined,
+];
+
+let fakeObj;
+
+
 describe("Validation Middleware", () => {
 
   beforeEach(() => {
@@ -27,6 +43,9 @@ describe("Validation Middleware", () => {
     });
     mockResponse = httpMocks.createResponse();
     mockResponse.body = {};
+
+    fakeObj = {};
+    fakeObj.fakeNext = ()=>{};
   });
 
 
@@ -56,7 +75,74 @@ describe("Validation Middleware", () => {
       expect(responseHelper.respond).toHaveBeenCalledWith(400, mockResponse, 'Error: invalid objectId');
       done();
     });
-
   });
 
+  /******************************************************
+   * requiredInBody()
+   *****************************************************/
+  describe("requiredInBody()", () => {
+
+    it("should call next with property that exists in req.body", (done) => {
+
+      spyOn(fakeObj, 'fakeNext');
+
+      for(let x = 0; x < valuesThatExist.length; x++) {
+        mockRequest.body.name = valuesThatExist[x];
+        const validationFunction = validate.requiredInBody('name');
+        validationFunction(mockRequest, mockResponse, fakeObj.fakeNext);
+        expect(fakeObj.fakeNext).toHaveBeenCalledTimes((x + 1));
+      }
+
+      done();
+    });
+
+    it("should handle error with property that does not exist in req.body", (done) => {
+
+      spyOn(responseHelper, 'respond');
+
+      for(let x = 0; x < valuesThatDontExist.length; x++) {
+        mockRequest.body.name = valuesThatDontExist[x];
+        const validationFunction = validate.requiredInBody('name');
+        validationFunction(mockRequest, mockResponse, fakeObj.fakeNext);
+        expect(responseHelper.respond).toHaveBeenCalledWith(400, mockResponse, `Error: name is required in request body`);
+        responseHelper.respond.calls.reset();
+      }
+
+      done();
+    });
+  });
+
+  /******************************************************
+   * requiredInParams()
+   *****************************************************/
+  describe("requiredInParams()", () => {
+    it("should call next with property that exists in req.params", (done) => {
+
+      spyOn(fakeObj, 'fakeNext');
+
+      for(let x = 0; x < valuesThatExist.length; x++) {
+        mockRequest.params.name = valuesThatExist[x];
+        const validationFunction = validate.requiredInParams('name');
+        validationFunction(mockRequest, mockResponse, fakeObj.fakeNext);
+        expect(fakeObj.fakeNext).toHaveBeenCalledTimes((x + 1));
+      }
+
+      done();
+    });
+
+    it("should handle error with property that does not exist in req.params", (done) => {
+
+      spyOn(responseHelper, 'respond');
+
+      for(let x = 0; x < valuesThatDontExist.length; x++) {
+        mockRequest.params.name = valuesThatDontExist[x];
+        const validationFunction = validate.requiredInParams('name');
+        validationFunction(mockRequest, mockResponse, fakeObj.fakeNext);
+        expect(responseHelper.respond).toHaveBeenCalledWith(400, mockResponse, `Error: name is required in request params`);
+        responseHelper.respond.calls.reset();
+      }
+
+      done();
+    });
+  });
 });

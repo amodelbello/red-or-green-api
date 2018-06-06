@@ -43,7 +43,7 @@ const fetchBusiness = (req, res) => {
     });
   })
   .catch(e => {
-    throw e.message;
+    throw e;
   })
   ;
 }

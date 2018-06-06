@@ -7,7 +7,8 @@ const businessSchema = new mongoose.Schema({
     required: true,
   },
   address: {
-    type: addressSchema
+    type: addressSchema,
+    required: true,
   },
   rating: {
     type: Number,
