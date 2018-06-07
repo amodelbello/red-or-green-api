@@ -20,6 +20,8 @@ const valuesThatExist = [
   false,
   true,
   '',
+  {},
+  { "field": "value" },
 ];
 
 const valuesThatDontExist = [
@@ -71,8 +73,8 @@ describe("Validation Middleware", () => {
       spyOn(responseHelper, 'respond');
 
       const validationFunction = validate.hasValidObjectId('businessId');
-      validationFunction(mockRequest, mockResponse, ()=>{});
-      expect(responseHelper.respond).toHaveBeenCalledWith(400, mockResponse, 'Error: invalid objectId');
+      validationFunction(mockRequest, mockResponse, fakeObj.fakeNext);
+      expect(responseHelper.respond).toHaveBeenCalledWith(400, mockResponse, 'Error: invalid businessId');
       done();
     });
   });

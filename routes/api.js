@@ -14,6 +14,10 @@ router
     businessesController.fetchBusinesses)
   .post(
     responseMiddleware.addCallingMethodToResponse('addBusiness'),
+    validate.requiredInBody('name'),
+    validate.requiredInBody('address'),
+    validate.requiredInBody('address.street'),
+    validate.requiredInBody('address.city'),
     businessesController.addBusiness)
   ;
 router

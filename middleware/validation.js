@@ -9,14 +9,14 @@ const hasValidObjectId = (idField) => {
     if (mongoose.Types.ObjectId.isValid(req.params[idField])) {
       next();
     } else {
-      responseHelper.respond(400, res, 'Error: invalid objectId');
+      responseHelper.respond(400, res, `Error: invalid ${idField}`);
     }
   };
 };
 
 const requiredInBody = (field) => {
   return (req, res, next) => {
-    if (propertyExists(req.body[field])) {
+    if (propertyExists(getParsedFieldFromRequest(field, req))) {
       next();
     } else {
       responseHelper.respond(400, res, `Error: ${field} is required in request body`);
@@ -43,7 +43,21 @@ const propertyExists = (property) => {
   } else {
     return false;
   }
-}
+};
+
+const parseField = (field) => {
+  return field.split('.');
+};
+
+const getParsedFieldFromRequest = (fieldString, req) => {
+  let value = req.body;
+  const fieldArray = fieldString.split('.');
+  for (let field of fieldArray) {
+    value = value[field];
+  }
+
+  return value;
+};
 
 module.exports = {
   hasValidObjectId,
