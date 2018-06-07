@@ -10,6 +10,7 @@ const hasValidObjectId = (idField) => {
       next();
     } else {
       responseHelper.respond(400, res, `Error: invalid ${idField}`);
+      return;
     }
   };
 };
@@ -20,6 +21,7 @@ const requiredInBody = (field) => {
       next();
     } else {
       responseHelper.respond(400, res, `Error: ${field} is required in request body`);
+      return;
     }
   };
 };
@@ -30,6 +32,7 @@ const requiredInParams = (field) => {
       next();
     } else {
       responseHelper.respond(400, res, `Error: ${field} is required in request params`);
+      return;
     }
   };
 };
@@ -83,6 +86,7 @@ const isNumberOrNull = (field) => {
       next();
     } else {
       responseHelper.respond(400, res, `Error: ${field} must be a number`);
+      return;
     }
   };
 }
@@ -96,6 +100,7 @@ const numberIsWithinRangeOrNull = (field, start, end) => {
       next();
     } else {
       responseHelper.respond(400, res, `Error: ${field} not within range of ${start}-${end}`);
+      return;
     }
   }
 }

@@ -20,6 +20,7 @@ const fetchBusinesses = (req, res) => {
   })
   .catch(e => {
     responseHelper.respond(500, res, e.message);
+    return;
   });
 }
 
@@ -46,6 +47,7 @@ const fetchBusiness = (req, res) => {
   })
   .catch(e => {
     responseHelper.respond(500, res, e.message);
+    return;
   });
 }
 
@@ -69,6 +71,7 @@ const addBusiness = (req, res) => {
   })
   .catch(e => {
     responseHelper.respond(500, res, e.message);
+    return;
   });
 }
 
@@ -91,6 +94,7 @@ const updateBusiness = (req, res) => {
   })
   .catch(e => {
     responseHelper.respond(500, res, e.message);
+    return;
   });
 }
 
@@ -113,6 +117,7 @@ const deleteBusiness = (req, res) => {
   })
   .catch(e => {
     responseHelper.respond(500, res, e.message);
+    return;
   });
 }
 
