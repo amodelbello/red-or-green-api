@@ -55,14 +55,11 @@ describe("Businesses Controller", () => {
       });
     });
 
-    it("should handle error", (done) => {
+    it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
+      spyOn(responseHelper, 'respond');
       businessesController.fetchBusinesses(mockRequest, mockResponse).then(() => {
-        /* istanbul ignore next */
-        console.log('should not be here. was supposed to fail');
-      })
-      .catch((e) => {
-        expect(e.message).toContain('Error when attempting to fetch businesses');
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
         done();
       });
     });
@@ -98,14 +95,10 @@ describe("Businesses Controller", () => {
     });
 
     it("should handle unexpected error", (done) => {
-      spyOn(responseHelper, 'failure')
+      spyOn(responseHelper, 'respond')
       mockRequest.params.businessId = 1;
       businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
-        /* istanbul ignore next  */
-        console.log('should not be here. was supposed to fail');
-      })
-      .catch((e) => {
-        expect(responseHelper.failure).toHaveBeenCalled();
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
         done();
       });
     });
@@ -133,12 +126,10 @@ describe("Businesses Controller", () => {
 
     it("should handle error", (done) => {
       mockRequest.body = 'This is not valid input';
+      spyOn(responseHelper, 'respond')
+
       businessesController.addBusiness(mockRequest, mockResponse).then(() => {
-        /* istanbul ignore next */
-        console.log('should not be here. was supposed to fail');
-      })
-      .catch((e) => {
-        expect(e.message).toContain('Error when attempting to add business');
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
         done();
       });
     });
@@ -166,15 +157,13 @@ describe("Businesses Controller", () => {
       });
     });
 
-    it("should handle error on update", (done) => {
+    it("should handle error", (done) => {
       mockRequest.body = false;
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
+      spyOn(responseHelper, 'respond')
+
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
-        /* istanbul ignore next */
-        console.log('should not be here. was supposed to fail');
-      })
-      .catch((e) => {
-        expect(e.message).toContain('Error when attempting to update business');
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
         done();
       });
     });
@@ -202,12 +191,10 @@ describe("Businesses Controller", () => {
 
     it("should handle error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
+      spyOn(responseHelper, 'respond')
+
       businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
-        /* istanbul ignore next */
-        console.log('should not be here. was supposed to fail');
-      })
-      .catch((e) => {
-        expect(e.message).toContain('Error when attempting to delete business');
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
         done();
       });
     });

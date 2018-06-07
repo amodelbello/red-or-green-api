@@ -18,6 +18,9 @@ const fetchBusinesses = (req, res) => {
         return reject(new Error('Error when attempting to fetch businesses'));
       }
     });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
   });
 }
 
@@ -43,9 +46,8 @@ const fetchBusiness = (req, res) => {
     });
   })
   .catch(e => {
-    throw e;
-  })
-  ;
+    responseHelper.respond(500, res, e.message);
+  });
 }
 
 const addBusiness = (req, res) => {
@@ -65,6 +67,9 @@ const addBusiness = (req, res) => {
         return reject(new Error(`Error when attempting to add business: ${data}`));
       }
     });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
   });
 }
 
@@ -84,6 +89,9 @@ const updateBusiness = (req, res) => {
         return reject(new Error(`Error when attempting to update business: ${businessId}`));
       }
     });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
   });
 }
 
@@ -103,6 +111,9 @@ const deleteBusiness = (req, res) => {
         return reject(new Error(`Error when attempting to delete business: ${businessId}`));
       }
     });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
   });
 }
 
