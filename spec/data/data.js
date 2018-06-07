@@ -23,3 +23,15 @@ module.exports.fakeBusinessEdit =
   },
   "rating": 3,
 };
+
+module.exports.fakeCategory =
+{
+  "name": "Chile",
+  "description": "This is chile."
+};
+
+module.exports.fakeCategoryEdit =
+{
+  "name": "Chile2",
+  "description": "This is chile2."
+};

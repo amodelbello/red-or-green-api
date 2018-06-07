@@ -10,45 +10,43 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeBusiness = require('../data/data').fakeBusiness;
-const fakeBusinessEdit = require('../data/data').fakeBusinessEdit;
+const fakeCategory = require('../data/data').fakeCategory;
+const fakeCategoryEdit = require('../data/data').fakeCategoryEdit;
 
-const businessesController = require('../../controllers/businesses');
+const categoriesController = require('../../controllers/categories');
 const responseHelper = require('../../helpers/response');
 
 const mongoose = require('mongoose');
 const dbImporter = require('../data/import');
 
-describe("Businesses Controller", () => {
+describe("Categories Controller", () => {
 
   beforeEach((done) => {
     dbImporter.run().then(() => { done(); });
   });
 
   beforeEach(() => {
-    // app.request.app.set('env', 'test');
     server = app.listen(testPort); 
 
     mockRequest = httpMocks.createRequest({
       method: 'GET',
-      url: base_url + '/businesses'
+      url: base_url + '/categories'
     });
     mockResponse = httpMocks.createResponse();
     mockResponse.body = {};
   });
 
   afterEach(() => {
-    // app.request.app.set('env', 'development');
     server.close();
   });
 
   /******************************************************
-   * fetchBusinesses()
+   * fetchCategories()
    *****************************************************/
-  describe("fetchBusinesses()", () => {
+  describe("fetchCategories()", () => {
 
-    it("should fetch businesses successfully", (done) => {
-      businessesController.fetchBusinesses(mockRequest, mockResponse).then(() => {
+    it("should fetch categories successfully", (done) => {
+      categoriesController.fetchCategories(mockRequest, mockResponse).then(() => {
         done();
       });
     });
@@ -56,7 +54,7 @@ describe("Businesses Controller", () => {
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');
-      businessesController.fetchBusinesses(mockRequest, mockResponse).then(() => {
+      categoriesController.fetchCategories(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -64,21 +62,21 @@ describe("Businesses Controller", () => {
   });
 
   /******************************************************
-   * fetchBusiness()
+   * fetchCategory()
    *****************************************************/
-  describe("fetchBusiness()", () => {
+  describe("fetchCategory()", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
         method: 'GET',
-        url: `${base_url}/businesses`,
+        url: `${base_url}/categories`,
         params: {
-          businessId: dbImporter.validBusinessId
+          categoryId: dbImporter.validCategoryId
         }
       });
     });
 
-    it("should fetch business successfully", (done) => {
-      businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
+    it("should fetch category successfully", (done) => {
+      categoriesController.fetchCategory(mockRequest, mockResponse).then(() => {
         done();
       });
     });
@@ -86,7 +84,7 @@ describe("Businesses Controller", () => {
     it("should handle 404 error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'failure');
-      businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
+      categoriesController.fetchCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.failure).toHaveBeenCalled();
         done();
       });
@@ -94,8 +92,8 @@ describe("Businesses Controller", () => {
 
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'respond')
-      mockRequest.params.businessId = 1;
-      businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
+      mockRequest.params.categoryId = 1;
+      categoriesController.fetchCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -103,21 +101,21 @@ describe("Businesses Controller", () => {
   });
 
   /******************************************************
-   * addBusiness()
+   * addCategory()
    *****************************************************/
-  describe("addBusiness()", () => {
+  describe("addCategory()", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
         method: 'POST',
-        url: base_url + '/businesses',
+        url: base_url + '/categories',
       });
       mockResponse = httpMocks.createResponse();
       mockResponse.body = {};
     });
 
-    it("should add business successfully", (done) => {
-      mockRequest.body = fakeBusiness;
-      businessesController.addBusiness(mockRequest, mockResponse).then(() => {
+    it("should add category successfully", (done) => {
+      mockRequest.body = fakeCategory;
+      categoriesController.addCategory(mockRequest, mockResponse).then(() => {
         done();
       });
     });
@@ -126,7 +124,7 @@ describe("Businesses Controller", () => {
       mockRequest.body = 'This is not valid input';
       spyOn(responseHelper, 'respond')
 
-      businessesController.addBusiness(mockRequest, mockResponse).then(() => {
+      categoriesController.addCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -134,23 +132,23 @@ describe("Businesses Controller", () => {
   });
 
   /******************************************************
-   * updateBusiness()
+   * updateCategory()
    *****************************************************/
-  describe("updateBusiness()", () => {
+  describe("updateCategory()", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
-        url: `${base_url}/businesses`,
+        url: `${base_url}/categories`,
         params: {
-          businessId: dbImporter.validBusinessId
+          categoryId: dbImporter.validObjectId
         }
       });
       mockResponse = httpMocks.createResponse();
       mockResponse.body = {};
     });
 
-    it("should update business successfully", (done) => {
+    it("should update category successfully", (done) => {
       mockRequest.body = dbImporter.validObjectId;
-      businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
+      categoriesController.updateCategory(mockRequest, mockResponse).then(() => {
         done();
       });
     });
@@ -160,7 +158,7 @@ describe("Businesses Controller", () => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond')
 
-      businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
+      categoriesController.updateCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -168,21 +166,21 @@ describe("Businesses Controller", () => {
   });
 
   /******************************************************
-   * deleteBusiness()
+   * deleteCategory()
    *****************************************************/
-  describe("deleteBusiness()", () => {
+  describe("deleteCategory()", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
         method: 'DELETE',
-        url: `${base_url}/businesses`,
+        url: `${base_url}/categories`,
         params: {
-          businessId: dbImporter.validObjectId
+          categoryId: dbImporter.validObjectId
         }
       });
     });
 
-    it("should delete business successfully", (done) => {
-      businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
+    it("should delete category successfully", (done) => {
+      categoriesController.deleteCategory(mockRequest, mockResponse).then(() => {
         done();
       });
     });
@@ -191,7 +189,7 @@ describe("Businesses Controller", () => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond')
 
-      businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
+      categoriesController.deleteCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });

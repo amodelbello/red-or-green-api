@@ -1,16 +1,20 @@
 const mongoose = require('mongoose');
 const businessesImporter = require('./importBusinesses');
+const categoriesImporter = require('./importCategories');
 
 const run = async () => {
   try {
     await mongoose.connection.dropDatabase()
     await businessesImporter.run();
+    await categoriesImporter.run();
   } catch(e) {
     console.log(e);
   }
 };
 
-module.exports.validObjectId = '5b14b27d3450501de43d2f98';
+module.exports.validObjectId = '4b14b27d3450501de43d2f98';
+module.exports.validBusinessId = '5b14b27d3450501de43d2f98';
+module.exports.validCategoryId = '5b19b39652e70a499c889123';
 module.exports.valuesThatExist = [
   'hello',
   1233,
