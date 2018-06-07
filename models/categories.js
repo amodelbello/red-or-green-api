@@ -9,3 +9,5 @@ const schema = new mongoose.Schema({
     type: String,
   },
 });
+
+mongoose.model('Category', schema);

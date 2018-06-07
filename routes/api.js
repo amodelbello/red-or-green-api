@@ -54,7 +54,7 @@ router
     categoriesController.addCategory)
   ;
 router
-  .route('/categories/:businessId')
+  .route('/categories/:categoryId')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchCategory'),
     categoriesController.fetchCategory)

@@ -23,7 +23,7 @@ describe("Validation Middleware", () => {
       method: 'GET',
       url: `${base_url}/businesses`,
       params: {
-        businessId: dbImporter.validBusinessId
+        businessId: dbImporter.validObjectId
       }
     });
     mockResponse = httpMocks.createResponse();
@@ -137,7 +137,7 @@ describe("Validation Middleware", () => {
         method: 'GET',
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.validBusinessId
+          businessId: dbImporter.validObjectId
         }
       });
       mockResponse = httpMocks.createResponse();

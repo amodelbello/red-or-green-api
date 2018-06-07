@@ -10,7 +10,7 @@ const run = async () => {
   }
 };
 
-module.exports.validBusinessId = '5b14b27d3450501de43d2f98';
+module.exports.validObjectId = '5b14b27d3450501de43d2f98';
 module.exports.valuesThatExist = [
   'hello',
   1233,

@@ -74,7 +74,7 @@ describe("Businesses Controller", () => {
         method: 'GET',
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.validBusinessId
+          businessId: dbImporter.validObjectId
         }
       });
     });
@@ -143,7 +143,7 @@ describe("Businesses Controller", () => {
       mockRequest = httpMocks.createRequest({
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.validBusinessId
+          businessId: dbImporter.validObjectId
         }
       });
       mockResponse = httpMocks.createResponse();
@@ -151,7 +151,7 @@ describe("Businesses Controller", () => {
     });
 
     it("should update business successfully", (done) => {
-      mockRequest.body = dbImporter.validBusinessId;
+      mockRequest.body = dbImporter.validObjectId;
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
         done();
       });
@@ -178,7 +178,7 @@ describe("Businesses Controller", () => {
         method: 'DELETE',
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.validBusinessId
+          businessId: dbImporter.validObjectId
         }
       });
     });

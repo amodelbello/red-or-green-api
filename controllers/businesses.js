@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Business = mongoose.model('Business');
-
 const responseHelper = require('../helpers/response');
 
 const fetchBusinesses = (req, res) => {
