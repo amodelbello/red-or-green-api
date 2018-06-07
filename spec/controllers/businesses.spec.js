@@ -59,7 +59,7 @@ describe("Businesses Controller", () => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');
       businessesController.fetchBusinesses(mockRequest, mockResponse).then(() => {
-        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
     });
@@ -74,7 +74,7 @@ describe("Businesses Controller", () => {
         method: 'GET',
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.fakeBusinessId
+          businessId: dbImporter.validBusinessId
         }
       });
     });
@@ -98,7 +98,7 @@ describe("Businesses Controller", () => {
       spyOn(responseHelper, 'respond')
       mockRequest.params.businessId = 1;
       businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
-        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
     });
@@ -129,7 +129,7 @@ describe("Businesses Controller", () => {
       spyOn(responseHelper, 'respond')
 
       businessesController.addBusiness(mockRequest, mockResponse).then(() => {
-        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
     });
@@ -143,7 +143,7 @@ describe("Businesses Controller", () => {
       mockRequest = httpMocks.createRequest({
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.fakeBusinessId
+          businessId: dbImporter.validBusinessId
         }
       });
       mockResponse = httpMocks.createResponse();
@@ -151,7 +151,7 @@ describe("Businesses Controller", () => {
     });
 
     it("should update business successfully", (done) => {
-      mockRequest.body = dbImporter.fakeBusinessId;
+      mockRequest.body = dbImporter.validBusinessId;
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
         done();
       });
@@ -163,7 +163,7 @@ describe("Businesses Controller", () => {
       spyOn(responseHelper, 'respond')
 
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
-        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
     });
@@ -178,7 +178,7 @@ describe("Businesses Controller", () => {
         method: 'DELETE',
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.fakeBusinessId
+          businessId: dbImporter.validBusinessId
         }
       });
     });
@@ -194,7 +194,7 @@ describe("Businesses Controller", () => {
       spyOn(responseHelper, 'respond')
 
       businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
-        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500)
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
     });

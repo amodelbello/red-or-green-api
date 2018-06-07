@@ -15,9 +15,9 @@ router
   .post(
     responseMiddleware.addCallingMethodToResponse('addBusiness'),
     validate.requiredInBody('name'),
-    validate.requiredInBody('address'),
-    validate.requiredInBody('address.street'),
-    validate.requiredInBody('address.city'),
+    validate.isNumberOrNull('rating'),
+    validate.numberIsWithinRangeOrNull('rating', 0, 5),
+    validate.hasValidAddress,
     businessesController.addBusiness)
   ;
 router
@@ -28,9 +28,15 @@ router
     businessesController.fetchBusiness)
   .put(
     responseMiddleware.addCallingMethodToResponse('updateBusiness'),
+    validate.hasValidObjectId('businessId'),
+    validate.requiredInBody('name'),
+    validate.isNumberOrNull('rating'),
+    validate.numberIsWithinRangeOrNull('rating', 0, 5),
+    validate.hasValidAddress,
     businessesController.updateBusiness)
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteBusiness'),
+    validate.hasValidObjectId('businessId'),
     businessesController.deleteBusiness)
   ;
 

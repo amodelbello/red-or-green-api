@@ -45,7 +45,7 @@ describe("API Routes", () => {
     });
 
     it("Calls GET /businesses/:businessId", (done) => {
-      request.get(`${base_url}/businesses/${dbImporter.fakeBusinessId}`, (err, res, body) => {
+      request.get(`${base_url}/businesses/${dbImporter.validBusinessId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('fetchBusiness');
         done();
       });
@@ -61,7 +61,7 @@ describe("API Routes", () => {
 
     it("Calls PUT /businesses/:businessId", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.put(`${base_url}/businesses/${dbImporter.fakeBusinessId}`, (err, res, body) => {
+      request.put(`${base_url}/businesses/${dbImporter.validBusinessId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateBusiness');
         done();
       });
@@ -69,7 +69,7 @@ describe("API Routes", () => {
 
     it("Calls DELETE /businesses/:businessId", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.delete(`${base_url}/businesses/${dbImporter.fakeBusinessId}`, (err, res, body) => {
+      request.delete(`${base_url}/businesses/${dbImporter.validBusinessId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteBusiness');
         done();
       });
