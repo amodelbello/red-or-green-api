@@ -6,7 +6,8 @@ const responseHelper = require('../helpers/response');
 const hasValidObjectId = (idField) => {
 
   return (req, res, next) => {
-    if (mongoose.Types.ObjectId.isValid(req.params[idField])) {
+    const value = getPropertyFromRequest(idField, req);
+    if (mongoose.Types.ObjectId.isValid(value)) {
       next();
     } else {
       responseHelper.respond(400, res, `Error: invalid ${idField}`);

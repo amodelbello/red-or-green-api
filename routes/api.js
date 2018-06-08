@@ -82,17 +82,24 @@ router
     ratingsController.fetchRatings)
   .post(
     responseMiddleware.addCallingMethodToResponse('addRating'),
+    validate.hasValidObjectId('businessId'),
+    validate.hasValidObjectId('categoryId'),
     ratingsController.addRating)
   ;
 router
   .route('/ratings/:ratingId')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchRating'),
+    validate.hasValidObjectId('ratingId'),
     ratingsController.fetchRating)
   .put(
     responseMiddleware.addCallingMethodToResponse('updateRating'),
+    validate.hasValidObjectId('ratingId'),
+    validate.hasValidObjectId('businessId'),
+    validate.hasValidObjectId('categoryId'),
     ratingsController.updateRating)
   .delete(
+    validate.hasValidObjectId('ratingId'),
     responseMiddleware.addCallingMethodToResponse('deleteRating'),
     ratingsController.deleteRating)
   ;
