@@ -51,18 +51,23 @@ router
     categoriesController.fetchCategories)
   .post(
     responseMiddleware.addCallingMethodToResponse('addCategory'),
+    validate.requiredInBody('name'),
     categoriesController.addCategory)
   ;
 router
   .route('/categories/:categoryId')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchCategory'),
+    validate.hasValidObjectId('categoryId'),
     categoriesController.fetchCategory)
   .put(
     responseMiddleware.addCallingMethodToResponse('updateCategory'),
+    validate.hasValidObjectId('categoryId'),
+    validate.requiredInBody('name'),
     categoriesController.updateCategory)
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteCategory'),
+    validate.hasValidObjectId('categoryId'),
     categoriesController.deleteCategory)
   ;
 

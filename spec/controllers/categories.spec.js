@@ -139,7 +139,7 @@ describe("Categories Controller", () => {
       mockRequest = httpMocks.createRequest({
         url: `${base_url}/categories`,
         params: {
-          categoryId: dbImporter.validObjectId
+          categoryId: dbImporter.validCategoryId
         }
       });
       mockResponse = httpMocks.createResponse();
@@ -147,7 +147,7 @@ describe("Categories Controller", () => {
     });
 
     it("should update category successfully", (done) => {
-      mockRequest.body = dbImporter.validObjectId;
+      mockRequest.body = fakeCategoryEdit;
       categoriesController.updateCategory(mockRequest, mockResponse).then(() => {
         done();
       });
