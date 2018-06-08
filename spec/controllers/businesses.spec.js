@@ -150,7 +150,6 @@ describe("Businesses Controller", () => {
     });
 
     it("should update business successfully", (done) => {
-      // TODO: need to revisit why this passes with no body
       mockRequest.body = testData.fakeBusinessEdit;
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
         done();

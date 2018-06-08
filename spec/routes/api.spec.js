@@ -22,13 +22,11 @@ describe("API Routes", () => {
 
   beforeEach(() => {
     app.request.app.set('env', 'test');
-    process.env.NODE_ENV = 'test';
     server = app.listen(testPort); 
   });
 
   afterEach(() => {
     app.request.app.set('env', 'development');
-    process.env.NODE_ENV = 'development';
     server.close();
   });
 
@@ -139,36 +137,47 @@ describe("API Routes", () => {
    *****************************************************/
   describe("Ratings Routes", () => {
     it("Calls GET /ratings", (done) => {
-      request.get(base_url + '/ratings', (err, res, body) => {
+      request.get(`${base_url}/ratings`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('fetchRatings');
         done();
       });
     });
 
     it("Calls GET /ratings/:ratingId", (done) => {
-      request.get(base_url + '/ratings/1234', (err, res, body) => {
+      request.get(`${base_url}/ratings/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('fetchRating');
         done();
       });
     });
 
     it("Calls POST /ratings", (done) => {
-      request.post(base_url + '/ratings', (err, res, body) => {
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
+      request.post(`${base_url}/ratings`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('addRating');
         done();
       });
     });
 
     it("Calls PUT /ratings/:ratingId", (done) => {
-      request.put(base_url + '/ratings/1234', (err, res, body) => {
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
+      request.put(`${base_url}/ratings/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateRating');
         done();
       });
     });
 
     it("Calls DELETE /ratings/:ratingId", (done) => {
-      request.delete(base_url + '/ratings/1234', (err, res, body) => {
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
+      request.delete(`${base_url}/ratings/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteRating');
+        done();
+      });
+    });
+
+    it("Calls GET /ratings is production mode", (done) => {
+      app.request.app.set('env', 'production');
+      request.get(`${base_url}/ratings`, (err, res, body) => {
+        expect(JSON.parse(body).callingMethod).toBeUndefined();
         done();
       });
     });

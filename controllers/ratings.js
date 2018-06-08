@@ -1,46 +1,124 @@
+const mongoose = require('mongoose');
+const Rating = mongoose.model('Rating');
+const responseHelper = require('../helpers/response');
+
 const fetchRatings = (req, res) => {
 
-  res.body.data = 'GET /ratings fetchRatings()';
+  return new Promise((resolve, reject) => {
+    Rating.find()
+    .exec((err, ratings) => {
 
-  res
-    .status(200)
-    .json(res.body);
-}
+      if (responseHelper.successfulRequest(err, ratings)) {
+        responseHelper.success(res, ratings);
+        return resolve();
 
-const addRating = (req, res) => {
-
-  res.body.data = 'POST /ratings addRating()';
-
-  res
-    .status(201)
-    .json(res.body);
+      } else {
+        responseHelper.failure(err, res, ratings);
+        return reject(new Error('Error when attempting to fetch ratings'));
+      }
+    });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
+    return;
+  });
 }
 
 const fetchRating = (req, res) => {
 
-  res.body.data = 'GET /ratings/:ratingId fetchRating()';
+  const ratingId = req.params.ratingId;
 
-  res
-    .status(200)
-    .json(res.body);
+  return new Promise((resolve, reject) => {
+    Rating.findById(ratingId)
+    .exec((err, rating) => {
+
+      if (responseHelper.successfulRequest(err, rating)) {
+        responseHelper.success(res, rating);
+
+      } else {
+        responseHelper.failure(err, res, rating);
+        if (err !== null) {
+          return reject(new Error(`Error when attempting to fetch rating: ${ratingId}: ${err.message}`));
+        }
+      }
+
+      return resolve();
+    });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
+    return;
+  });
+}
+
+const addRating = (req, res) => {
+
+  const data = req.body;
+  data.created = new Date();
+  data.updated = new Date();
+
+  return new Promise((resolve, reject) => {
+    Rating.create(data, (err, rating) => {
+      if (responseHelper.successfulRequest(err, rating)) {
+        responseHelper.success(res, rating);
+        return resolve();
+
+      } else {
+        responseHelper.failure(err, res, rating);
+        return reject(new Error(`Error when attempting to add rating: ${data}`));
+      }
+    });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
+    return;
+  });
 }
 
 const updateRating = (req, res) => {
 
-  res.body.data = 'PUT /ratings/:ratingId updateRating()';
+  const ratingId = req.params.ratingId;
+  req.body.updated = new Date();
 
-  res
-    .status(200)
-    .json(res.body);
+  return new Promise((resolve, reject) => {
+    Rating.findByIdAndUpdate(ratingId, req.body, { new: true }, (err, rating) => {
+      if (responseHelper.successfulRequest(err, rating)) {
+        responseHelper.success(res, rating);
+        return resolve();
+
+      } else {
+        responseHelper.failure(err, res, rating);
+        return reject(new Error(`Error when attempting to update rating: ${ratingId}`));
+      }
+    });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
+    return;
+  });
 }
 
 const deleteRating = (req, res) => {
 
-  res.body.data = 'DELETE /ratings/:ratingId deleteRating()';
+  const ratingId = req.params.ratingId;
 
-  res
-    .status(200)
-    .json(res.body);
+  return new Promise((resolve, reject) => {
+    Rating.findByIdAndRemove(ratingId)
+    .exec((err, rating) => {
+      if (responseHelper.successfulRequest(err, rating)) {
+        responseHelper.success(res, rating);
+        return resolve();
+
+      } else {
+        responseHelper.failure(err, res, rating);
+        return reject(new Error(`Error when attempting to delete rating: ${ratingId}`));
+      }
+    });
+  })
+  .catch(e => {
+    responseHelper.respond(500, res, e.message);
+    return;
+  });
 }
 
 module.exports = {

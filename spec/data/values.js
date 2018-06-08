@@ -79,3 +79,17 @@ module.exports.fakeCategoryEdit =
   "name": "Chile2",
   "description": "This is chile2."
 };
+
+module.exports.fakeRating =
+{
+  "businessId": "1b176acb1f80de5885a7e96c",
+  "categoryId": "2b176acb1f80de5885a7e96c",
+  "comments": "These are the comments of the rating"
+}
+
+module.exports.fakeRatingEdit =
+{
+  "businessId": "1b176acb1f80de5885a7e96c",
+  "categoryId": "2b176acb1f80de5885a7e96c",
+  "comments": "These are the comments of the rating edited"
+}
