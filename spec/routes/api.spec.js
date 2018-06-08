@@ -12,8 +12,7 @@ const ratingsController = require('../../controllers/ratings');
 const responseHelper = require('../../helpers/response');
 
 const dbImporter = require('../data/import');
-const fakeObjectId = '5b175ac99eee34409aa6ea7e';
-const fakeObjectIdToDelete = '5b175a76d6b6dc3fe376ae93';
+const testData = require('../data/values');
 
 describe("API Routes", () => {
 
@@ -45,7 +44,7 @@ describe("API Routes", () => {
     });
 
     it("Calls GET /businesses/:businessId", (done) => {
-      request.get(`${base_url}/businesses/${dbImporter.validObjectId}`, (err, res, body) => {
+      request.get(`${base_url}/businesses/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('fetchBusiness');
         done();
       });
@@ -61,7 +60,7 @@ describe("API Routes", () => {
 
     it("Calls PUT /businesses/:businessId", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.put(`${base_url}/businesses/${dbImporter.validObjectId}`, (err, res, body) => {
+      request.put(`${base_url}/businesses/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateBusiness');
         done();
       });
@@ -69,7 +68,7 @@ describe("API Routes", () => {
 
     it("Calls DELETE /businesses/:businessId", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.delete(`${base_url}/businesses/${dbImporter.validObjectId}`, (err, res, body) => {
+      request.delete(`${base_url}/businesses/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteBusiness');
         done();
       });
@@ -96,7 +95,7 @@ describe("API Routes", () => {
     });
 
     it("Calls GET /categories/:categoryId", (done) => {
-      request.get(`${base_url}/categories/${dbImporter.validObjectId}`, (err, res, body) => {
+      request.get(`${base_url}/categories/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('fetchCategory');
         done();
       });
@@ -112,7 +111,7 @@ describe("API Routes", () => {
 
     it("Calls PUT /categories/:categoryId", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.put(`${base_url}/categories/${dbImporter.validObjectId}`, (err, res, body) => {
+      request.put(`${base_url}/categories/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateCategory');
         done();
       });
@@ -120,7 +119,7 @@ describe("API Routes", () => {
 
     it("Calls DELETE /categories/:categoryId", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.delete(`${base_url}/categories/${dbImporter.validObjectId}`, (err, res, body) => {
+      request.delete(`${base_url}/categories/${testData.validObjectId}`, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteCategory');
         done();
       });

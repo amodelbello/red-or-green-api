@@ -10,14 +10,15 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeBusiness = require('../data/data').fakeBusiness;
-const fakeBusinessEdit = require('../data/data').fakeBusinessEdit;
+const fakeBusiness = require('../data/values').fakeBusiness;
+const fakeBusinessEdit = require('../data/values').fakeBusinessEdit;
 
 const businessesController = require('../../controllers/businesses');
 const responseHelper = require('../../helpers/response');
 
 const mongoose = require('mongoose');
 const dbImporter = require('../data/import');
+const testData = require('../data/values');
 
 describe("Businesses Controller", () => {
 
@@ -72,7 +73,7 @@ describe("Businesses Controller", () => {
         method: 'GET',
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.validBusinessId
+          businessId: testData.validBusinessId
         }
       });
     });
@@ -141,7 +142,7 @@ describe("Businesses Controller", () => {
       mockRequest = httpMocks.createRequest({
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.validBusinessId
+          businessId: testData.validBusinessId
         }
       });
       mockResponse = httpMocks.createResponse();
@@ -149,7 +150,8 @@ describe("Businesses Controller", () => {
     });
 
     it("should update business successfully", (done) => {
-      mockRequest.body = dbImporter.validObjectId;
+      // TODO: need to revisit why this passes with no body
+      mockRequest.body = testData.fakeBusinessEdit;
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
         done();
       });
@@ -176,7 +178,7 @@ describe("Businesses Controller", () => {
         method: 'DELETE',
         url: `${base_url}/businesses`,
         params: {
-          businessId: dbImporter.validObjectId
+          businessId: testData.validBusinessId
         }
       });
     });

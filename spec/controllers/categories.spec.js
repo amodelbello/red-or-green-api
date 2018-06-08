@@ -10,14 +10,15 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeCategory = require('../data/data').fakeCategory;
-const fakeCategoryEdit = require('../data/data').fakeCategoryEdit;
+const fakeCategory = require('../data/values').fakeCategory;
+const fakeCategoryEdit = require('../data/values').fakeCategoryEdit;
 
 const categoriesController = require('../../controllers/categories');
 const responseHelper = require('../../helpers/response');
 
 const mongoose = require('mongoose');
 const dbImporter = require('../data/import');
+const testData = require('../data/values');
 
 describe("Categories Controller", () => {
 
@@ -70,7 +71,7 @@ describe("Categories Controller", () => {
         method: 'GET',
         url: `${base_url}/categories`,
         params: {
-          categoryId: dbImporter.validCategoryId
+          categoryId: testData.validCategoryId
         }
       });
     });
@@ -139,7 +140,7 @@ describe("Categories Controller", () => {
       mockRequest = httpMocks.createRequest({
         url: `${base_url}/categories`,
         params: {
-          categoryId: dbImporter.validCategoryId
+          categoryId: testData.validCategoryId
         }
       });
       mockResponse = httpMocks.createResponse();
@@ -174,7 +175,7 @@ describe("Categories Controller", () => {
         method: 'DELETE',
         url: `${base_url}/categories`,
         params: {
-          categoryId: dbImporter.validObjectId
+          categoryId: testData.validCategoryId
         }
       });
     });
