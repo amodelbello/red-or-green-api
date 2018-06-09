@@ -8,6 +8,7 @@ passport.use(new LocalStrategy({
   },
   function(username, password, done) {
     User.findOne({ email: username }, (err, user) => {
+      /* istanbul ignore if */
       if (err) { return done(err); }
 
       if (!user) {

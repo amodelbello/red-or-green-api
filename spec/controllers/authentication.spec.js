@@ -12,6 +12,8 @@ let mockResponse;
 
 const fakeUser = require('../data/values').fakeUser;
 const fakeUserCredentials = require('../data/values').fakeUserCredentials;
+const fakeUserCredentialsInvalidUsername = require('../data/values').fakeUserCredentialsInvalidUsername;
+const fakeUserCredentialsInvalidPassword = require('../data/values').fakeUserCredentialsInvalidPassword
 
 const authenticationController = require('../../controllers/authentication');
 const responseHelper = require('../../helpers/response');
@@ -28,6 +30,8 @@ describe("Authentication Controller", () => {
 
   beforeEach(() => {
     server = app.listen(testPort); 
+    mockResponse = httpMocks.createResponse();
+    mockResponse.body = {};
   });
 
   afterEach(() => {
@@ -44,8 +48,6 @@ describe("Authentication Controller", () => {
         method: 'POST',
         url: base_url + '/register'
       });
-      mockResponse = httpMocks.createResponse();
-      mockResponse.body = {};
     });
 
     it("should register a new user successfully", (done) => {
@@ -78,8 +80,6 @@ describe("Authentication Controller", () => {
         method: 'POST',
         url: base_url + '/login'
       });
-      mockResponse = httpMocks.createResponse();
-      mockResponse.body = {};
     });
 
     it("should log in successfully", (done) => {
@@ -91,17 +91,25 @@ describe("Authentication Controller", () => {
       });
     });
 
-    it("should not log in with invalid credentials", (done) => {
+    it("should not log in with invalid username", (done) => {
       spyOn(responseHelper, 'respond');
-      mockRequest.body = fakeUserCredentials;
-      mockRequest.body.password = 'no';
+      mockRequest.body = fakeUserCredentialsInvalidUsername;
       authenticationController.login(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(401);
         done();
       });
     });
 
-    it("should handle error", (done) => {
+    it("should not log in with invalid password", (done) => {
+      spyOn(responseHelper, 'respond');
+      mockRequest.body = fakeUserCredentialsInvalidPassword;
+      authenticationController.login(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(401);
+        done();
+      });
+    });
+
+    it("should not log in with malformed credentials", (done) => {
       mockRequest.body = 'This is not valid input';
       spyOn(responseHelper, 'respond')
 

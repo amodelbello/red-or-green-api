@@ -99,3 +99,13 @@ module.exports.fakeUserCredentials = {
   "email": "11zamodelbello@lalala.com",
   "password": "password1"
 }
+
+module.exports.fakeUserCredentialsInvalidUsername = {
+  "email": "xxx11zamodelbello@lalala.com",
+  "password": "no"
+}
+
+module.exports.fakeUserCredentialsInvalidPassword = {
+  "email": "11zamodelbello@lalala.com",
+  "password": "no"
+}

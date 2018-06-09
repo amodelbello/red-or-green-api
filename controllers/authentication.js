@@ -15,6 +15,7 @@ const register = (req, res) => {
     user.save((err) => {
       let token;
 
+      /* istanbul ignore if */
       if (err) {
         return reject(new Error(`Error when attempting to register user: ${err.message}`));
 
@@ -38,6 +39,7 @@ const login = (req, res) => {
     passport.authenticate('local', (err, user, info) => {
       let token;
 
+      /* istanbul ignore if */
       if (err) {
         return reject(new Error(`Error when attempting to log in user: ${err.message}`));
       } 
@@ -54,7 +56,9 @@ const login = (req, res) => {
     })(req, res);
   })
   .catch(e => {
-    responseHelper.respond(500, res, e.message);
+    /* istanbul ignore next */
+    responseHelper.respond(500, res, e.message); 
+    /* istanbul ignore next */
     return;
   });
 }
