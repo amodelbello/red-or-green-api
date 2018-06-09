@@ -43,8 +43,7 @@ module.exports.validAddress = () => {
   }
 };
 module.exports.next = ()=>{};
-module.exports.fakeBusiness = 
-{
+module.exports.fakeBusiness = {
   "name": "Tomasita's",
   "address": {
     "street": "500 S Guadalupe St",
@@ -56,8 +55,7 @@ module.exports.fakeBusiness =
   "rating": 4
 };
 
-module.exports.fakeBusinessEdit = 
-{
+module.exports.fakeBusinessEdit = {
   "name": "Tomasita's2",
   "address": {
     "street": "501 N Buadalupe St",
@@ -69,28 +67,35 @@ module.exports.fakeBusinessEdit =
   "rating": 3,
 };
 
-module.exports.fakeCategory =
-{
+module.exports.fakeCategory = {
   "name": "Chile",
   "description": "This is chile."
 };
 
-module.exports.fakeCategoryEdit =
-{
+module.exports.fakeCategoryEdit = {
   "name": "Chile2",
   "description": "This is chile2."
 };
 
-module.exports.fakeRating =
-{
+module.exports.fakeRating = {
   "businessId": "1b176acb1f80de5885a7e96c",
   "categoryId": "2b176acb1f80de5885a7e96c",
   "comments": "These are the comments of the rating"
 }
 
-module.exports.fakeRatingEdit =
-{
+module.exports.fakeRatingEdit = {
   "businessId": "1b176acb1f80de5885a7e96c",
   "categoryId": "2b176acb1f80de5885a7e96c",
   "comments": "These are the comments of the rating edited"
+}
+
+module.exports.fakeUser = {
+	"username": "amodel2",
+	"email": "amodel@lalala1.com",
+	"password": "password3"
+}
+
+module.exports.fakeUserCredentials = {
+  "email": "11zamodelbello@lalala.com",
+  "password": "password1"
 }

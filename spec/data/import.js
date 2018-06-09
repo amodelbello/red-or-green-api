@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const businessesImporter = require('./importBusinesses');
 const categoriesImporter = require('./importCategories');
 const ratingsImporter = require('./importRatings');
+const usersImporter = require('./importUsers');
 
 const run = async () => {
   try {
@@ -9,6 +10,7 @@ const run = async () => {
     await businessesImporter.run();
     await categoriesImporter.run();
     await ratingsImporter.run();
+    await usersImporter.run();
   } catch(e) {
     console.log(e);
   }

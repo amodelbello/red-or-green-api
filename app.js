@@ -1,3 +1,4 @@
+require('dotenv').load();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -5,7 +6,11 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const responseMiddleware = require('./middleware/response');
+
+const passport = require('passport');
+
 require('./models/db');
+require('./config/passport');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
@@ -35,9 +40,10 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 
-app.use(responseMiddleware.addBodyPropertyToResponse());
-
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(responseMiddleware.addBodyPropertyToResponse());
+app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);

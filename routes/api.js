@@ -104,4 +104,28 @@ router
     ratingsController.deleteRating)
   ;
 
+/****************************************
+ * Authentication Routes
+ ****************************************/
+const authenticationController = require('../controllers/authentication');
+router
+  .route('/register')
+  .post(
+    responseMiddleware.addCallingMethodToResponse('register'),
+    validate.requiredInBody('username'),
+    validate.requiredInBody('email'),
+    validate.requiredInBody('password'),
+    authenticationController.register
+  )
+  ;
+router
+  .route('/login')
+  .post(
+    responseMiddleware.addCallingMethodToResponse('login'),
+    validate.requiredInBody('email'),
+    validate.requiredInBody('password'),
+    authenticationController.login
+  )
+  ;
+
 module.exports = router;

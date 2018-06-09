@@ -44,3 +44,4 @@ const gracefulShutdown = (msg, cb) => {
 require('./businesses');
 require('./categories');
 require('./ratings');
+require('./users');
