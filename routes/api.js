@@ -89,7 +89,6 @@ router
     ratingsController.fetchRatings)
   .post(
     responseMiddleware.addCallingMethodToResponse('addRating'),
-    requestMiddleware.addUserToRequest(),
     validate.hasValidObjectId('userId'),
     validate.hasValidObjectId('businessId'),
     validate.hasValidObjectId('categoryId'),
