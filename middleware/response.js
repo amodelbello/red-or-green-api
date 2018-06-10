@@ -2,6 +2,7 @@ const express = require('express');
 const app = require('../app');
 
 const isDevOrTesting = (req) => {
+  // TODO: Should probably use process.env here
   return (req.app.get('env') === 'development' || req.app.get('env') === 'test');
 };
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const responseMiddleware = require('../middleware/response');
+const requestMiddleware = require('../middleware/request');
 const validate = require('../middleware/validation');
 const jwt = require('express-jwt');
 const auth = jwt({
@@ -88,6 +89,7 @@ router
     ratingsController.fetchRatings)
   .post(
     responseMiddleware.addCallingMethodToResponse('addRating'),
+    requestMiddleware.addUserToRequest(),
     validate.hasValidObjectId('userId'),
     validate.hasValidObjectId('businessId'),
     validate.hasValidObjectId('categoryId'),
