@@ -27,7 +27,6 @@ describe("Businesses Controller", () => {
   });
 
   beforeEach(() => {
-    // app.request.app.set('env', 'test');
     server = app.listen(testPort); 
 
     mockRequest = httpMocks.createRequest({
@@ -39,7 +38,6 @@ describe("Businesses Controller", () => {
   });
 
   afterEach(() => {
-    // app.request.app.set('env', 'development');
     server.close();
   });
 
@@ -49,7 +47,9 @@ describe("Businesses Controller", () => {
   describe("fetchBusinesses()", () => {
 
     it("should fetch businesses successfully", (done) => {
+      spyOn(responseHelper, 'success');
       businessesController.fetchBusinesses(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -79,7 +79,9 @@ describe("Businesses Controller", () => {
     });
 
     it("should fetch business successfully", (done) => {
+      spyOn(responseHelper, 'success');
       businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -117,8 +119,10 @@ describe("Businesses Controller", () => {
     });
 
     it("should add business successfully", (done) => {
+      spyOn(responseHelper, 'success');
       mockRequest.body = fakeBusiness;
       businessesController.addBusiness(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -150,8 +154,10 @@ describe("Businesses Controller", () => {
     });
 
     it("should update business successfully", (done) => {
+      spyOn(responseHelper, 'success');
       mockRequest.body = testData.fakeBusinessEdit;
       businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -183,7 +189,9 @@ describe("Businesses Controller", () => {
     });
 
     it("should delete business successfully", (done) => {
+      spyOn(responseHelper, 'success')
       businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });

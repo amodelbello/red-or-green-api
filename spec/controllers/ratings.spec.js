@@ -45,9 +45,10 @@ describe("Ratings Controller", () => {
    * fetchRatings()
    *****************************************************/
   describe("fetchRatings()", () => {
-
     it("should fetch ratings successfully", (done) => {
+      spyOn(responseHelper, 'success');
       ratingsController.fetchRatings(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -77,7 +78,9 @@ describe("Ratings Controller", () => {
     });
 
     it("should fetch rating successfully", (done) => {
+      spyOn(responseHelper, 'success');
       ratingsController.fetchRating(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -112,11 +115,15 @@ describe("Ratings Controller", () => {
       });
       mockResponse = httpMocks.createResponse();
       mockResponse.body = {};
+      mockResponse.req = mockRequest;
     });
 
     it("should add rating successfully", (done) => {
       mockRequest.body = fakeRating;
+      spyOn(responseHelper, 'success')
+
       ratingsController.addRating(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -181,7 +188,9 @@ describe("Ratings Controller", () => {
     });
 
     it("should delete rating successfully", (done) => {
+      spyOn(responseHelper, 'success');
       ratingsController.deleteRating(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });

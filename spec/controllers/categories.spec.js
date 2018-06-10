@@ -47,7 +47,9 @@ describe("Categories Controller", () => {
   describe("fetchCategories()", () => {
 
     it("should fetch categories successfully", (done) => {
+      spyOn(responseHelper, 'success')
       categoriesController.fetchCategories(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -77,7 +79,9 @@ describe("Categories Controller", () => {
     });
 
     it("should fetch category successfully", (done) => {
+      spyOn(responseHelper, 'success')
       categoriesController.fetchCategory(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -116,7 +120,9 @@ describe("Categories Controller", () => {
 
     it("should add category successfully", (done) => {
       mockRequest.body = fakeCategory;
+      spyOn(responseHelper, 'success')
       categoriesController.addCategory(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -149,7 +155,9 @@ describe("Categories Controller", () => {
 
     it("should update category successfully", (done) => {
       mockRequest.body = fakeCategoryEdit;
+      spyOn(responseHelper, 'success')
       categoriesController.updateCategory(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -181,7 +189,9 @@ describe("Categories Controller", () => {
     });
 
     it("should delete category successfully", (done) => {
+      spyOn(responseHelper, 'success')
       categoriesController.deleteCategory(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
