@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const responseMiddleware = require('../middleware/response');
 const validate = require('../middleware/validation');
+const jwt = require('express-jwt');
+const auth = jwt({
+  secret: process.env.JWT_SECRET,
+  userProperty: 'payload'
+});
 
 /****************************************
  * Businesses Routes
@@ -13,6 +18,7 @@ router
     responseMiddleware.addCallingMethodToResponse('fetchBusinesses'),
     businessesController.fetchBusinesses)
   .post(
+    // auth,
     responseMiddleware.addCallingMethodToResponse('addBusiness'),
     validate.requiredInBody('name'),
     validate.isNumberOrNull('rating'),
