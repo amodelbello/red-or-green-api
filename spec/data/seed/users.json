@@ -1,9 +1,12 @@
 [
   {
-    "_id" : "5b1b6b19e766177dd91399bc",
-	"username" : "11zamodelbello",
-	"email" : "11zamodelbello@lalala.com",
-	"salt" : "30bdfb59b6bb2c71cf607c03935a15ad",
-	"hash" : "ddb47a596efe156f8f6733116bfb40df0eca8572656d67c72af96e47a81756199a1aaa4967fcb469e1cf59ba5aefb0848754b231a6cc0a1ace962c23187cb01f"
+    "role": "default",
+    "_id": "5b1eb192a51c029d33a1da0a",
+    "created": "2018-06-11T17:29:54.476Z",
+    "updated": "2018-06-11T17:29:54.476Z",
+    "username": "testuser",
+    "email": "testuser@lalala.com",
+    "salt": "ccb40c694f9da623565215a28c7fe29a",
+    "hash": "0f423a5190333573e768a9ef4add277288fb4420e0276c77bd15aa16a14cbe57853e61d5f6c01adab96eed10887288fc8ecc0bccb045e2bf6b51089f9194f74f"
   }
 ]

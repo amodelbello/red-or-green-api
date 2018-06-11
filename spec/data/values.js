@@ -2,6 +2,7 @@ module.exports.validObjectId = '4b14b27d3450501de43d2f98';
 module.exports.validBusinessId = '5b14b27d3450501de43d2f98';
 module.exports.validCategoryId = '5b19b39652e70a499c889123';
 module.exports.validRatingId = '5b1aa0ad461efe7b09d9f7ed';
+module.exports.validUserId = '5b1eb192a51c029d33a1da0a';
 module.exports.valuesThatExist = [
   'hello',
   1233,
@@ -97,8 +98,14 @@ module.exports.fakeUser = {
 	"password": "password3"
 }
 
+module.exports.fakeUserEdit = {
+  "role": "default",
+  "username": "testuser",
+  "email": "testuser@lalala.com",
+}
+
 module.exports.fakeUserCredentials = {
-  "email": "11zamodelbello@lalala.com",
+  "email": "testuser@lalala.com",
   "password": "password1"
 }
 
@@ -112,6 +119,6 @@ module.exports.fakeUserCredentialsInvalidPassword = {
   "password": "no"
 }
 
-module.exports.validJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjFiNmIxOWU3NjYxNzdkZDkxMzk5YmMiLCJlbWFpbCI6IjExemFtb2RlbGJlbGxvQGxhbGFsYS5jb20iLCJ1c2VybmFtZSI6IjExemFtb2RlbGJlbGxvIiwiZXhwaXJhdGlvbiI6MTUzMTE3Mjg3NiwiaWF0IjoxNTI4NTgwODc2fQ.JXIe3WpUJHPnMofR9Qc_8DKuziWuVV7iA9klsjwMbDM';
+module.exports.validJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjFlYjE5MmE1MWMwMjlkMzNhMWRhMGEiLCJlbWFpbCI6InRlc3R1c2VyQGxhbGFsYS5jb20iLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwicm9sZSI6ImRlZmF1bHQiLCJleHBpcmF0aW9uIjoxNTMxMzMwODQ2LCJpYXQiOjE1Mjg3Mzg4NDZ9.FnQp8aWbj0tS7JB8hOAMWIDHu38lhYeo7TlOdD296ac';
 
 module.exports.invalidJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjFiNmIxOWU3NjYxNzdkZDkxMzk5YmMiLCJlbWFpbCI6IjExemFtb2RlbGJlbGxvQGxhbGFsYS5jb20iLCJ1c2VybmFtZSI6IjExemFtb2RlbGJlbGxvIiwiZXhwaXJhdGlvbiI6MTUzMTE3Mjg3NiwiaWF0IjoxNTI4NTgwODc2fQ.JXIe3WpUJHPnMofR9Qc_8DKuziWuVV7iA9klsjwM9DM';

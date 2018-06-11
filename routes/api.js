@@ -116,6 +116,41 @@ router
   ;
 
 /****************************************
+ * Users Routes
+ ****************************************/
+const usersController = require('../controllers/users');
+router
+  .route('/users')
+  .get(
+    responseMiddleware.addCallingMethodToResponse('fetchUsers'),
+    usersController.fetchUsers())
+  .post(
+    responseMiddleware.addCallingMethodToResponse('addUser'),
+    validate.requiredInBody('username'),
+    validate.requiredInBody('email'),
+    validate.requiredInBody('password'),
+    usersController.addUser())
+  ;
+router
+  .route('/users/:userId')
+  .get(
+    responseMiddleware.addCallingMethodToResponse('fetchUser'),
+    validate.hasValidObjectId('userId'),
+    usersController.fetchUser())
+  .put(
+    responseMiddleware.addCallingMethodToResponse('updateUser'),
+    validate.hasValidObjectId('userId'),
+    validate.requiredInBody('username'),
+    validate.requiredInBody('email'),
+    validate.requiredInBody('password'),
+    usersController.updateUser())
+  .delete(
+    responseMiddleware.addCallingMethodToResponse('deleteUser'),
+    validate.hasValidObjectId('userId'),
+    usersController.deleteUser())
+  ;
+
+/****************************************
  * Authentication Routes
  ****************************************/
 const authenticationController = require('../controllers/authentication');
