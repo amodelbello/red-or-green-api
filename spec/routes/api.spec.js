@@ -49,24 +49,36 @@ describe("API Routes", () => {
     });
 
     it("Calls POST /businesses", (done) => {
+      const options = {
+        url: `${base_url}/businesses`,
+        headers: { 'Authorization': `Bearer ${testData.validJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.post(`${base_url}/businesses`, (err, res, body) => {
+      request.post(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('addBusiness');
         done();
       });
     });
 
     it("Calls PUT /businesses/:businessId", (done) => {
+      const options = {
+        url: `${base_url}/businesses/${testData.validObjectId}`,
+        headers: { 'Authorization': `Bearer ${testData.validJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.put(`${base_url}/businesses/${testData.validObjectId}`, (err, res, body) => {
+      request.put(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateBusiness');
         done();
       });
     });
 
     it("Calls DELETE /businesses/:businessId", (done) => {
+      const options = {
+        url: `${base_url}/businesses/${testData.validObjectId}`,
+        headers: { 'Authorization': `Bearer ${testData.validJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.delete(`${base_url}/businesses/${testData.validObjectId}`, (err, res, body) => {
+      request.delete(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteBusiness');
         done();
       });
@@ -75,6 +87,29 @@ describe("API Routes", () => {
     it("Calls GET /businesses is production mode", (done) => {
       app.request.app.set('env', 'production');
       request.get(base_url + '/businesses', (err, res, body) => {
+        expect(JSON.parse(body).callingMethod).toBeUndefined();
+        done();
+      });
+    });
+
+    it("Calls POST /businesses without a valid jwt", (done) => {
+      const options = {
+        url: `${base_url}/businesses`,
+        headers: { 'Authorization': `Bearer ${testData.invalidJwt}` }
+      };
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
+      request.post(options, (err, res, body) => {
+        expect(JSON.parse(body).callingMethod).toBeUndefined();
+        done();
+      });
+    });
+
+    it("Calls PUT /businesses without an authorization header", (done) => {
+      const options = {
+        url: `${base_url}/businesses`
+      };
+      spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
+      request.post(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBeUndefined();
         done();
       });
