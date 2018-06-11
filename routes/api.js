@@ -2,15 +2,10 @@ const express = require('express');
 const router = express.Router();
 const responseMiddleware = require('../middleware/response');
 const requestMiddleware = require('../middleware/request');
+const auth = require('../middleware/authentication');
 const validate = require('../middleware/validation');
-const jwt = require('express-jwt');
 
-const authenticationGuard = () => {
-  return jwt({
-    secret: process.env.JWT_SECRET,
-    userProperty: 'payload'
-  });
-};
+
 
 /****************************************
  * Businesses Routes
@@ -23,8 +18,9 @@ router
     // auth,
     businessesController.fetchBusinesses())
   .post(
-    authenticationGuard(),
     responseMiddleware.addCallingMethodToResponse('addBusiness'),
+    auth.authenticationGuard(),
+    auth.allowedRoles(['admin', 'default']),
     validate.requiredInBody('name'),
     validate.isNumberOrNull('rating'),
     validate.numberIsWithinRangeOrNull('rating', 0, 5),
@@ -38,7 +34,7 @@ router
     validate.hasValidObjectId('businessId'),
     businessesController.fetchBusiness())
   .put(
-    authenticationGuard(),
+    auth.authenticationGuard(),
     responseMiddleware.addCallingMethodToResponse('updateBusiness'),
     validate.hasValidObjectId('businessId'),
     validate.requiredInBody('name'),
@@ -47,7 +43,7 @@ router
     validate.hasValidAddress(),
     businessesController.updateBusiness())
   .delete(
-    authenticationGuard(),
+    auth.authenticationGuard(),
     responseMiddleware.addCallingMethodToResponse('deleteBusiness'),
     validate.hasValidObjectId('businessId'),
     businessesController.deleteBusiness())
