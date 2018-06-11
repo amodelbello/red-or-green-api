@@ -10,11 +10,11 @@ module.exports.authenticationGuard = () => {
 
 module.exports.allowedRoles = (roles) => {
   return (req, res, next) => {
-    const userRole = req.payload.role || 'default';
+    const userRole = req.payload.role /* istanbul ignore next */ || 'default';
     if (roles.includes(userRole)) {
       next();
     } else {
-      responseHelper.respond(401, res, "User is not authorized");
+      responseHelper.respond(403, res, "User is not authorized");
       return;
     }
   };

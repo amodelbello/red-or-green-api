@@ -83,41 +83,50 @@ module.exports.fakeRating = {
   "businessId": "1b176acb1f80de5885a7e96c",
   "categoryId": "2b176acb1f80de5885a7e96c",
   "comments": "These are the comments of the rating"
-}
+};
 
 module.exports.fakeRatingEdit = {
   "userId": "5b1b6b19e766177dd91399bc",
   "businessId": "1b176acb1f80de5885a7e96c",
   "categoryId": "2b176acb1f80de5885a7e96c",
   "comments": "These are the comments of the rating edited"
-}
+};
 
 module.exports.fakeUser = {
 	"username": "amodel2",
 	"email": "amodel@lalala1.com",
 	"password": "password3"
-}
+};
 
 module.exports.fakeUserEdit = {
   "role": "default",
   "username": "testuser",
   "email": "testuser@lalala.com",
-}
+};
 
 module.exports.fakeUserCredentials = {
   "email": "testuser@lalala.com",
   "password": "password1"
-}
+};
 
 module.exports.fakeUserCredentialsInvalidUsername = {
   "email": "xxx11zamodelbello@lalala.com",
-  "password": "no"
-}
+  "password": "password1"
+};
 
 module.exports.fakeUserCredentialsInvalidPassword = {
-  "email": "11zamodelbello@lalala.com",
+  "email": "testuser@lalala.com",
   "password": "no"
-}
+};
+
+module.exports.fakeUserPayload = {
+  _id: "5b1e9f045709738a31e3149d",
+  email: "v2vbg115v1zavmodelbello@lalala.com",
+  expiration: 1531325444,
+  iat: 1528733444,
+  role: "default",
+  username: "v2vvb1gv511zamodelbello"
+};
 
 module.exports.validJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjFlYjE5MmE1MWMwMjlkMzNhMWRhMGEiLCJlbWFpbCI6InRlc3R1c2VyQGxhbGFsYS5jb20iLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwicm9sZSI6ImRlZmF1bHQiLCJleHBpcmF0aW9uIjoxNTMxMzMwODQ2LCJpYXQiOjE1Mjg3Mzg4NDZ9.FnQp8aWbj0tS7JB8hOAMWIDHu38lhYeo7TlOdD296ac';
 

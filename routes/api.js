@@ -15,7 +15,6 @@ router
   .route('/businesses')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchBusinesses'),
-    // auth,
     businessesController.fetchBusinesses())
   .post(
     responseMiddleware.addCallingMethodToResponse('addBusiness'),
