@@ -12,8 +12,25 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  firstName: String,
+  lastName: String,
   hash: String,
   salt: String,
+  chilePreference: Boolean,
+  zip: String,
+  role: {
+    type: String,
+    enum: ['admin', 'default'],
+    default: 'default'
+  },
+  created: {
+    type: Date,
+    default: Date.now,
+  },
+  updated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const generateSalt = () => {
@@ -42,6 +59,7 @@ schema.methods.generateJwt = function() {
     _id: this._id,
     email: this.email,
     username: this.username,
+    role: this.role,
     expiration: parseInt(expiration.getTime() / 1000),
   };
 

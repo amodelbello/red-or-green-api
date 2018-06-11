@@ -56,7 +56,6 @@ const fetchBusiness = () => {
 
 const addBusiness = () => {
   return (req, res) => {
-
     const data = req.body;
     data.created = new Date();
     data.updated = new Date();

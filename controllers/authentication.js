@@ -5,12 +5,12 @@ const responseHelper = require('../helpers/response');
 
 const register = () => {
   return (req, res) => {
-
     return new Promise((resolve, reject) => {
-
       const user = new User();
       user.username = req.body.username;
       user.email = req.body.email;
+      user.created = new Date();
+      user.updated = new Date();
       user.setPassword(req.body.password);
 
       user.save((err) => {
@@ -36,9 +36,7 @@ const register = () => {
 
 const login = () => {
   return (req, res) => {
-
     return new Promise((resolve, reject) => {
-
       passport.authenticate('local', (err, user, info) => {
         let token;
 
