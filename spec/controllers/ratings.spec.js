@@ -47,7 +47,8 @@ describe("Ratings Controller", () => {
   describe("fetchRatings()", () => {
     it("should fetch ratings successfully", (done) => {
       spyOn(responseHelper, 'success');
-      ratingsController.fetchRatings(mockRequest, mockResponse).then(() => {
+      const fetchRatings = ratingsController.fetchRatings();
+      fetchRatings(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -56,7 +57,8 @@ describe("Ratings Controller", () => {
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');
-      ratingsController.fetchRatings(mockRequest, mockResponse).then(() => {
+      const fetchRatings = ratingsController.fetchRatings();
+      fetchRatings(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -79,7 +81,8 @@ describe("Ratings Controller", () => {
 
     it("should fetch rating successfully", (done) => {
       spyOn(responseHelper, 'success');
-      ratingsController.fetchRating(mockRequest, mockResponse).then(() => {
+      const fetchRating = ratingsController.fetchRating();
+      fetchRating(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -88,16 +91,18 @@ describe("Ratings Controller", () => {
     it("should handle 404 error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'failure');
-      ratingsController.fetchRating(mockRequest, mockResponse).then(() => {
+      const fetchRating = ratingsController.fetchRating();
+      fetchRating(mockRequest, mockResponse).then(() => {
         expect(responseHelper.failure).toHaveBeenCalled();
         done();
       });
     });
 
     it("should handle unexpected error", (done) => {
-      spyOn(responseHelper, 'respond')
+      spyOn(responseHelper, 'respond');
       mockRequest.params.ratingId = 1;
-      ratingsController.fetchRating(mockRequest, mockResponse).then(() => {
+      const fetchRating = ratingsController.fetchRating();
+      fetchRating(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -120,9 +125,9 @@ describe("Ratings Controller", () => {
 
     it("should add rating successfully", (done) => {
       mockRequest.body = fakeRating;
-      spyOn(responseHelper, 'success')
-
-      ratingsController.addRating(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'success');
+      const addRating = ratingsController.addRating();
+      addRating(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -130,9 +135,9 @@ describe("Ratings Controller", () => {
 
     it("should handle error", (done) => {
       mockRequest.body = 'This is not valid input';
-      spyOn(responseHelper, 'respond')
-
-      ratingsController.addRating(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const addRating = ratingsController.addRating();
+      addRating(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -156,7 +161,10 @@ describe("Ratings Controller", () => {
 
     it("should update rating successfully", (done) => {
       mockRequest.body = fakeRatingEdit;
-      ratingsController.updateRating(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'success');
+      const updateRating = ratingsController.updateRating();
+      updateRating(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
     });
@@ -164,9 +172,9 @@ describe("Ratings Controller", () => {
     it("should handle error", (done) => {
       mockRequest.body = false;
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
-      spyOn(responseHelper, 'respond')
-
-      ratingsController.updateRating(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const updateRating = ratingsController.updateRating();
+      updateRating(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -189,7 +197,8 @@ describe("Ratings Controller", () => {
 
     it("should delete rating successfully", (done) => {
       spyOn(responseHelper, 'success');
-      ratingsController.deleteRating(mockRequest, mockResponse).then(() => {
+      const deleteRating = ratingsController.deleteRating();
+      deleteRating(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -197,9 +206,9 @@ describe("Ratings Controller", () => {
 
     it("should handle error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
-      spyOn(responseHelper, 'respond')
-
-      ratingsController.deleteRating(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const deleteRating = ratingsController.deleteRating();
+      deleteRating(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });

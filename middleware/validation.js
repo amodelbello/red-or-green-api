@@ -38,44 +38,45 @@ const requiredInParams = (field) => {
   };
 };
 
-const hasValidAddress = (req, res, next) => {
+const hasValidAddress = () => {
+  return (req, res, next) => {
+    // no need to check anything else if there's no address at all
+    if (!propertyExists(req.body.address)) {
+      responseHelper.respond(400, res, `Error: address is required`);
+      return;
+    } 
 
-  // no need to check anything else if there's no address at all
-  if (!propertyExists(req.body.address)) {
-    responseHelper.respond(400, res, `Error: address is required`);
-    return;
-  } 
+    let valid = true;
+    let errorMessage = `Error: Invalid address `;
 
-  let valid = true;
-  let errorMessage = `Error: Invalid address `;
+    if (!propertyExists(req.body.address.street)) {
+      valid = false;
+      errorMessage += `- street is required `;
+    }
 
-  if (!propertyExists(req.body.address.street)) {
-    valid = false;
-    errorMessage += `- street is required `;
-  }
+    if (!propertyExists(req.body.address.city)) {
+      valid = false;
+      errorMessage += `- city is required `;
+    }
 
-  if (!propertyExists(req.body.address.city)) {
-    valid = false;
-    errorMessage += `- city is required `;
-  }
+    if (!propertyExists(req.body.address.state)) {
+      valid = false;
+      errorMessage += `- state is required `;
+    }
 
-  if (!propertyExists(req.body.address.state)) {
-    valid = false;
-    errorMessage += `- state is required `;
-  }
+    if (!propertyExists(req.body.address.zip)) {
+      valid = false;
+      errorMessage += `- zip is required `;
+    }
 
-  if (!propertyExists(req.body.address.zip)) {
-    valid = false;
-    errorMessage += `- zip is required `;
-  }
+    if (valid === true) {
+      next();
 
-  if (valid === true) {
-    next();
-
-  } else {
-    responseHelper.respond(400, res, errorMessage);
-    return;
-  }
+    } else {
+      responseHelper.respond(400, res, errorMessage);
+      return;
+    }
+  };
 };
 
 const isNumberOrNull = (field) => {

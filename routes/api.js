@@ -17,34 +17,34 @@ router
   .route('/businesses')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchBusinesses'),
-    businessesController.fetchBusinesses)
+    businessesController.fetchBusinesses())
   .post(
     // auth,
     responseMiddleware.addCallingMethodToResponse('addBusiness'),
     validate.requiredInBody('name'),
     validate.isNumberOrNull('rating'),
     validate.numberIsWithinRangeOrNull('rating', 0, 5),
-    validate.hasValidAddress,
-    businessesController.addBusiness)
+    validate.hasValidAddress(),
+    businessesController.addBusiness())
   ;
 router
   .route('/businesses/:businessId')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchBusiness'),
     validate.hasValidObjectId('businessId'),
-    businessesController.fetchBusiness)
+    businessesController.fetchBusiness())
   .put(
     responseMiddleware.addCallingMethodToResponse('updateBusiness'),
     validate.hasValidObjectId('businessId'),
     validate.requiredInBody('name'),
     validate.isNumberOrNull('rating'),
     validate.numberIsWithinRangeOrNull('rating', 0, 5),
-    validate.hasValidAddress,
-    businessesController.updateBusiness)
+    validate.hasValidAddress(),
+    businessesController.updateBusiness())
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteBusiness'),
     validate.hasValidObjectId('businessId'),
-    businessesController.deleteBusiness)
+    businessesController.deleteBusiness())
   ;
 
 /****************************************
@@ -55,27 +55,27 @@ router
   .route('/categories')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchCategories'),
-    categoriesController.fetchCategories)
+    categoriesController.fetchCategories())
   .post(
     responseMiddleware.addCallingMethodToResponse('addCategory'),
     validate.requiredInBody('name'),
-    categoriesController.addCategory)
+    categoriesController.addCategory())
   ;
 router
   .route('/categories/:categoryId')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchCategory'),
     validate.hasValidObjectId('categoryId'),
-    categoriesController.fetchCategory)
+    categoriesController.fetchCategory())
   .put(
     responseMiddleware.addCallingMethodToResponse('updateCategory'),
     validate.hasValidObjectId('categoryId'),
     validate.requiredInBody('name'),
-    categoriesController.updateCategory)
+    categoriesController.updateCategory())
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteCategory'),
     validate.hasValidObjectId('categoryId'),
-    categoriesController.deleteCategory)
+    categoriesController.deleteCategory())
   ;
 
 /****************************************
@@ -86,31 +86,31 @@ router
   .route('/ratings')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchRatings'),
-    ratingsController.fetchRatings)
+    ratingsController.fetchRatings())
   .post(
     responseMiddleware.addCallingMethodToResponse('addRating'),
     validate.hasValidObjectId('userId'),
     validate.hasValidObjectId('businessId'),
     validate.hasValidObjectId('categoryId'),
-    ratingsController.addRating)
+    ratingsController.addRating())
   ;
 router
   .route('/ratings/:ratingId')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchRating'),
     validate.hasValidObjectId('ratingId'),
-    ratingsController.fetchRating)
+    ratingsController.fetchRating())
   .put(
     responseMiddleware.addCallingMethodToResponse('updateRating'),
     validate.hasValidObjectId('ratingId'),
     validate.hasValidObjectId('userId'),
     validate.hasValidObjectId('businessId'),
     validate.hasValidObjectId('categoryId'),
-    ratingsController.updateRating)
+    ratingsController.updateRating())
   .delete(
     validate.hasValidObjectId('ratingId'),
     responseMiddleware.addCallingMethodToResponse('deleteRating'),
-    ratingsController.deleteRating)
+    ratingsController.deleteRating())
   ;
 
 /****************************************
@@ -124,7 +124,7 @@ router
     validate.requiredInBody('username'),
     validate.requiredInBody('email'),
     validate.requiredInBody('password'),
-    authenticationController.register
+    authenticationController.register()
   )
   ;
 router
@@ -133,7 +133,7 @@ router
     responseMiddleware.addCallingMethodToResponse('login'),
     validate.requiredInBody('email'),
     validate.requiredInBody('password'),
-    authenticationController.login
+    authenticationController.login()
   )
   ;
 

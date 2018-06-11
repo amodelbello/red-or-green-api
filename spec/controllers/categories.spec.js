@@ -47,8 +47,9 @@ describe("Categories Controller", () => {
   describe("fetchCategories()", () => {
 
     it("should fetch categories successfully", (done) => {
-      spyOn(responseHelper, 'success')
-      categoriesController.fetchCategories(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'success');
+      const fetchCategories = categoriesController.fetchCategories();
+      fetchCategories(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -57,7 +58,8 @@ describe("Categories Controller", () => {
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');
-      categoriesController.fetchCategories(mockRequest, mockResponse).then(() => {
+      const fetchCategories = categoriesController.fetchCategories();
+      fetchCategories(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -79,8 +81,9 @@ describe("Categories Controller", () => {
     });
 
     it("should fetch category successfully", (done) => {
-      spyOn(responseHelper, 'success')
-      categoriesController.fetchCategory(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'success');
+      const fetchCategory = categoriesController.fetchCategory();
+      fetchCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -89,16 +92,18 @@ describe("Categories Controller", () => {
     it("should handle 404 error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'failure');
-      categoriesController.fetchCategory(mockRequest, mockResponse).then(() => {
+      const fetchCategory = categoriesController.fetchCategory();
+      fetchCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.failure).toHaveBeenCalled();
         done();
       });
     });
 
     it("should handle unexpected error", (done) => {
-      spyOn(responseHelper, 'respond')
+      spyOn(responseHelper, 'respond');
       mockRequest.params.categoryId = 1;
-      categoriesController.fetchCategory(mockRequest, mockResponse).then(() => {
+      const fetchCategory = categoriesController.fetchCategory();
+      fetchCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -120,8 +125,9 @@ describe("Categories Controller", () => {
 
     it("should add category successfully", (done) => {
       mockRequest.body = fakeCategory;
-      spyOn(responseHelper, 'success')
-      categoriesController.addCategory(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'success');
+      const addCategory = categoriesController.addCategory();
+      addCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -129,9 +135,9 @@ describe("Categories Controller", () => {
 
     it("should handle error", (done) => {
       mockRequest.body = 'This is not valid input';
-      spyOn(responseHelper, 'respond')
-
-      categoriesController.addCategory(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const addCategory = categoriesController.addCategory();
+      addCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -155,8 +161,9 @@ describe("Categories Controller", () => {
 
     it("should update category successfully", (done) => {
       mockRequest.body = fakeCategoryEdit;
-      spyOn(responseHelper, 'success')
-      categoriesController.updateCategory(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'success');
+      const updateCategory = categoriesController.updateCategory();
+      updateCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -165,9 +172,9 @@ describe("Categories Controller", () => {
     it("should handle error", (done) => {
       mockRequest.body = false;
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
-      spyOn(responseHelper, 'respond')
-
-      categoriesController.updateCategory(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const updateCategory = categoriesController.updateCategory();
+      updateCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -189,8 +196,9 @@ describe("Categories Controller", () => {
     });
 
     it("should delete category successfully", (done) => {
-      spyOn(responseHelper, 'success')
-      categoriesController.deleteCategory(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'success');
+      const deleteCategory = categoriesController.deleteCategory();
+      deleteCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -198,9 +206,9 @@ describe("Categories Controller", () => {
 
     it("should handle error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
-      spyOn(responseHelper, 'respond')
-
-      categoriesController.deleteCategory(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const deleteCategory = categoriesController.deleteCategory();
+      deleteCategory(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });

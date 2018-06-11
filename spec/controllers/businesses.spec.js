@@ -48,7 +48,8 @@ describe("Businesses Controller", () => {
 
     it("should fetch businesses successfully", (done) => {
       spyOn(responseHelper, 'success');
-      businessesController.fetchBusinesses(mockRequest, mockResponse).then(() => {
+      const fetchBusinesses = businessesController.fetchBusinesses();
+      fetchBusinesses(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -57,7 +58,8 @@ describe("Businesses Controller", () => {
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');
-      businessesController.fetchBusinesses(mockRequest, mockResponse).then(() => {
+      const fetchBusinesses = businessesController.fetchBusinesses();
+      fetchBusinesses(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -80,7 +82,8 @@ describe("Businesses Controller", () => {
 
     it("should fetch business successfully", (done) => {
       spyOn(responseHelper, 'success');
-      businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
+      const fetchBusiness = businessesController.fetchBusiness();
+      fetchBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -89,16 +92,18 @@ describe("Businesses Controller", () => {
     it("should handle 404 error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'failure');
-      businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
+      const fetchBusiness = businessesController.fetchBusiness();
+      fetchBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.failure).toHaveBeenCalled();
         done();
       });
     });
 
     it("should handle unexpected error", (done) => {
-      spyOn(responseHelper, 'respond')
+      spyOn(responseHelper, 'respond');
       mockRequest.params.businessId = 1;
-      businessesController.fetchBusiness(mockRequest, mockResponse).then(() => {
+      const fetchBusiness = businessesController.fetchBusiness();
+      fetchBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -121,7 +126,8 @@ describe("Businesses Controller", () => {
     it("should add business successfully", (done) => {
       spyOn(responseHelper, 'success');
       mockRequest.body = fakeBusiness;
-      businessesController.addBusiness(mockRequest, mockResponse).then(() => {
+      const addBusiness = businessesController.addBusiness();
+      addBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -129,9 +135,10 @@ describe("Businesses Controller", () => {
 
     it("should handle error", (done) => {
       mockRequest.body = 'This is not valid input';
-      spyOn(responseHelper, 'respond')
+      spyOn(responseHelper, 'respond');
 
-      businessesController.addBusiness(mockRequest, mockResponse).then(() => {
+      const addBusiness = businessesController.addBusiness();
+      addBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -156,7 +163,8 @@ describe("Businesses Controller", () => {
     it("should update business successfully", (done) => {
       spyOn(responseHelper, 'success');
       mockRequest.body = testData.fakeBusinessEdit;
-      businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
+      const updateBusiness = businessesController.updateBusiness();
+      updateBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -165,9 +173,9 @@ describe("Businesses Controller", () => {
     it("should handle error", (done) => {
       mockRequest.body = false;
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
-      spyOn(responseHelper, 'respond')
-
-      businessesController.updateBusiness(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const updateBusiness = businessesController.updateBusiness();
+      updateBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -189,8 +197,9 @@ describe("Businesses Controller", () => {
     });
 
     it("should delete business successfully", (done) => {
-      spyOn(responseHelper, 'success')
-      businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'success');
+      const deleteBusiness = businessesController.deleteBusiness();
+      deleteBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -198,9 +207,9 @@ describe("Businesses Controller", () => {
 
     it("should handle error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
-      spyOn(responseHelper, 'respond')
-
-      businessesController.deleteBusiness(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const deleteBusiness = businessesController.deleteBusiness();
+      deleteBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });

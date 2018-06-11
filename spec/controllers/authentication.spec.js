@@ -53,7 +53,8 @@ describe("Authentication Controller", () => {
     it("should register a new user successfully", (done) => {
       mockRequest.body = fakeUser;
       spyOn(responseHelper, 'respond');
-      authenticationController.register(mockRequest, mockResponse).then(() => {
+      const register = authenticationController.register();
+      register(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(201);
         done();
       });
@@ -62,8 +63,8 @@ describe("Authentication Controller", () => {
     it("should handle error", (done) => {
       mockRequest.body = 'This is not valid input';
       spyOn(responseHelper, 'respond');
-
-      authenticationController.register(mockRequest, mockResponse).then(() => {
+      const register = authenticationController.register();
+      register(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -85,7 +86,8 @@ describe("Authentication Controller", () => {
     it("should log in successfully", (done) => {
       spyOn(responseHelper, 'respond');
       mockRequest.body = fakeUserCredentials;
-      authenticationController.login(mockRequest, mockResponse).then(() => {
+      const login = authenticationController.login();
+      login(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(200);
         done();
       });
@@ -94,7 +96,8 @@ describe("Authentication Controller", () => {
     it("should not log in with invalid username", (done) => {
       spyOn(responseHelper, 'respond');
       mockRequest.body = fakeUserCredentialsInvalidUsername;
-      authenticationController.login(mockRequest, mockResponse).then(() => {
+      const login = authenticationController.login();
+      login(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(401);
         done();
       });
@@ -103,7 +106,8 @@ describe("Authentication Controller", () => {
     it("should not log in with invalid password", (done) => {
       spyOn(responseHelper, 'respond');
       mockRequest.body = fakeUserCredentialsInvalidPassword;
-      authenticationController.login(mockRequest, mockResponse).then(() => {
+      const login = authenticationController.login();
+      login(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(401);
         done();
       });
@@ -111,9 +115,9 @@ describe("Authentication Controller", () => {
 
     it("should not log in with malformed credentials", (done) => {
       mockRequest.body = 'This is not valid input';
-      spyOn(responseHelper, 'respond')
-
-      authenticationController.login(mockRequest, mockResponse).then(() => {
+      spyOn(responseHelper, 'respond');
+      const login = authenticationController.login();
+      login(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(401);
         done();
       });

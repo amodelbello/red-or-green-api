@@ -148,7 +148,8 @@ describe("Validation Middleware", () => {
     it("should call next with valid address", (done) => {
       mockRequest.body.address = testData.validAddress();
       spyOn(testData, 'next');
-      validate.hasValidAddress(mockRequest, mockResponse, testData.next);
+      const hasValidAddress = validate.hasValidAddress();
+      hasValidAddress(mockRequest, mockResponse, testData.next);
       expect(testData.next).toHaveBeenCalled();
       done();
     });
@@ -156,7 +157,8 @@ describe("Validation Middleware", () => {
     it("should handle error with missing address", (done) => {
       spyOn(responseHelper, 'respond');
       delete mockRequest.body.address;
-      validate.hasValidAddress(mockRequest, mockResponse, testData.next);
+      const hasValidAddress = validate.hasValidAddress();
+      hasValidAddress(mockRequest, mockResponse, testData.next);
       expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(400)
 
       done();
@@ -166,7 +168,8 @@ describe("Validation Middleware", () => {
       spyOn(responseHelper, 'respond');
       mockRequest.body.address = testData.validAddress();
       delete mockRequest.body.address.street;
-      validate.hasValidAddress(mockRequest, mockResponse, testData.next);
+      const hasValidAddress = validate.hasValidAddress();
+      hasValidAddress(mockRequest, mockResponse, testData.next);
       expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(400)
       done();
     });
@@ -175,7 +178,8 @@ describe("Validation Middleware", () => {
       spyOn(responseHelper, 'respond');
       mockRequest.body.address = testData.validAddress();
       delete mockRequest.body.address.city;
-      validate.hasValidAddress(mockRequest, mockResponse, testData.next);
+      const hasValidAddress = validate.hasValidAddress();
+      hasValidAddress(mockRequest, mockResponse, testData.next);
       expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(400)
       done();
     });
@@ -184,7 +188,8 @@ describe("Validation Middleware", () => {
       spyOn(responseHelper, 'respond');
       mockRequest.body.address = testData.validAddress();
       delete mockRequest.body.address.state;
-      validate.hasValidAddress(mockRequest, mockResponse, testData.next);
+      const hasValidAddress = validate.hasValidAddress();
+      hasValidAddress(mockRequest, mockResponse, testData.next);
       expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(400)
       done();
     });
@@ -193,7 +198,8 @@ describe("Validation Middleware", () => {
       spyOn(responseHelper, 'respond');
       mockRequest.body.address = testData.validAddress();
       delete mockRequest.body.address.zip;
-      validate.hasValidAddress(mockRequest, mockResponse, testData.next);
+      const hasValidAddress = validate.hasValidAddress();
+      hasValidAddress(mockRequest, mockResponse, testData.next);
       expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(400)
       done();
     });
