@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const responseMiddleware = require('./middleware/response');
-const requestMiddleware = require('./middleware/request');
 
 const passport = require('passport');
 
@@ -45,7 +44,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(responseMiddleware.addBodyPropertyToResponse());
 app.use(passport.initialize());
-app.use(requestMiddleware.addUserToRequest());
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);

@@ -44,9 +44,48 @@ describe("Authentication Middleware", () => {
       const allowedRoles = auth.allowedRoles(['other-role']);
       allowedRoles(mockRequest, mockResponse, testData.next);
       expect(testData.next).not.toHaveBeenCalled();
-      expect(responseHelper.respond).toHaveBeenCalledWith(403, mockResponse, 'User is not authorized');
+      expect(responseHelper.respond).toHaveBeenCalledWith(403, mockResponse, '17: User is not authorized');
       done();
     });
 
+  });
+
+
+  /******************************************************
+   * userOwnsDocument()
+   *****************************************************/
+  describe("userOwnsDocument()", () => {
+
+    it("should respond with 403 if user is required to own document but doesn't", (done) => {
+      spyOn(testData, 'next');
+      spyOn(responseHelper, 'respond');
+      mockRequest.body = {};
+      mockRequest.body.userId = testData.validObjectId;
+      const userOwnsDocument = auth.userOwnsDocument();
+      userOwnsDocument(mockRequest, mockResponse, testData.next);
+      expect(testData.next).not.toHaveBeenCalled();
+      expect(responseHelper.respond).toHaveBeenCalledWith(403, mockResponse, '28: User is not authorized');
+      done();
+    });
+
+    it("should should call next if user owns document", (done) => {
+      spyOn(testData, 'next');
+      mockRequest.body = {};
+      mockRequest.body.userId = mockRequest.payload._id;
+      const userOwnsDocument = auth.userOwnsDocument();
+      userOwnsDocument(mockRequest, mockResponse, testData.next);
+      expect(testData.next).toHaveBeenCalled();
+      done();
+    });
+
+    it("should should call next if user is admin", (done) => {
+      spyOn(testData, 'next');
+      mockRequest.body.userId = testData.validObjectId;
+      mockRequest.payload = testData.fakeAdminUserPayload;
+      const userOwnsDocument = auth.userOwnsDocument();
+      userOwnsDocument(mockRequest, mockResponse, testData.next);
+      expect(testData.next).toHaveBeenCalled();
+      done();
+    });
   });
 });

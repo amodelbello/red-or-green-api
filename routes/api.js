@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const responseMiddleware = require('../middleware/response');
-const requestMiddleware = require('../middleware/request');
 const auth = require('../middleware/authentication');
 const validate = require('../middleware/validation');
 
@@ -19,7 +18,7 @@ router
   .post(
     responseMiddleware.addCallingMethodToResponse('addBusiness'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin, default']),
+    auth.allowedRoles(['admin', 'default']),
     validate.requiredInBody('name'),
     validate.isNumberOrNull('rating'),
     validate.numberIsWithinRangeOrNull('rating', 0, 5),
@@ -103,7 +102,7 @@ router
   .post(
     responseMiddleware.addCallingMethodToResponse('addRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin, default']),
+    auth.allowedRoles(['admin', 'default']),
     validate.hasValidObjectId('userId'),
     validate.hasValidObjectId('businessId'),
     validate.hasValidObjectId('categoryId'),
@@ -118,7 +117,8 @@ router
   .put(
     responseMiddleware.addCallingMethodToResponse('updateRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin, default']),
+    auth.allowedRoles(['admin', 'default']),
+    auth.userOwnsDocument(),
     validate.hasValidObjectId('ratingId'),
     validate.hasValidObjectId('userId'),
     validate.hasValidObjectId('businessId'),
@@ -127,7 +127,8 @@ router
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin, default']),
+    auth.allowedRoles(['admin', 'default']),
+    auth.userOwnsDocument(),
     validate.hasValidObjectId('ratingId'),
     ratingsController.deleteRating())
   ;
@@ -157,13 +158,15 @@ router
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchUser'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['admin', 'default']),
+    auth.userOwnsDocument(),
     validate.hasValidObjectId('userId'),
     usersController.fetchUser())
   .put(
     responseMiddleware.addCallingMethodToResponse('updateUser'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['admin', 'default']),
+    auth.userOwnsDocument(),
     validate.hasValidObjectId('userId'),
     validate.requiredInBody('username'),
     validate.requiredInBody('email'),
