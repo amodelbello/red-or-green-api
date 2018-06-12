@@ -51,7 +51,7 @@ describe("API Routes", () => {
     it("Calls POST /businesses", (done) => {
       const options = {
         url: `${base_url}/businesses`,
-        headers: { 'Authorization': `Bearer ${testData.validJwt}` }
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
       };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
       request.post(options, (err, res, body) => {
@@ -63,7 +63,7 @@ describe("API Routes", () => {
     it("Calls PUT /businesses/:businessId", (done) => {
       const options = {
         url: `${base_url}/businesses/${testData.validObjectId}`,
-        headers: { 'Authorization': `Bearer ${testData.validJwt}` }
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
       };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
       request.put(options, (err, res, body) => {
@@ -121,46 +121,70 @@ describe("API Routes", () => {
    *****************************************************/
   describe("Categories Routes", () => {
     it("Calls GET /categories", (done) => {
-      request.get(`${base_url}/categories`, (err, res, body) => {
+      const options = {
+        url: `${base_url}/categories`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
+      request.get(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('fetchCategories');
         done();
       });
     });
 
     it("Calls GET /categories/:categoryId", (done) => {
-      request.get(`${base_url}/categories/${testData.validObjectId}`, (err, res, body) => {
+      const options = {
+        url: `${base_url}/categories/${testData.validObjectId}`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
+      request.get(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('fetchCategory');
         done();
       });
     });
 
     it("Calls POST /categories", (done) => {
+      const options = {
+        url: `${base_url}/categories`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.post(`${base_url}/categories`, (err, res, body) => {
+      request.post(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('addCategory');
         done();
       });
     });
 
     it("Calls PUT /categories/:categoryId", (done) => {
+      const options = {
+        url: `${base_url}/categories/${testData.validObjectId}`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.put(`${base_url}/categories/${testData.validObjectId}`, (err, res, body) => {
+      request.put(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateCategory');
         done();
       });
     });
 
     it("Calls DELETE /categories/:categoryId", (done) => {
+      const options = {
+        url: `${base_url}/categories/${testData.validObjectId}`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.delete(`${base_url}/categories/${testData.validObjectId}`, (err, res, body) => {
+      request.delete(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteCategory');
         done();
       });
     });
 
-    it("Calls GET /categories is production mode", (done) => {
+    it("Calls GET /categories in production mode", (done) => {
+      const options = {
+        url: `${base_url}/categories`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
       app.request.app.set('env', 'production');
-      request.get(`${base_url}/categories`, (err, res, body) => {
+      request.get(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBeUndefined();
         done();
       });
@@ -186,24 +210,36 @@ describe("API Routes", () => {
     });
 
     it("Calls POST /ratings", (done) => {
+      const options = {
+        url: `${base_url}/ratings`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.post(`${base_url}/ratings`, (err, res, body) => {
+      request.post(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('addRating');
         done();
       });
     });
 
     it("Calls PUT /ratings/:ratingId", (done) => {
+      const options = {
+        url: `${base_url}/ratings/${testData.validObjectId}`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.put(`${base_url}/ratings/${testData.validObjectId}`, (err, res, body) => {
+      request.put(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('updateRating');
         done();
       });
     });
 
     it("Calls DELETE /ratings/:ratingId", (done) => {
+      const options = {
+        url: `${base_url}/ratings/${testData.validObjectId}`,
+        headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
+      };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
-      request.delete(`${base_url}/ratings/${testData.validObjectId}`, (err, res, body) => {
+      request.delete(options, (err, res, body) => {
         expect(JSON.parse(body).callingMethod).toBe('deleteRating');
         done();
       });

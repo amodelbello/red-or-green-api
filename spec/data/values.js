@@ -98,6 +98,12 @@ module.exports.fakeUser = {
 	"password": "password3"
 };
 
+module.exports.fakeAdminUser = {
+  "username": "adminuser",
+  "email" : "adminuser@lalala.com",
+  "password": "password1"
+}
+
 module.exports.fakeUserEdit = {
   "role": "default",
   "username": "testuser",
@@ -128,6 +134,17 @@ module.exports.fakeUserPayload = {
   username: "v2vvb1gv511zamodelbello"
 };
 
+module.exports.fakeAdminUserPayload = {
+  _id:"5b1f4efdb44bd1fe2a5dea79",
+  email:"adminuser@lalala.com",
+  expiration:1531370965,
+  iat:1528778965,
+  role:"admin",
+  username:"adminuser"
+};
+
 module.exports.validJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjFlYjE5MmE1MWMwMjlkMzNhMWRhMGEiLCJlbWFpbCI6InRlc3R1c2VyQGxhbGFsYS5jb20iLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwicm9sZSI6ImRlZmF1bHQiLCJleHBpcmF0aW9uIjoxNTMxMzMwODQ2LCJpYXQiOjE1Mjg3Mzg4NDZ9.FnQp8aWbj0tS7JB8hOAMWIDHu38lhYeo7TlOdD296ac';
+
+module.exports.validAdminJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjFmNGVmZGI0NGJkMWZlMmE1ZGVhNzkiLCJlbWFpbCI6ImFkbWludXNlckBsYWxhbGEuY29tIiwidXNlcm5hbWUiOiJhZG1pbnVzZXIiLCJyb2xlIjoiYWRtaW4iLCJleHBpcmF0aW9uIjoxNTMxMzcwOTY1LCJpYXQiOjE1Mjg3Nzg5NjV9.qp4aZLcQ6SPHvijsFnWPiNJW8DUkVaUgWvgTEbkVWmg';
 
 module.exports.invalidJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjFiNmIxOWU3NjYxNzdkZDkxMzk5YmMiLCJlbWFpbCI6IjExemFtb2RlbGJlbGxvQGxhbGFsYS5jb20iLCJ1c2VybmFtZSI6IjExemFtb2RlbGJlbGxvIiwiZXhwaXJhdGlvbiI6MTUzMTE3Mjg3NiwiaWF0IjoxNTI4NTgwODc2fQ.JXIe3WpUJHPnMofR9Qc_8DKuziWuVV7iA9klsjwM9DM';

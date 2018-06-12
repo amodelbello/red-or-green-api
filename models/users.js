@@ -16,7 +16,11 @@ const schema = new mongoose.Schema({
   lastName: String,
   hash: String,
   salt: String,
-  chilePreference: Boolean,
+  chilePreference: {
+    type: String,
+    enum: ['red', 'green', 'both', 'neither'],
+    default: 'neither'
+  },
   zip: String,
   role: {
     type: String,
