@@ -1,22 +1,22 @@
 [
   {
-    "role": "default",
     "_id": "5b1eb192a51c029d33a1da0a",
-    "created": "2018-06-11T17:29:54.476Z",
-    "updated": "2018-06-11T17:29:54.476Z",
+    "role": "default",
     "username": "testuser",
     "email": "testuser@lalala.com",
+    "created": "2018-06-11T17:29:54.476Z",
+    "updated": "2018-06-11T17:29:54.476Z",
     "salt": "ccb40c694f9da623565215a28c7fe29a",
     "hash": "0f423a5190333573e768a9ef4add277288fb4420e0276c77bd15aa16a14cbe57853e61d5f6c01adab96eed10887288fc8ecc0bccb045e2bf6b51089f9194f74f"
   },
   {
     "_id" : "5b1f4efdb44bd1fe2a5dea79",
-    "chilePreference" : "red",
     "role" : "admin",
-    "created" : "2018-06-12T04:41:33.985Z",
-    "updated" : "2018-06-12T04:41:33.985Z",
     "username" : "adminuser",
     "email" : "adminuser@lalala.com",
+    "chilePreference" : "red",
+    "created" : "2018-06-12T04:41:33.985Z",
+    "updated" : "2018-06-12T04:41:33.985Z",
     "salt" : "e49b4379b85cd16e4baef66ec7baeb7f",
     "hash" : "fbc023a03bb8e375fc66c20305be32c9c1d11f4c78a7146964f2452b91ef4eb92e114b9ab735dc37ffe9da4fac4aa492a3405c1b1b6830edf75b0e9abaef50bd"
   }

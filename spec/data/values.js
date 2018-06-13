@@ -1,6 +1,6 @@
 module.exports.validObjectId = '4b14b27d3450501de43d2f98';
 module.exports.validBusinessId = '5b14b27d3450501de43d2f98';
-module.exports.validCategoryId = '5b19b39652e70a499c889123';
+module.exports.validCategoryId = '5b199079e968472545119302';
 module.exports.validRatingId = '5b1aa0ad461efe7b09d9f7ed';
 module.exports.validUserId = '5b1eb192a51c029d33a1da0a';
 module.exports.valuesThatExist = [

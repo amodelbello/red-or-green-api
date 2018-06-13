@@ -1,26 +1,14 @@
 [
   {
       "_id": "5b199079e968472545119302",
-      "name": "Chile2",
-      "description": "This is chile2.",
+      "name": "Red Chile",
+      "description": "Red chile is delicious.",
       "__v": 0
   },
   {
       "_id": "5b19b39552e70a499c889122",
-      "name": "Chile",
-      "description": "This is chile.",
-      "__v": 0
-  },
-  {
-      "_id": "5b19b39652e70a499c889123",
-      "name": "Chile",
-      "description": "This is chile.",
-      "__v": 0
-  },
-  {
-      "_id": "5b19b39752e70a499c889124",
-      "name": "Chile",
-      "description": "This is chile.",
+      "name": "Green Chile",
+      "description": "Green chile is delicious.",
       "__v": 0
   }
 ]
