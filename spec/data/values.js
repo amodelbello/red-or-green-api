@@ -79,16 +79,16 @@ module.exports.fakeCategoryEdit = {
 };
 
 module.exports.fakeRating = {
-  "userId": "5b1b6b19e766177dd91399bc",
-  "businessId": "1b176acb1f80de5885a7e96c",
-  "categoryId": "2b176acb1f80de5885a7e96c",
+  "user": "5b1b6b19e766177dd91399bc",
+  "business": "1b176acb1f80de5885a7e96c",
+  "category": "2b176acb1f80de5885a7e96c",
   "comments": "These are the comments of the rating"
 };
 
 module.exports.fakeRatingEdit = {
-  "userId": "5b1b6b19e766177dd91399bc",
-  "businessId": "1b176acb1f80de5885a7e96c",
-  "categoryId": "2b176acb1f80de5885a7e96c",
+  "user": "5b1b6b19e766177dd91399bc",
+  "business": "1b176acb1f80de5885a7e96c",
+  "category": "2b176acb1f80de5885a7e96c",
   "comments": "These are the comments of the rating edited"
 };
 
