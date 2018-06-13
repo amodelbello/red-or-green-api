@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+const mongoose = require('mongoose');
+require('../models/db');
+
+const dbImporter = require('../spec/data/import');
+dbImporter.run(() => {
+  mongoose.connection.close();
+});

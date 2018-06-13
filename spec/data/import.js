@@ -4,13 +4,17 @@ const categoriesImporter = require('./importCategories');
 const ratingsImporter = require('./importRatings');
 const usersImporter = require('./importUsers');
 
-const run = async () => {
+const run = async (cb) => {
   try {
     await mongoose.connection.dropDatabase()
     await businessesImporter.run();
     await categoriesImporter.run();
     await ratingsImporter.run();
     await usersImporter.run();
+
+    if (cb !== undefined) {
+      cb();
+    }
   } catch(e) {
     console.log(e);
   }

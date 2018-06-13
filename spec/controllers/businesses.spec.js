@@ -1,5 +1,4 @@
 const httpMocks = require('node-mocks-http');
-const request = require('request');
 const app = require('../../app');
 require('jasmine');
 
