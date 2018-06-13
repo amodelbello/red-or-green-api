@@ -23,6 +23,12 @@ const schema = new mongoose.Schema({
     required: true,
     validate: objectIdValidator,
   },
+  rating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5
+  },
   comments: {
     type: String,
   },

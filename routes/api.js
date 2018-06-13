@@ -106,6 +106,8 @@ router
     validate.hasValidObjectId('userId'),
     validate.hasValidObjectId('businessId'),
     validate.hasValidObjectId('categoryId'),
+    validate.isNumberOrNull('rating'),
+    validate.numberIsWithinRangeOrNull('rating', 0, 5),
     ratingsController.addRating())
   ;
 router
@@ -123,6 +125,8 @@ router
     validate.hasValidObjectId('userId'),
     validate.hasValidObjectId('businessId'),
     validate.hasValidObjectId('categoryId'),
+    validate.isNumberOrNull('rating'),
+    validate.numberIsWithinRangeOrNull('rating', 0, 5),
     ratingsController.updateRating())
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteRating'),
