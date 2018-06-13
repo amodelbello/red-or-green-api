@@ -20,7 +20,7 @@ const mongoose = require('mongoose');
 const dbImporter = require('../data/import');
 const testData = require('../data/values');
 
-describe("Ratings Controller", () => {
+describe("Ratings Controller:", () => {
 
   beforeEach((done) => {
     dbImporter.run().then(() => { done(); });

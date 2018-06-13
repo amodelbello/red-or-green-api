@@ -5,7 +5,7 @@ let server;
 const testPort = 3001;
 const base_url = `http://localhost:${testPort}/`;
 
-describe("app.js", () => {
+describe("app.js:", () => {
 
   beforeEach(function() {
     app.request.app.set('env', 'test');

@@ -15,7 +15,7 @@ const validate = require('../../middleware/validation');
 
 const testData = require('../data/values');
 
-describe("Validation Middleware", () => {
+describe("Validation Middleware:", () => {
 
   beforeEach(() => {
 

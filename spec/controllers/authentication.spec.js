@@ -22,7 +22,7 @@ const mongoose = require('mongoose');
 const dbImporter = require('../data/import');
 const testData = require('../data/values');
 
-describe("Authentication Controller", () => {
+describe("Authentication Controller:", () => {
 
   beforeEach((done) => {
     dbImporter.run().then(() => { done(); });

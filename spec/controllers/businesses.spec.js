@@ -20,7 +20,7 @@ const mongoose = require('mongoose');
 const dbImporter = require('../data/import');
 const testData = require('../data/values');
 
-describe("Businesses Controller", () => {
+describe("Businesses Controller:", () => {
 
   beforeEach((done) => {
     dbImporter.run().then(() => { done(); });
@@ -136,7 +136,6 @@ describe("Businesses Controller", () => {
     it("should handle error", (done) => {
       mockRequest.body = 'This is not valid input';
       spyOn(responseHelper, 'respond');
-
       const addBusiness = businessesController.addBusiness();
       addBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);

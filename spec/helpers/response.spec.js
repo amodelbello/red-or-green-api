@@ -13,7 +13,7 @@ const fakeData = { hello: 'hello' };
 
 const responseHelper = require('../../helpers/response');
 
-describe("Response Helper", () => {
+describe("Response Helper:", () => {
 
   beforeEach(() => {
     mockRequest = httpMocks.createRequest({

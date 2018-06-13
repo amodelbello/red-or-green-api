@@ -15,10 +15,9 @@ const auth = require('../../middleware/authentication');
 
 const testData = require('../data/values');
 
-describe("Authentication Middleware", () => {
+describe("Authentication Middleware:", () => {
 
   beforeEach(() => {
-
     mockRequest = httpMocks.createRequest({
       method: 'POST',
       url: `${base_url}/users`,
@@ -38,7 +37,6 @@ describe("Authentication Middleware", () => {
   describe("allowedRoles()", () => {
 
     it("should respond with 403 if user role is not allowed", (done) => {
-
       spyOn(testData, 'next');
       spyOn(responseHelper, 'respond');
       const allowedRoles = auth.allowedRoles(['other-role']);
@@ -47,7 +45,6 @@ describe("Authentication Middleware", () => {
       expect(responseHelper.respond).toHaveBeenCalledWith(403, mockResponse, '17: User is not authorized');
       done();
     });
-
   });
 
 
