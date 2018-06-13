@@ -3,12 +3,16 @@
       "_id": "5b199079e968472545119302",
       "name": "Red Chile",
       "description": "Red chile is delicious.",
+      "created": "2018-06-12T22:30:38.626Z",
+      "updated": "2018-06-12T22:30:38.626Z",      
       "__v": 0
   },
   {
       "_id": "5b19b39552e70a499c889122",
       "name": "Green Chile",
       "description": "Green chile is delicious.",
+      "created": "2018-06-11T22:49:38.626Z",
+      "updated": "2018-06-11T22:49:38.626Z",      
       "__v": 0
   }
 ]

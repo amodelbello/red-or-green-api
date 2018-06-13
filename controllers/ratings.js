@@ -7,6 +7,9 @@ const fetchRatings = () => {
 
     return new Promise((resolve, reject) => {
       Rating.find()
+      .populate('user', '_id username')
+      .populate('business', '-address')
+      .populate('category')
       .exec((err, ratings) => {
 
         if (responseHelper.successfulRequest(err, ratings)) {
@@ -33,6 +36,9 @@ const fetchRating = () => {
 
     return new Promise((resolve, reject) => {
       Rating.findById(ratingId)
+      .populate('user', '_id username')
+      .populate('business', '-address')
+      .populate('category')
       .exec((err, rating) => {
 
         if (responseHelper.successfulRequest(err, rating)) {

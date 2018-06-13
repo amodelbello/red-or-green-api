@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const objectIdValidator = {
   validator: (v) => {
@@ -8,17 +9,21 @@ const objectIdValidator = {
 };
 
 const schema = new mongoose.Schema({
-  userId: {
-    type: String,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
     validate: objectIdValidator,
   },
-  businessId: {
-    type: String,
+  business: {
+    type: Schema.Types.ObjectId,
+    ref: 'Business',
     required: true,
     validate: objectIdValidator,
   },
-  categoryId: {
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
     type: String,
     required: true,
     validate: objectIdValidator,
