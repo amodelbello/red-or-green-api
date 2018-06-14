@@ -93,6 +93,11 @@ const updateRating = () => {
     const ratingId = req.params.ratingId;
     req.body.updated = new Date();
 
+    // Once a rating is created we don't want these to be changed
+    delete req.body.user;
+    delete req.body.business;
+    delete req.body.category;
+
     return new Promise((resolve, reject) => {
       Rating.findByIdAndUpdate(ratingId, req.body, { new: true }, (err, rating) => {
         if (responseHelper.successfulRequest(err, rating)) {

@@ -1,5 +1,3 @@
-const express = require('express');
-const app = require('../app');
 const mongoose = require('mongoose');
 const responseHelper = require('../helpers/response');
 
@@ -13,6 +11,29 @@ const hasValidObjectId = (idField) => {
       responseHelper.respond(400, res, `Error: invalid ${idField}`);
       return;
     }
+  };
+};
+
+const isValidDocument = (modelName, field) => {
+  return (req, res, next) => {
+    const id = req.body[field];
+    const model = mongoose.model(modelName);
+
+    return new Promise((resolve, reject) => {
+      model.findById(id)
+      .exec((err, document) => {
+
+        if (document !== null /* istanbul ignore next */ && err === null) {
+          resolve(next());
+        } else {
+          return reject();
+        }
+      });
+    })
+    .catch(e => {
+      responseHelper.respond(400, res, `Associated document with field: ${field} does not exist`);
+      return;
+    });
   };
 };
 
@@ -146,5 +167,6 @@ module.exports = {
   hasValidAddress,
   isNumberOrNull,
   numberIsWithinRangeOrNull,
+  isValidDocument,
 }
 

@@ -1,6 +1,4 @@
 const httpMocks = require('node-mocks-http');
-const request = require('request');
-const app = require('../../app');
 require('jasmine');
 
 let server;
@@ -18,7 +16,6 @@ const testData = require('../data/values');
 describe("Validation Middleware:", () => {
 
   beforeEach(() => {
-
     mockRequest = httpMocks.createRequest({
       method: 'GET',
       url: `${base_url}/businesses`,
@@ -30,18 +27,15 @@ describe("Validation Middleware:", () => {
     mockResponse.body = {};
   });
 
-
   /******************************************************
    * hasValidObjectId()
    *****************************************************/
   describe("hasValidObjectId()", () => {
 
     it("should call next with valid objectId", (done) => {
-
       spyOn(testData, 'next');
       const validationFunction = validate.hasValidObjectId('businessId');
       validationFunction(mockRequest, mockResponse, testData.next);
-
       expect(testData.next).toHaveBeenCalled();
       done();
     });
@@ -49,11 +43,49 @@ describe("Validation Middleware:", () => {
     it("should reject with invalid objectId", (done) => {
       mockRequest.params.businessId += '-invalid';
       spyOn(responseHelper, 'respond');
-
       const validationFunction = validate.hasValidObjectId('businessId');
       validationFunction(mockRequest, mockResponse, testData.next);
       expect(responseHelper.respond).toHaveBeenCalledWith(400, mockResponse, 'Error: invalid businessId');
       done();
+    });
+  });
+
+  /******************************************************
+   * isValidDocument()
+   *****************************************************/
+  describe("isValidDocument()", () => {
+
+    beforeEach(() => {
+      mockRequest = httpMocks.createRequest({
+        method: 'GET',
+        url: `${base_url}/businesses`,
+        body: {
+          businessId: testData.validBusinessId
+        }
+      });
+      mockResponse = httpMocks.createResponse();
+      mockResponse.body = {};
+    });
+
+    it("should call next with objectId that belongs to a valid document", (done) => {
+      spyOn(testData, 'next');
+      const isValidDocument = validate.isValidDocument('Business', 'businessId');
+      isValidDocument(mockRequest, mockResponse, testData.next).then(() => {
+        expect(testData.next).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it("should resopond with 400 with objectId that does not belong to a valid document", (done) => {
+      mockRequest.body.businessId = testData.validObjectId;
+      spyOn(testData, 'next');
+      spyOn(responseHelper, 'respond');
+      const isValidDocument = validate.isValidDocument('Business', 'businessId');
+      isValidDocument(mockRequest, mockResponse, testData.next).then(() => {
+        expect(testData.next).not.toHaveBeenCalled();
+        expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(400);
+        done();
+      });
     });
   });
 
@@ -63,9 +95,7 @@ describe("Validation Middleware:", () => {
   describe("requiredInBody()", () => {
 
     it("should call next with property that exists in req.body", (done) => {
-
       spyOn(testData, 'next');
-
       for(let x = 0; x < testData.valuesThatExist.length; x++) {
         mockRequest.body.name = testData.valuesThatExist[x];
         const validationFunction = validate.requiredInBody('name');
@@ -77,9 +107,7 @@ describe("Validation Middleware:", () => {
     });
 
     it("should handle error with property that does not exist in req.body", (done) => {
-
       spyOn(responseHelper, 'respond');
-
       for(let x = 0; x < testData.valuesThatDontExist.length; x++) {
         mockRequest.body.name = testData.valuesThatDontExist[x];
         const validationFunction = validate.requiredInBody('name');
@@ -97,9 +125,7 @@ describe("Validation Middleware:", () => {
    *****************************************************/
   describe("requiredInParams()", () => {
     it("should call next with property that exists in req.params", (done) => {
-
       spyOn(testData, 'next');
-
       for(let x = 0; x < testData.valuesThatExist.length; x++) {
         mockRequest.params.name = testData.valuesThatExist[x];
         const validationFunction = validate.requiredInParams('name');
@@ -111,9 +137,7 @@ describe("Validation Middleware:", () => {
     });
 
     it("should handle error with property that does not exist in req.params", (done) => {
-
       spyOn(responseHelper, 'respond');
-
       for(let x = 0; x < testData.valuesThatDontExist.length; x++) {
         mockRequest.params.name = testData.valuesThatDontExist[x];
         const validationFunction = validate.requiredInParams('name');
@@ -132,7 +156,6 @@ describe("Validation Middleware:", () => {
   describe("hasValidAddress()", () => {
 
     beforeEach(() => {
-
       mockRequest = httpMocks.createRequest({
         method: 'GET',
         url: `${base_url}/businesses`,
