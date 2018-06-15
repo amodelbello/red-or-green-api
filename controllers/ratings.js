@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Rating = mongoose.model('Rating');
+const Business = mongoose.model('Business');
 const responseHelper = require('../helpers/response');
 
 const fetchRatings = () => {
@@ -71,6 +72,7 @@ const addRating = () => {
     return new Promise((resolve, reject) => {
       Rating.create(data, (err, rating) => {
         if (responseHelper.successfulRequest(err, rating)) {
+          updateBusinessRating(rating.business);
           responseHelper.success(res, rating);
           return resolve();
 
@@ -101,6 +103,7 @@ const updateRating = () => {
     return new Promise((resolve, reject) => {
       Rating.findByIdAndUpdate(ratingId, req.body, { new: true }, (err, rating) => {
         if (responseHelper.successfulRequest(err, rating)) {
+          updateBusinessRating(rating.business);
           responseHelper.success(res, rating);
           return resolve();
 
@@ -141,6 +144,20 @@ const deleteRating = () => {
     });
   };
 }
+
+const updateBusinessRating = (businessId) => {
+  Rating.find({ business: businessId }, (err, ratings) => {
+    /* istanbul ignore else */
+    if (ratings.length > 0) { 
+      const numRatings = ratings.length;
+      const sumOfRatings = ratings.reduce((a, c) => a + c.rating, 0);
+      const averageRating = (sumOfRatings / numRatings);
+
+      Business.findByIdAndUpdate(businessId, { rating: averageRating }, { new: true }, (err, business) => {
+      });
+    }
+  })
+};
 
 module.exports = {
   fetchRatings,

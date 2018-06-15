@@ -223,7 +223,7 @@ describe("API Routes: ", () => {
 
     it("Calls PUT /ratings/:ratingId", (done) => {
       const options = {
-        url: `${base_url}/ratings/${testData.validObjectId}`,
+        url: `${base_url}/ratings/${testData.validRatingId}`,
         headers: { 'Authorization': `Bearer ${testData.validAdminJwt}` }
       };
       spyOn(responseHelper, 'successfulRequest').and.returnValue(true);
