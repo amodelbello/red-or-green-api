@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const mongoose = require('mongoose');
 const Rating = mongoose.model('Rating');
 const Business = mongoose.model('Business');
@@ -145,12 +146,27 @@ const deleteRating = () => {
   };
 }
 
+// We need to update the business rating (average of all ratings for that business)
 const updateBusinessRating = (businessId) => {
-  Rating.find({ business: businessId }, (err, ratings) => {
+  Rating.find({ business: businessId })
+    .sort('user')
+    .exec((err, ratings) => {
     /* istanbul ignore else */
     if (ratings.length > 0) { 
-      const numRatings = ratings.length;
-      const sumOfRatings = ratings.reduce((a, c) => a + c.rating, 0);
+
+      // Average all ratings per single users,
+      // So results can't be skewed by one or a few users
+      const partitionedByUser = _.values(_.groupBy(ratings, 'user'));
+      let averageRatingPerUser = [];
+      partitionedByUser.forEach(ratingsBySingleUser => {
+        const numRatings = ratingsBySingleUser.length;
+        const sumOfRatings = ratingsBySingleUser.reduce((a, c) => a + c.rating, 0);
+        averageRatingPerUser.push((sumOfRatings / numRatings));
+      });
+
+      // Then average those averages
+      const numRatings = averageRatingPerUser.length;
+      const sumOfRatings = averageRatingPerUser.reduce((a, c) => a + c, 0);
       const averageRating = (sumOfRatings / numRatings);
 
       Business.findByIdAndUpdate(businessId, { rating: averageRating }, { new: true }, (err, business) => {
