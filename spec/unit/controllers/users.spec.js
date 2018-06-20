@@ -1,6 +1,6 @@
 const httpMocks = require('node-mocks-http');
 const request = require('request');
-const app = require('../../app');
+const app = require('../../../app');
 require('jasmine');
 
 let server;
@@ -10,15 +10,15 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeUser = require('../data/values').fakeUser;
-const fakeUserEdit = require('../data/values').fakeUserEdit;
+const fakeUser = require('../../data/values').fakeUser;
+const fakeUserEdit = require('../../data/values').fakeUserEdit;
 
-const usersController = require('../../controllers/users');
-const responseHelper = require('../../helpers/response');
+const usersController = require('../../../controllers/users');
+const responseHelper = require('../../../helpers/response');
 
 const mongoose = require('mongoose');
-const dbImporter = require('../data/import');
-const testData = require('../data/values');
+const dbImporter = require('../../data/import');
+const testData = require('../../data/values');
 
 describe("Users Controller:", () => {
 

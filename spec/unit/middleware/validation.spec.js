@@ -8,10 +8,10 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const responseHelper = require('../../helpers/response');
-const validate = require('../../middleware/validation');
+const responseHelper = require('../../../helpers/response');
+const validate = require('../../../middleware/validation');
 
-const testData = require('../data/values');
+const testData = require('../../data/values');
 
 describe("Validation Middleware:", () => {
 

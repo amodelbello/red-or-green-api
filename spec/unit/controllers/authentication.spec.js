@@ -1,6 +1,5 @@
 const httpMocks = require('node-mocks-http');
-const request = require('request');
-const app = require('../../app');
+const app = require('../../../app');
 require('jasmine');
 
 let server;
@@ -10,17 +9,15 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeUser = require('../data/values').fakeUser;
-const fakeUserCredentials = require('../data/values').fakeUserCredentials;
-const fakeUserCredentialsInvalidUsername = require('../data/values').fakeUserCredentialsInvalidUsername;
-const fakeUserCredentialsInvalidPassword = require('../data/values').fakeUserCredentialsInvalidPassword
+const fakeUser = require('../../data/values').fakeUser;
+const fakeUserCredentials = require('../../data/values').fakeUserCredentials;
+const fakeUserCredentialsInvalidUsername = require('../../data/values').fakeUserCredentialsInvalidUsername;
+const fakeUserCredentialsInvalidPassword = require('../../data/values').fakeUserCredentialsInvalidPassword
 
-const authenticationController = require('../../controllers/authentication');
-const responseHelper = require('../../helpers/response');
+const authenticationController = require('../../../controllers/authentication');
+const responseHelper = require('../../../helpers/response');
 
-const mongoose = require('mongoose');
-const dbImporter = require('../data/import');
-const testData = require('../data/values');
+const dbImporter = require('../../data/import');
 
 describe("Authentication Controller:", () => {
 

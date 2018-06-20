@@ -1,6 +1,6 @@
 const httpMocks = require('node-mocks-http');
 const request = require('request');
-const app = require('../../app');
+const app = require('../../../app');
 require('jasmine');
 
 let server;
@@ -11,7 +11,7 @@ let mockRequest;
 let mockResponse;
 const fakeData = { hello: 'hello' };
 
-const responseHelper = require('../../helpers/response');
+const responseHelper = require('../../../helpers/response');
 
 describe("Response Helper:", () => {
 

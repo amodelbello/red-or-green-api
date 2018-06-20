@@ -1,18 +1,18 @@
 const request = require('request');
-const app = require('../../app');
+const app = require('../../../app');
 require('jasmine');
 
 let server;
 const testPort = 3001;
 const base_url = `http://localhost:${testPort}/api`;
 
-const businessesController = require('../../controllers/businesses');
-const categoriesController = require('../../controllers/categories');
-const ratingsController = require('../../controllers/ratings');
-const responseHelper = require('../../helpers/response');
+const businessesController = require('../../../controllers/businesses');
+const categoriesController = require('../../../controllers/categories');
+const ratingsController = require('../../../controllers/ratings');
+const responseHelper = require('../../../helpers/response');
 
-const dbImporter = require('../data/import');
-const testData = require('../data/values');
+const dbImporter = require('../../data/import');
+const testData = require('../../data/values');
 
 describe("API Routes: ", () => {
 

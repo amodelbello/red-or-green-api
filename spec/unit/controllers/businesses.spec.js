@@ -1,6 +1,5 @@
 const httpMocks = require('node-mocks-http');
-const request = require('request');
-const app = require('../../app');
+const app = require('../../../app');
 require('jasmine');
 
 let server;
@@ -10,17 +9,17 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const fakeCategory = require('../data/values').fakeCategory;
-const fakeCategoryEdit = require('../data/values').fakeCategoryEdit;
+const fakeBusiness = require('../../data/values').fakeBusiness;
+const fakeBusinessEdit = require('../../data/values').fakeBusinessEdit;
 
-const categoriesController = require('../../controllers/categories');
-const responseHelper = require('../../helpers/response');
+const businessesController = require('../../../controllers/businesses');
+const responseHelper = require('../../../helpers/response');
 
 const mongoose = require('mongoose');
-const dbImporter = require('../data/import');
-const testData = require('../data/values');
+const dbImporter = require('../../data/import');
+const testData = require('../../data/values');
 
-describe("Categories Controller:", () => {
+describe("Businesses Controller:", () => {
 
   beforeEach((done) => {
     dbImporter.run().then(() => { done(); });
@@ -31,7 +30,7 @@ describe("Categories Controller:", () => {
 
     mockRequest = httpMocks.createRequest({
       method: 'GET',
-      url: base_url + '/categories'
+      url: base_url + '/businesses'
     });
     mockResponse = httpMocks.createResponse();
     mockResponse.body = {};
@@ -42,14 +41,14 @@ describe("Categories Controller:", () => {
   });
 
   /******************************************************
-   * fetchCategories()
+   * fetchBusinesses()
    *****************************************************/
-  describe("fetchCategories()", () => {
+  describe("fetchBusinesses()", () => {
 
-    it("should fetch categories successfully", (done) => {
+    it("should fetch businesses successfully", (done) => {
       spyOn(responseHelper, 'success');
-      const fetchCategories = categoriesController.fetchCategories();
-      fetchCategories(mockRequest, mockResponse).then(() => {
+      const fetchBusinesses = businessesController.fetchBusinesses();
+      fetchBusinesses(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -58,8 +57,8 @@ describe("Categories Controller:", () => {
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');
-      const fetchCategories = categoriesController.fetchCategories();
-      fetchCategories(mockRequest, mockResponse).then(() => {
+      const fetchBusinesses = businessesController.fetchBusinesses();
+      fetchBusinesses(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -67,23 +66,23 @@ describe("Categories Controller:", () => {
   });
 
   /******************************************************
-   * fetchCategory()
+   * fetchBusiness()
    *****************************************************/
-  describe("fetchCategory()", () => {
+  describe("fetchBusiness()", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
         method: 'GET',
-        url: `${base_url}/categories`,
+        url: `${base_url}/businesses`,
         params: {
-          categoryId: testData.validCategoryId
+          businessId: testData.validBusinessId
         }
       });
     });
 
-    it("should fetch category successfully", (done) => {
+    it("should fetch business successfully", (done) => {
       spyOn(responseHelper, 'success');
-      const fetchCategory = categoriesController.fetchCategory();
-      fetchCategory(mockRequest, mockResponse).then(() => {
+      const fetchBusiness = businessesController.fetchBusiness();
+      fetchBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -92,8 +91,8 @@ describe("Categories Controller:", () => {
     it("should handle 404 error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'failure');
-      const fetchCategory = categoriesController.fetchCategory();
-      fetchCategory(mockRequest, mockResponse).then(() => {
+      const fetchBusiness = businessesController.fetchBusiness();
+      fetchBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.failure).toHaveBeenCalled();
         done();
       });
@@ -101,9 +100,9 @@ describe("Categories Controller:", () => {
 
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'respond');
-      mockRequest.params.categoryId = 1;
-      const fetchCategory = categoriesController.fetchCategory();
-      fetchCategory(mockRequest, mockResponse).then(() => {
+      mockRequest.params.businessId = 1;
+      const fetchBusiness = businessesController.fetchBusiness();
+      fetchBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -111,23 +110,23 @@ describe("Categories Controller:", () => {
   });
 
   /******************************************************
-   * addCategory()
+   * addBusiness()
    *****************************************************/
-  describe("addCategory()", () => {
+  describe("addBusiness()", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
         method: 'POST',
-        url: base_url + '/categories',
+        url: base_url + '/businesses',
       });
       mockResponse = httpMocks.createResponse();
       mockResponse.body = {};
     });
 
-    it("should add category successfully", (done) => {
-      mockRequest.body = fakeCategory;
+    it("should add business successfully", (done) => {
       spyOn(responseHelper, 'success');
-      const addCategory = categoriesController.addCategory();
-      addCategory(mockRequest, mockResponse).then(() => {
+      mockRequest.body = fakeBusiness;
+      const addBusiness = businessesController.addBusiness();
+      addBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -136,8 +135,8 @@ describe("Categories Controller:", () => {
     it("should handle error", (done) => {
       mockRequest.body = 'This is not valid input';
       spyOn(responseHelper, 'respond');
-      const addCategory = categoriesController.addCategory();
-      addCategory(mockRequest, mockResponse).then(() => {
+      const addBusiness = businessesController.addBusiness();
+      addBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -145,25 +144,25 @@ describe("Categories Controller:", () => {
   });
 
   /******************************************************
-   * updateCategory()
+   * updateBusiness()
    *****************************************************/
-  describe("updateCategory()", () => {
+  describe("updateBusiness()", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
-        url: `${base_url}/categories`,
+        url: `${base_url}/businesses`,
         params: {
-          categoryId: testData.validCategoryId
+          businessId: testData.validBusinessId
         }
       });
       mockResponse = httpMocks.createResponse();
       mockResponse.body = {};
     });
 
-    it("should update category successfully", (done) => {
-      mockRequest.body = fakeCategoryEdit;
+    it("should update business successfully", (done) => {
       spyOn(responseHelper, 'success');
-      const updateCategory = categoriesController.updateCategory();
-      updateCategory(mockRequest, mockResponse).then(() => {
+      mockRequest.body = testData.fakeBusinessEdit;
+      const updateBusiness = businessesController.updateBusiness();
+      updateBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -173,8 +172,8 @@ describe("Categories Controller:", () => {
       mockRequest.body = false;
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');
-      const updateCategory = categoriesController.updateCategory();
-      updateCategory(mockRequest, mockResponse).then(() => {
+      const updateBusiness = businessesController.updateBusiness();
+      updateBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });
@@ -182,23 +181,23 @@ describe("Categories Controller:", () => {
   });
 
   /******************************************************
-   * deleteCategory()
+   * deleteBusiness()
    *****************************************************/
-  describe("deleteCategory()", () => {
+  describe("deleteBusiness()", () => {
     beforeEach(() => {
       mockRequest = httpMocks.createRequest({
         method: 'DELETE',
-        url: `${base_url}/categories`,
+        url: `${base_url}/businesses`,
         params: {
-          categoryId: testData.validCategoryId
+          businessId: testData.validBusinessId
         }
       });
     });
 
-    it("should delete category successfully", (done) => {
+    it("should delete business successfully", (done) => {
       spyOn(responseHelper, 'success');
-      const deleteCategory = categoriesController.deleteCategory();
-      deleteCategory(mockRequest, mockResponse).then(() => {
+      const deleteBusiness = businessesController.deleteBusiness();
+      deleteBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.success).toHaveBeenCalled();
         done();
       });
@@ -207,8 +206,8 @@ describe("Categories Controller:", () => {
     it("should handle error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');
-      const deleteCategory = categoriesController.deleteCategory();
-      deleteCategory(mockRequest, mockResponse).then(() => {
+      const deleteBusiness = businessesController.deleteBusiness();
+      deleteBusiness(mockRequest, mockResponse).then(() => {
         expect(responseHelper.respond.calls.mostRecent().args[0]).toBe(500);
         done();
       });

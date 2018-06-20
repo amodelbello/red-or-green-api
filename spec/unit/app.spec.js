@@ -1,5 +1,5 @@
 const request = require('request');
-const app = require('../app');
+const app = require('../../app');
 
 let server;
 const testPort = 3001;

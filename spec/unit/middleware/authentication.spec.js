@@ -1,6 +1,6 @@
 const httpMocks = require('node-mocks-http');
 const request = require('request');
-const app = require('../../app');
+const app = require('../../../app');
 require('jasmine');
 
 let server;
@@ -10,10 +10,10 @@ const base_url = `http://localhost:${testPort}/api`;
 let mockRequest;
 let mockResponse;
 
-const responseHelper = require('../../helpers/response');
-const auth = require('../../middleware/authentication');
+const responseHelper = require('../../../helpers/response');
+const auth = require('../../../middleware/authentication');
 
-const testData = require('../data/values');
+const testData = require('../../data/values');
 
 describe("Authentication Middleware:", () => {
 
