@@ -5,7 +5,7 @@ require('jasmine');
 
 let server;
 const testPort = 3001;
-const base_url = `http://localhost:${testPort}/api`;
+const base_url = `http://127.0.0.1:${testPort}/api`;
 
 let mockRequest;
 let mockResponse;

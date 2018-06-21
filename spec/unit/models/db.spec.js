@@ -8,7 +8,7 @@ require('jasmine');
 
 let server;
 const testPort = 3001;
-const dbHost = 'mongodb://localhost/RedOrGreen';
+const dbHost = 'mongodb://127.0.0.1/RedOrGreen';
 
 var mongoose = require('mongoose');
  
