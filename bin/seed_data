@@ -6,4 +6,5 @@ require('../models/db');
 const dbImporter = require('../spec/data/import');
 dbImporter.run(() => {
   mongoose.connection.close();
+  console.log('Seed data imported.');
 });

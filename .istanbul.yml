@@ -6,7 +6,8 @@ instrumentation:
     default-excludes: true
     excludes: [
       '**/models/db.js',
-      '**/spec/data/*'
+      '**/spec/data/*',
+      '**/spec/integration/*'
     ]
     embed-source: false
     variable: __coverage__

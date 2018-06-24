@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
 const sassMiddleware = require('node-sass-middleware');
 const responseMiddleware = require('./middleware/response');
 
@@ -17,6 +18,15 @@ const apiRouter = require('./routes/api');
 
 const app = express();
 // app.set('env', 'production');
+
+// const corsOptions = {
+//   origin: 'http://localhost.com:8080',
+//   optionsSuccessStatus: 200 
+// }
+// app.options('*', cors(corsOptions));
+
+// THIS IS ALLOWING EVERYTHING!! Need to change before going to prod
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
