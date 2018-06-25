@@ -8,11 +8,13 @@ const cors = require('cors');
 
 const corsOptions = {
   origin: (origin, cb) => {
+    /* istanbul ignore else */
     if (process.env.NODE_ENV !== 'production') {
       cb(null, true);
       return;
     }
 
+    /* istanbul ignore next */
     if (process.env.CORS_WHITELIST.indexOf(origin) !== -1) {
       cb(null, true);
       return;
