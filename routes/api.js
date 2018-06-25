@@ -4,7 +4,27 @@ const responseMiddleware = require('../middleware/response');
 const auth = require('../middleware/authentication');
 const validate = require('../middleware/validation');
 
+const cors = require('cors');
 
+const corsOptions = {
+  origin: (origin, cb) => {
+    if (process.env.NODE_ENV !== 'production') {
+      cb(null, true);
+      return;
+    }
+
+    if (process.env.CORS_WHITELIST.indexOf(origin) !== -1) {
+      cb(null, true);
+      return;
+    } else {
+      cb(new Error('Not allowed by CORS'));
+      return;
+    }
+  }
+};
+
+// Open up CORS to trused origins
+router.use(cors(corsOptions));
 
 /****************************************
  * Businesses Routes
