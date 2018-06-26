@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const objectIdValidator = require('../helpers/utility').objectIdValidator;
 
-const objectIdValidator = {
-  validator: (v) => {
-    return mongoose.Types.ObjectId.isValid(v);
-  },
-  message: '{VALUE} is not a valid ObjectId'
-};
 
 const schema = new mongoose.Schema({
   user: {
