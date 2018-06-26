@@ -81,14 +81,14 @@ module.exports.fakeCategoryEdit = {
 module.exports.fakeRating = {
   "user": "5b1b6b19e766177dd91399bc",
   "business": "5b14b30e3450501de43d2f9a",
-  "category": "2b176acb1f80de5885a7e96c",
+  "category": "5b199079e968472545119300",
   "comments": "These are the comments of the rating"
 };
 
 module.exports.fakeRatingEdit = {
   "user": "5b1b6b19e766177dd91399bc",
   "business": "5b14b30e3450501de43d2f9a",
-  "category": "2b176acb1f80de5885a7e96c",
+  "category": "5b199079e968472545119302",
   "comments": "These are the comments of the rating edited"
 };
 
