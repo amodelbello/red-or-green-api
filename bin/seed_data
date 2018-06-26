@@ -1,10 +1,20 @@
 #!/usr/bin/env node
-
+require('dotenv').load();
 const mongoose = require('mongoose');
 require('../models/db');
 
 const dbImporter = require('../spec/data/import');
-dbImporter.run(() => {
-  mongoose.connection.close();
-  console.log('Seed data imported.');
-});
+
+if (process.env.NODE_ENV !== 'production') {
+  dbImporter.run((success) => {
+    mongoose.connection.close();
+    if (success) {
+      console.log('Seed data imported.');
+    } else {
+      console.log('Error while trying to import data.');
+    }
+  });
+
+} else {
+  console.log('seed_data will not run in production mode.');
+}
