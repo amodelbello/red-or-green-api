@@ -6,6 +6,7 @@ const fetchBusinesses = () => {
   return (req, res) => {
     return new Promise((resolve, reject) => {
       Business.find()
+      .populate('ratings.category')
       .exec((err, businesses) => {
 
         if (responseHelper.successfulRequest(err, businesses)) {

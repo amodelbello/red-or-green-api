@@ -19,7 +19,6 @@ const schema = new mongoose.Schema({
   category: {
     type: Schema.Types.ObjectId,
     ref: 'Category',
-    type: String,
     required: true,
     validate: objectIdValidator,
   },

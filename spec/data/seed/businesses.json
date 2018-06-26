@@ -1,6 +1,6 @@
 [
   {
-    "rating": 0,
+    "ratings": [],
     "_id": "5b14b27d3450501de43d2f98",
     "name": "Tomasita's",
     "address": {
@@ -14,7 +14,11 @@
     "updated": "2018-06-06T03:51:00.782Z"
   },
   {
-    "rating": 1,
+    "ratings": [{
+      "averageRating": 3,
+      "_id": "5b3267ac60d69d404b06f391",
+      "category": "2b176acb1f80de5885a7e96c"
+    }],
     "created": "2018-06-06T04:06:42.986Z",
     "updated": "2018-06-06T04:06:42.986Z",
     "_id": "5b14b30e3450501de43d2f9a",
@@ -28,7 +32,7 @@
     }
   },
   {
-    "rating": 2,
+    "ratings": [],
     "_id": "5b15c8eeddb5c940227571e2",
     "name": "The Pantry",
     "address": {
@@ -43,7 +47,7 @@
     "__v": 0
   },
   {
-    "rating": 3,
+    "ratings": [],
     "_id": "5b15c942ddb5c940227571e4",
     "name": "Red Enchilada Restaurant",
     "address": {
@@ -59,7 +63,7 @@
     "__v": 0
   },
   {
-    "rating": 4,
+    "ratings": [],
     "_id": "5b160f1bf76970595016e229",
     "name": "Tortilla Flats",
     "address": {
@@ -74,7 +78,7 @@
     "__v": 0
   },
   {
-    "rating": 5,
+    "ratings": [],
     "_id": "5b160f5195efd159fe810d66",
     "name": "The Shed",
     "address": {
@@ -89,7 +93,7 @@
     "__v": 0
   },
   {
-    "rating": 0,
+    "ratings": [],
     "_id": "5b160faea8ac7e5aa27d4353",
     "name": "Cafe Pasqual’s",
     "address": {

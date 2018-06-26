@@ -22,7 +22,10 @@ const run = async (cb) => {
     }
   } catch(e) {
     console.log(e);
-    cb(false);
+
+    if (cb !== undefined) {
+      cb(false);
+    }
   }
 };
 

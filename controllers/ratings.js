@@ -73,7 +73,7 @@ const addRating = () => {
     return new Promise((resolve, reject) => {
       Rating.create(data, (err, rating) => {
         if (responseHelper.successfulRequest(err, rating)) {
-          updateBusinessRating(rating.business);
+          updateBusinessRating(rating.business, rating.category);
           responseHelper.success(res, rating);
           return resolve();
 
@@ -104,7 +104,7 @@ const updateRating = () => {
     return new Promise((resolve, reject) => {
       Rating.findByIdAndUpdate(ratingId, req.body, { new: true }, (err, rating) => {
         if (responseHelper.successfulRequest(err, rating)) {
-          updateBusinessRating(rating.business);
+          updateBusinessRating(rating.business, rating.category);
           responseHelper.success(res, rating);
           return resolve();
 
@@ -147,10 +147,14 @@ const deleteRating = () => {
 }
 
 // We need to update the business rating (average of all ratings for that business)
-const updateBusinessRating = (businessId) => {
-  Rating.find({ business: businessId })
-    .sort('user')
-    .exec((err, ratings) => {
+const updateBusinessRating = (businessId, categoryId) => {
+  Rating.find({ 
+    business: businessId,
+    category: categoryId
+  })
+  .sort('user')
+  .exec((err, ratings) => {
+
     /* istanbul ignore else */
     if (ratings.length > 0) { 
 
@@ -164,15 +168,43 @@ const updateBusinessRating = (businessId) => {
         averageRatingPerUser.push((sumOfRatings / numRatings));
       });
 
+
       // Then average those averages
       const numRatings = averageRatingPerUser.length;
       const sumOfRatings = averageRatingPerUser.reduce((a, c) => a + c, 0);
       const averageRating = (sumOfRatings / numRatings);
 
-      Business.findByIdAndUpdate(businessId, { rating: averageRating }, { new: true }, (err, business) => {
+
+      // Then update the particular category rating in the business
+      const categoryRating = {
+        category: categoryId,
+        averageRating: averageRating
+      }
+
+      Business.findById(businessId, (err, business) => {
+        // if (err) throw new Error('Could not find business: ' + err);
+
+        let updated = false;
+        /* istanbul ignore else */
+        if (business !== null) {
+          business.ratings.map((category) => {
+            if(category.category.toString() === categoryId.toString()) {
+              updated = true;
+              category.averageRating = averageRating;
+            }
+            return category;
+          });
+
+          /* istanbul ignore else */
+          if (updated !== true) {
+            business.ratings.push(categoryRating);
+          }
+
+          business.save();
+        }
       });
     }
-  })
+  });
 };
 
 module.exports = {
