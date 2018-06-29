@@ -33,6 +33,7 @@ const fetchBusiness = () => {
 
     return new Promise((resolve, reject) => {
       Business.findById(businessId)
+      .populate('ratings.category')
       .exec((err, business) => {
 
         if (responseHelper.successfulRequest(err, business)) {
