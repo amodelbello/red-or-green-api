@@ -88,7 +88,9 @@ const updateBusiness = () => {
     req.body.updated = new Date();
 
     return new Promise((resolve, reject) => {
-      Business.findByIdAndUpdate(businessId, req.body, { new: true }, (err, business) => {
+      Business.findByIdAndUpdate(businessId, req.body, { new: true })
+      .populate('ratings.category')
+      .exec((err, business) => {
         if (responseHelper.successfulRequest(err, business)) {
           responseHelper.success(res, business);
           return resolve();
