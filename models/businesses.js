@@ -10,7 +10,9 @@ const businessSchema = new mongoose.Schema({
   },
   address: {
     type: addressSchema,
-    required: true,
+  },
+  phone: {
+    type: String,
   },
   ratings: [{
     category: {

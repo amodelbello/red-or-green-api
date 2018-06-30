@@ -1,8 +1,20 @@
 [
   {
-    "ratings": [],
+    "ratings": [
+      {
+          "averageRating": 4,
+          "_id": "5b36a4f43c9d5a5b89f3a6e2",
+          "category": "5b199079e968472545119302"
+      },
+      {
+          "averageRating": 3.5,
+          "_id": "5b36a50b3c9d5a5b89f3a6ed",
+          "category": "5b19b39552e70a499c889122"
+      }
+    ],
     "_id": "5b14b27d3450501de43d2f98",
     "name": "Tomasita's",
+    "phone": "505-983-5721",
     "address": {
         "_id": "5b175dcb5332d54429b21b6b",
         "street": "502 N Guadalupe St",
@@ -23,6 +35,7 @@
     "updated": "2018-06-06T04:06:42.986Z",
     "_id": "5b14b30e3450501de43d2f9a",
     "name": "Posa's El Merendero Tamale Factory & Restaurant",
+    "phone": "(505) 820-7672",
     "address": {
         "_id": "5b14b30e3450501de43d2f99",
         "street": "1514 Rodeo Rd",
@@ -35,6 +48,7 @@
     "ratings": [],
     "_id": "5b15c8eeddb5c940227571e2",
     "name": "The Pantry",
+    "phone": "(505) 986-0022",
     "address": {
         "_id": "5b15c8eeddb5c940227571e3",
         "street": "1820 Cerrillos Rd,",
@@ -50,6 +64,7 @@
     "ratings": [],
     "_id": "5b15c942ddb5c940227571e4",
     "name": "Red Enchilada Restaurant",
+    "phone": "(505) 820-6552",
     "address": {
         "_id": "5b15c942ddb5c940227571e5",
         "street": "1310 Osage Ave",
@@ -66,6 +81,7 @@
     "ratings": [],
     "_id": "5b160f1bf76970595016e229",
     "name": "Tortilla Flats",
+    "phone": "(505) 471-8685",
     "address": {
         "_id": "5b160f1bf76970595016e22a",
         "street": "3139 Cerrillos Rd",
@@ -81,6 +97,7 @@
     "ratings": [],
     "_id": "5b160f5195efd159fe810d66",
     "name": "The Shed",
+    "phone": "(505) 982-9030",
     "address": {
         "_id": "5b160f5195efd159fe810d67",
         "street": "113 1/2 E Palace Ave",
@@ -96,6 +113,7 @@
     "ratings": [],
     "_id": "5b160faea8ac7e5aa27d4353",
     "name": "Cafe Pasqual’s",
+    "phone": "(505) 983-9340",
     "address": {
         "_id": "5b160faea8ac7e5aa27d4354",
         "street": "121 Don Gaspar Ave",
