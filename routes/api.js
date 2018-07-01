@@ -158,7 +158,13 @@ router
     validate.hasValidObjectId('ratingId'),
     ratingsController.deleteRating())
   ;
-
+router
+  .route('/ratings/b/:businessId')
+  .get(
+    responseMiddleware.addCallingMethodToResponse('fetchRatings'),
+    ratingsController.fetchRatings())
+  ;
+  
 /****************************************
  * Users Routes
  ****************************************/

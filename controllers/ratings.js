@@ -4,11 +4,22 @@ const Rating = mongoose.model('Rating');
 const Business = mongoose.model('Business');
 const responseHelper = require('../helpers/response');
 
+const getParamsFromUrl = (req) => {
+  let params = {};
+  if (req.params.businessId) {
+    params.business = req.params.businessId;
+  }
+
+  return params;
+};
+
 const fetchRatings = () => {
   return (req, res) => {
 
     return new Promise((resolve, reject) => {
-      Rating.find()
+
+      const criteria = getParamsFromUrl(req);
+      Rating.find(criteria)
       .populate('user', '_id username')
       .populate('business', '-address')
       .populate('category')
