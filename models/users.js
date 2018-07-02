@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const addressSchema = require('./addresses').addressSchema;
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
