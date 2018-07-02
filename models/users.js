@@ -10,6 +10,7 @@ const schema = new mongoose.Schema({
   },
   username: {
     type: String,
+    unique: true,
     required: true,
   },
   firstName: String,
@@ -21,7 +22,10 @@ const schema = new mongoose.Schema({
     enum: ['red', 'green', 'both', 'neither'],
     default: 'neither'
   },
-  zip: String,
+  address: {
+    type: addressSchema,
+    required: false,
+  },
   role: {
     type: String,
     enum: ['admin', 'default'],

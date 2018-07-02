@@ -10,6 +10,7 @@ const businessSchema = new mongoose.Schema({
   },
   address: {
     type: addressSchema,
+    required: false,
   },
   phone: {
     type: String,
