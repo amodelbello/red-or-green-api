@@ -40,7 +40,7 @@ router
   .post(
     responseMiddleware.addCallingMethodToResponse('addBusiness'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin', 'default']),
+    auth.allowedRoles(['super', 'admin', 'default']),
     validate.requiredInBody('name'),
     validate.isNumberOrNull('rating'),
     validate.numberIsWithinRangeOrNull('rating', 0, 5),
@@ -55,7 +55,7 @@ router
   .put(
     responseMiddleware.addCallingMethodToResponse('updateBusiness'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super', 'admin']),
     validate.hasValidObjectId('businessId'),
     validate.requiredInBody('name'),
     validate.isNumberOrNull('rating'),
@@ -65,7 +65,7 @@ router
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteBusiness'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super', 'admin']),
     validate.hasValidObjectId('businessId'),
     businessesController.deleteBusiness())
   ;
@@ -79,12 +79,12 @@ router
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchCategories'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super', 'admin']),
     categoriesController.fetchCategories())
   .post(
     responseMiddleware.addCallingMethodToResponse('addCategory'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super', 'admin']),
     validate.requiredInBody('name'),
     categoriesController.addCategory())
   ;
@@ -93,20 +93,20 @@ router
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchCategory'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super', 'admin']),
     validate.hasValidObjectId('categoryId'),
     categoriesController.fetchCategory())
   .put(
     responseMiddleware.addCallingMethodToResponse('updateCategory'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super', 'admin']),
     validate.hasValidObjectId('categoryId'),
     validate.requiredInBody('name'),
     categoriesController.updateCategory())
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteCategory'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super', 'admin']),
     validate.hasValidObjectId('categoryId'),
     categoriesController.deleteCategory())
   ;
@@ -123,7 +123,7 @@ router
   .post(
     responseMiddleware.addCallingMethodToResponse('addRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin', 'default']),
+    auth.allowedRoles(['super', 'admin', 'default']),
     validate.hasValidObjectId('user'),
     validate.hasValidObjectId('business'),
     validate.hasValidObjectId('category'),
@@ -143,7 +143,7 @@ router
   .put(
     responseMiddleware.addCallingMethodToResponse('updateRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin', 'default']),
+    auth.allowedRoles(['super', 'admin', 'default']),
     auth.userOwnsDocument(),
     validate.hasValidObjectId('ratingId'),
     validate.isNumberOrNull('rating'),
@@ -152,7 +152,7 @@ router
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin', 'default']),
+    auth.allowedRoles(['super', 'admin', 'default']),
     auth.userOwnsDocument(),
     validate.hasValidObjectId('ratingId'),
     ratingsController.deleteRating())
@@ -173,12 +173,12 @@ router
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchUsers'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super', 'admin']),
     usersController.fetchUsers())
   .post(
     responseMiddleware.addCallingMethodToResponse('addUser'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super']),
     validate.requiredInBody('username'),
     validate.requiredInBody('email'),
     validate.requiredInBody('password'),
@@ -189,14 +189,14 @@ router
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchUser'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin', 'default']),
+    auth.allowedRoles(['super', 'admin', 'default']),
     auth.userOwnsDocument(),
     validate.hasValidObjectId('userId'),
     usersController.fetchUser())
   .put(
     responseMiddleware.addCallingMethodToResponse('updateUser'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin', 'default']),
+    auth.allowedRoles(['super', 'admin', 'default']),
     auth.userOwnsDocument(),
     validate.hasValidObjectId('userId'),
     validate.requiredInBody('username'),
@@ -205,7 +205,7 @@ router
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteUser'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['admin']),
+    auth.allowedRoles(['super']),
     validate.hasValidObjectId('userId'),
     usersController.deleteUser())
   ;

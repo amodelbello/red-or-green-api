@@ -22,7 +22,7 @@ const allowedRoles = (roles) => {
 
 const userOwnsDocument = (userIdFieldName = '_id', documentUserIdFieldName = 'userId') => {
   return (req, res, next) => {
-    if (req.payload.role === 'admin') {
+    if (req.payload.role === 'super') {
       next();
     } else if (req.payload[userIdFieldName] === req.body[documentUserIdFieldName]) {
       next();

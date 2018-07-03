@@ -37,5 +37,26 @@
     "updated" : "2018-06-12T04:41:33.985Z",
     "salt" : "e49b4379b85cd16e4baef66ec7baeb7f",
     "hash" : "fbc023a03bb8e375fc66c20305be32c9c1d11f4c78a7146964f2452b91ef4eb92e114b9ab735dc37ffe9da4fac4aa492a3405c1b1b6830edf75b0e9abaef50bd"
-  }
+  },
+  {
+    "chilePreference": "neither",
+    "role": "super",
+    "address": {
+      "_id": "5b160f5195efd159fe810d60",
+      "street": "117 E Palace Ave",
+      "city": "Santa Fe",
+      "state": "NM",
+      "zip": "87501"
+    },
+    "_id": "5b3be8dec6bb8e2d82e6fc6b",
+    "created": "2018-07-03T21:21:34.707Z",
+    "updated": "2018-07-03T21:21:34.707Z",
+    "username": "superuser",
+    "firstName": "Super",
+    "lastName": "User",
+    "email": "super@user.com",
+    "salt": "28ddf057be72621fca781a101cd52a44",
+    "hash": "9a8f5e2c9b30b8848d65acc73698aa3e7366029f99d6cf6a912e149319c3452b2a751ec58a86308ef5bc62b150cd9558bd9be02fb4da1ba236eb9a3dae6c1831",
+    "__v": 0
+}
 ]
