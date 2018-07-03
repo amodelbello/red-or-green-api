@@ -201,7 +201,6 @@ router
     validate.hasValidObjectId('userId'),
     validate.requiredInBody('username'),
     validate.requiredInBody('email'),
-    validate.requiredInBody('password'),
     usersController.updateUser())
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteUser'),

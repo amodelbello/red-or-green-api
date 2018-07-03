@@ -3,6 +3,15 @@
     "_id": "5b1eb192a51c029d33a1da0a",
     "role": "default",
     "username": "testuser",
+    "firstName": "Test",
+    "lastName": "User",
+    "address": {
+      "_id": "5b160f5195efd159fe810d60",
+      "street": "113 1/2 E Palace Ave",
+      "city": "Santa Fe",
+      "state": "NM",
+      "zip": "87501"
+    },
     "email": "testuser@lalala.com",
     "created": "2018-06-11T17:29:54.476Z",
     "updated": "2018-06-11T17:29:54.476Z",
@@ -13,6 +22,15 @@
     "_id" : "5b1f4efdb44bd1fe2a5dea79",
     "role" : "admin",
     "username" : "adminuser",
+    "firstName": "Admin",
+    "lastName": "User",
+    "address": {
+      "_id": "5b160f5195efd159fe810d60",
+      "street": "113 1/2 E Palace Ave",
+      "city": "Santa Fe",
+      "state": "NM",
+      "zip": "87501"
+    },
     "email" : "adminuser@lalala.com",
     "chilePreference" : "red",
     "created" : "2018-06-12T04:41:33.985Z",
