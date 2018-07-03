@@ -60,7 +60,6 @@ router
     validate.requiredInBody('name'),
     validate.isNumberOrNull('rating'),
     validate.numberIsWithinRangeOrNull('rating', 0, 5),
-    validate.hasValidAddress(),
     businessesController.updateBusiness())
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteBusiness'),
