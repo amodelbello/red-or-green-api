@@ -27,6 +27,9 @@ const schema = new mongoose.Schema({
     type: addressSchema,
     required: false,
   },
+  phone: {
+    type: String,
+  },
   role: {
     type: String,
     enum: ['admin', 'default'],
