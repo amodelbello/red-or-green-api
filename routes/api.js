@@ -105,7 +105,7 @@ router
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteCategory'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['super', 'admin']),
+    auth.allowedRoles(['super']),
     validate.hasValidObjectId('categoryId'),
     categoriesController.deleteCategory())
   ;
@@ -142,8 +142,7 @@ router
   .put(
     responseMiddleware.addCallingMethodToResponse('updateRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['super', 'admin', 'default']),
-    auth.userOwnsDocument(),
+    auth.allowedRoles(['owner', 'super']),
     validate.hasValidObjectId('ratingId'),
     validate.isNumberOrNull('rating'),
     validate.numberIsWithinRangeOrNull('rating', 0, 5),
@@ -151,8 +150,7 @@ router
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['super', 'admin', 'default']),
-    auth.userOwnsDocument(),
+    auth.allowedRoles(['super']),
     validate.hasValidObjectId('ratingId'),
     ratingsController.deleteRating())
   ;
@@ -160,6 +158,7 @@ router
   .route('/ratings/b/:businessId')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchRatings'),
+    validate.hasValidObjectId('businessId'),
     ratingsController.fetchRatings())
   ;
   
@@ -172,7 +171,7 @@ router
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchUsers'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['super', 'admin']),
+    auth.allowedRoles(['super']),
     usersController.fetchUsers())
   .post(
     responseMiddleware.addCallingMethodToResponse('addUser'),
@@ -188,15 +187,13 @@ router
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchUser'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['super', 'admin', 'default']),
-    auth.userOwnsDocument(),
+    auth.allowedRoles(['owner', 'super']),
     validate.hasValidObjectId('userId'),
     usersController.fetchUser())
   .put(
     responseMiddleware.addCallingMethodToResponse('updateUser'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['super', 'admin', 'default']),
-    auth.userOwnsDocument(),
+    auth.allowedRoles(['owner', 'super']),
     validate.hasValidObjectId('userId'),
     validate.requiredInBody('username'),
     validate.requiredInBody('email'),

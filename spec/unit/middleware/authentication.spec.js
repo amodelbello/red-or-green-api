@@ -77,7 +77,7 @@ describe("Authentication Middleware:", () => {
 
     it("should should call next if user is admin", (done) => {
       spyOn(testData, 'next');
-      mockRequest.body.userId = testData.validObjectId;
+      mockRequest.body.userId = testData.fakeAdminUserPayload._id;
       mockRequest.payload = testData.fakeAdminUserPayload;
       const userOwnsDocument = auth.userOwnsDocument();
       userOwnsDocument(mockRequest, mockResponse, testData.next);
