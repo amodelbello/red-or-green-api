@@ -205,6 +205,14 @@ router
     validate.hasValidObjectId('userId'),
     usersController.deleteUser())
   ;
+router
+  .route('/users/role/:role')
+  .get(
+    responseMiddleware.addCallingMethodToResponse('fetchUsers'),
+    auth.authenticationGuard(),
+    auth.allowedRoles(['super']),
+    usersController.fetchUsers())
+  ;
 
 /****************************************
  * Authentication Routes

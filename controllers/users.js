@@ -5,8 +5,14 @@ const responseHelper = require('../helpers/response');
 const fetchUsers = () => {
   return (req, res) => {
 
+    let params = {};
+    if (req.params.role !== undefined) {
+      params.role = req.params.role;
+    }
+    console.log(req.params);
+
     return new Promise((resolve, reject) => {
-      User.find()
+      User.find(params)
       .exec((err, users) => {
 
         if (responseHelper.successfulRequest(err, users)) {
