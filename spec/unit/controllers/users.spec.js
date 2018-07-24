@@ -55,6 +55,16 @@ describe("Users Controller:", () => {
       });
     });
 
+    it("should fetch users by role successfully", (done) => {
+      spyOn(responseHelper, 'success');
+      const fetchUsers = usersController.fetchUsers();
+      mockRequest.params.role = 'default';
+      fetchUsers(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
+        done();
+      });
+    });
+
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');

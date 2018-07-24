@@ -9,7 +9,6 @@ const fetchUsers = () => {
     if (req.params.role !== undefined) {
       params.role = req.params.role;
     }
-    console.log(req.params);
 
     return new Promise((resolve, reject) => {
       User.find(params)
