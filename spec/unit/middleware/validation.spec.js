@@ -268,13 +268,13 @@ describe("Validation Middleware:", () => {
       done();
     });
 
-    it("should respond with error if value of field (in params) is null or undefined and is not a number", (done) => {
+    it("should respond with error if value of field (in params) is not null or undefined and is not a number", (done) => {
       spyOn(responseHelper, 'respond');
       for(let x = 0; x < testData.valuesThatAreNotNumbers.length; x++) {
         mockRequest.params.name = testData.valuesThatAreNotNumbers[x];
         const validationFunction = validate.isNumberOrNull('name');
         validationFunction(mockRequest, mockResponse, testData.next);
-        expect(responseHelper.respond).toHaveBeenCalledWith(400, mockResponse, `Error: name must be a number`);
+        expect(responseHelper.respond).toHaveBeenCalledWith(400, mockResponse, `Error: name must be a number, got ${testData.valuesThatAreNotNumbers[x]}`);
         responseHelper.respond.calls.reset();
       }
 

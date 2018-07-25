@@ -24,6 +24,7 @@ module.exports.valuesThatAreNumbers = [
   -4,
   4.88,
   0.9,
+  '3',
 ];
 module.exports.valuesThatAreNotNumbers = [
   'hello',

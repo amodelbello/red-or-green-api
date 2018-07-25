@@ -105,10 +105,15 @@ const isNumberOrNull = (field) => {
     const property = getPropertyFromRequest(field, req);
     if (property === null || property === undefined) {
       next();
-    } else if (typeof property === 'number') {
+    } else if (
+      !isNaN(property) && 
+      typeof property !== 'boolean' &&
+      property !== '' &&
+      !Array.isArray(property)
+    ) {
       next();
     } else {
-      responseHelper.respond(400, res, `Error: ${field} must be a number`);
+      responseHelper.respond(400, res, `Error: ${field} must be a number, got ${property}`);
       return;
     }
   };
