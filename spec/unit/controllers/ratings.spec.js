@@ -64,6 +64,17 @@ describe("Ratings Controller:", () => {
       });
     });
 
+    it("should fetch ratings by business/category successfully", (done) => {
+      mockRequest.params.businessId = testData.validBusinessId;
+      mockRequest.params.categoryId = testData.validCategoryId;
+      spyOn(responseHelper, 'success');
+      const fetchRatings = ratingsController.fetchRatings();
+      fetchRatings(mockRequest, mockResponse).then(() => {
+        expect(responseHelper.success).toHaveBeenCalled();
+        done();
+      });
+    });
+
     it("should handle unexpected error", (done) => {
       spyOn(responseHelper, 'successfulRequest').and.returnValue(false);
       spyOn(responseHelper, 'respond');

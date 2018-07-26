@@ -10,6 +10,10 @@ const getParamsFromUrl = (req) => {
     params.business = req.params.businessId;
   }
 
+  if (req.params.categoryId) {
+    params.category = req.params.categoryId;
+  }
+
   return params;
 };
 
