@@ -145,6 +145,7 @@ const deleteRating = () => {
       Rating.findByIdAndRemove(ratingId)
       .exec((err, rating) => {
         if (responseHelper.successfulRequest(err, rating)) {
+          updateBusinessRating(rating.business, rating.category);
           responseHelper.success(res, rating);
           return resolve();
 
