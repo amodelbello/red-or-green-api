@@ -161,8 +161,15 @@ router
     validate.hasValidObjectId('businessId'),
     ratingsController.fetchRatings())
   ;
-  router
-.route('/ratings/b/:businessId/c/:categoryId')
+router
+  .route('/ratings/u/:userId')
+  .get(
+    responseMiddleware.addCallingMethodToResponse('fetchRatings'),
+    validate.hasValidObjectId('userId'),
+    ratingsController.fetchRatings())
+  ;
+router
+  .route('/ratings/b/:businessId/c/:categoryId')
   .get(
     responseMiddleware.addCallingMethodToResponse('fetchRatings'),
     validate.hasValidObjectId('businessId'),

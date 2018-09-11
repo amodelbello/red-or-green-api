@@ -14,6 +14,10 @@ const getParamsFromUrl = (req) => {
     params.category = req.params.categoryId;
   }
 
+  if (req.params.userId) {
+    params.user = req.params.userId;
+  }
+
   return params;
 };
 
