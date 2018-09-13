@@ -142,7 +142,7 @@ router
   .put(
     responseMiddleware.addCallingMethodToResponse('updateRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['owner', 'super']),
+    auth.allowedRoles(['owner', 'super'], '_id', 'user'),
     validate.hasValidObjectId('ratingId'),
     validate.isNumberOrNull('rating'),
     validate.numberIsWithinRangeOrNull('rating', 0, 5),
