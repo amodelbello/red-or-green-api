@@ -150,7 +150,8 @@ router
   .delete(
     responseMiddleware.addCallingMethodToResponse('deleteRating'),
     auth.authenticationGuard(),
-    auth.allowedRoles(['super']),
+    // Would be nice to find a way to make the below line work intead of in deleteRating()
+    // auth.allowedRoles(['owner', 'super'], '_id', 'user'),
     validate.hasValidObjectId('ratingId'),
     ratingsController.deleteRating())
   ;

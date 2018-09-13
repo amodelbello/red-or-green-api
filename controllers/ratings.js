@@ -143,19 +143,32 @@ const updateRating = () => {
 const deleteRating = () => {
   return (req, res) => {
 
+    const payload = req.payload;
     const ratingId = req.params.ratingId;
 
     return new Promise((resolve, reject) => {
-      Rating.findByIdAndRemove(ratingId)
+      Rating.findById(ratingId)
       .exec((err, rating) => {
-        if (responseHelper.successfulRequest(err, rating)) {
-          updateBusinessRating(rating.business, rating.category);
-          responseHelper.success(res, rating);
-          return resolve();
-
+        if (
+          // TODO: This check would be a lot better if it could be placed in router middleware
+          // instead of right here.
+          rating !== null && (
+            payload._id === rating.user.toString() || 
+            payload.role === 'super'
+          )
+        ) {
+          Rating.findByIdAndRemove(ratingId)
+          .exec((err, rating) => {
+            if (responseHelper.successfulRequest(err, rating)) {
+              updateBusinessRating(rating.business, rating.category);
+              responseHelper.success(res, rating);
+              return resolve();
+            } else {
+              return reject(new Error(`Error when attempting to delete rating: ${ratingId}`));
+            }
+          });
         } else {
-          responseHelper.failure(err, res, rating);
-          return reject(new Error(`Error when attempting to delete rating: ${ratingId}`));
+          return reject(new Error(`User does not own this rating or rating does not exist`));
         }
       });
     })
