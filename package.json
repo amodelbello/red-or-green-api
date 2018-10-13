@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
+    "restart": "touch app.js",
     "test": "NODE_ENV=test istanbul cover jasmine",
     "integration": "mocha 'spec/integration/**/*.js'",
     "seed-data": "node ./bin/seed_data"
