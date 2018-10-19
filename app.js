@@ -8,7 +8,11 @@ const hush = require('docker-hush-hush');
 const responseMiddleware = require('./middleware/response');
 
 // Add docker secrets to env
-process.env = { ...process.env, ...hush.getAllSecrets() };
+// process.env = { ...process.env, ...hush.getAllSecrets() };
+// Annoying we can't use above code. It's due to istanbul not being updated in 2 years
+const secrets = hush.getAllSecrets();
+process.env.JWT_SECRET = secrets.JWT_SECRET;
+process.env.CORS_WHITELIST = secrets.CORS_WHITELIST;
 
 const passport = require('passport');
 
