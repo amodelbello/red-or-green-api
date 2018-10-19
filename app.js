@@ -5,7 +5,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+const hush = require('docker-hush-hush');
 const responseMiddleware = require('./middleware/response');
+
+// Add docker secrets to env
+process.env = { ...process.env, ...hush.getAllSecrets() };
 
 const passport = require('passport');
 
