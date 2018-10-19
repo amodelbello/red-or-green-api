@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'test') {
   dbHost = 'mongodb://docker_rg-mongo_1/RedOrGreen-test';
 }
 
-mongoose.connect(dbHost);
+mongoose.connect(dbHost, { useNewUrlParser: true });
 
 mongoose.connection.on('connected', () => {
   console.log(`Mongoose connected to ${dbHost}`);
