@@ -1,9 +1,9 @@
 // TODO: Think about a way to unit test this file. Currently excluded from coverage via .istanbul.yml
 const mongoose = require('mongoose');
 
-let dbHost = 'mongodb://docker_rg-mongo_1/RedOrGreen';
+let dbHost = 'mongodb://rg-mongo/RedOrGreen';
 if (process.env.NODE_ENV === 'test') {
-  dbHost = 'mongodb://docker_rg-mongo_1/RedOrGreen-test';
+  dbHost = 'mongodb://rg-mongo/RedOrGreen-test';
 }
 
 mongoose.connect(dbHost, { useNewUrlParser: true });
